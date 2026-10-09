@@ -1,0 +1,1192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>People - BMS&amp;BME</title>
+<link rel="stylesheet" href="header.css">
+<link rel="stylesheet" href="footer.css">
+</head>
+
+<!-- class="nav-solid" = เมนูพื้นขาวตลอด (หน้านี้ไม่มีรูป hero) -->
+<body class="nav-solid">
+
+<!-- เมนูจะถูกใส่ตรงนี้โดย header.js -->
+<div id="site-nav"></div>
+
+  <article class="mt6">
+  <div id="article-body">
+
+<style type="text/css">
+
+/* ===== Our people — all rules are scoped to .org ===== */
+
+.org {
+    --blue: #1a7fd4;
+    --green: #2f9e5a;
+    --line: #e3eaf0;
+
+    max-width: 1320px;   /* เดิม 1200px */
+    margin: 0 auto;
+    padding: 60px 25px;
+    ...
+}
+
+.org * {
+    box-sizing: border-box;
+}
+
+
+/* ----- Headings ----- */
+
+.org h2 {
+    margin: 0 0 10px;
+    font-size: 40px;
+    line-height: 1.15;
+}
+
+.org .intro {
+    max-width: 620px;
+    margin: 0 0 56px;
+    font-size: 18px;
+    color: #667786;
+}
+
+.org .block {
+    margin-bottom: 60px;
+}
+
+
+/* ----- Section label ----- */
+
+.org .label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0 0 18px;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #667786;
+}
+
+.org .label::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: var(--line);
+}
+
+
+/* ----- Shared: photo, role, name ----- */
+
+.org .photo {
+    display: flex;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background: linear-gradient(135deg, #e1edf7, #cfe0ee);
+    color: #6f8aa3;
+    font-size: 11px;
+    text-align: center;
+}
+
+.org .photo img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+}
+
+.org .role {
+    display: block;
+    margin-bottom: 4px;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--blue);
+}
+
+.org .name {
+    display: block;
+    font-size: 18px;
+    font-weight: bold;
+    line-height: 1.3;
+}
+
+.org .meta {
+    display: block;
+    margin-top: 2px;
+    font-size: 14px;
+    color: #667786;
+}
+
+
+/* ----- Head of Department ----- */
+
+.org .head {
+    display: flex;
+    align-items: center;
+    gap: 36px;
+    padding: 36px;
+    border-radius: 24px;
+    background: linear-gradient(120deg, #e8f3fc, #f6fafe);
+}
+
+.org .head .photo {
+    width: 200px;
+    height: 240px;
+    border-radius: 18px;
+}
+
+.org .head .name {
+    margin-bottom: 4px;
+    font-size: 30px;
+}
+
+
+/* ----- Leadership ----- */
+
+.org .leaders {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+}
+
+.org .team {
+    padding: 36px 28px;
+    border-radius: 22px;
+    background: #ffffff;
+    box-shadow: 0 6px 24px rgba(10, 29, 51, 0.08);
+}
+
+.org .row {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+.org .row + .row {
+    margin-top: 40px;
+    padding-top: 40px;
+    border-top: 1px solid var(--line);
+}
+
+.org .row .photo {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+}
+
+.org .director .role {
+    color: var(--green);
+}
+
+.org .director .photo {
+    background: linear-gradient(135deg, #dff1e6, #c7e3d2);
+    color: #5f8f73;
+}
+
+
+/* =========================================================
+   PROGRAMME TABS
+   ========================================================= */
+
+.org .programme-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 0;
+    margin: 0 0 40px;
+    border-bottom: 1px solid var(--line);
+}
+
+.org .programme-tab {
+    position: relative;
+    padding: 14px 28px;
+    border: none;
+    background: transparent;
+    color: #667786;
+    font-family: inherit;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.org .programme-tab::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -1px;
+    height: 3px;
+    background: transparent;
+}
+
+.org .programme-tab.active {
+    color: var(--blue);
+}
+
+.org .programme-tab.active::after {
+    background: var(--blue);
+}
+
+
+/* ----- Programme content ----- */
+
+.org .programme-content {
+    display: none;
+}
+
+.org .programme-content.active {
+    display: block;
+}
+
+
+/* ----- Programme title ----- */
+
+.org .programme-title {
+    margin: 0 0 0;
+    padding-left: 16px;
+    border-left: 5px solid var(--blue);
+    font-size: 28px;
+    line-height: 1.2;
+}
+
+
+/* ----- Sub label ----- */
+
+.org .sub-label {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin: 34px 0 28px;
+    font-size: 20px;
+    font-weight: bold;
+    color: #667786;
+    text-align: center;
+}
+
+.org .sub-label::before,
+.org .sub-label::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: #e3eaf0;
+}
+
+
+/* ----- Academic staff ----- */
+
+.org .staff {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 34px 24px;
+}
+
+.org .person {
+    text-align: center;
+}
+
+.org .person .photo {
+    width: 150px;
+    height: 150px;
+    margin: 0 auto 14px;
+    border-radius: 50%;
+    transition: transform 0.25s;
+}
+
+.org .person:hover .photo {
+    transform: translateY(-4px);
+}
+
+.org .person .name {
+    font-size: 17px;
+}
+
+
+/* ----- Scientific staff ----- */
+
+.org .scientific {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 34px 24px;
+}
+
+.org .scientist {
+    padding: 22px 14px;
+    border-radius: 16px;
+    text-align: center;
+}
+
+.org .scientist .photo {
+    width: 150px;
+    height: 150px;
+    margin: 0 auto 12px;
+    border-radius: 50%;
+}
+
+.org .scientist .name {
+    font-size: 15px;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 900px) {
+  .org { padding: 40px 18px; }
+  .org .staff,
+  .org .scientific { grid-template-columns: 1fr 1fr; }
+  .org .leaders { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 600px) {
+
+  /* layout */
+  .org { padding: 40px 18px; }
+
+  .org .head {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 24px 18px;
+  }
+
+  .org .head .photo {
+    width: 50%;
+    max-width: 280px;
+    height: 230px;
+  }
+
+  .org .row {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  /* font sizes (ใช้ !important เพราะใน HTML มี inline style) */
+  .org h2            { font-size: 24px !important; }
+  .org .intro        { font-size: 15px !important; margin-bottom: 36px; }
+  .org .label        { font-size: 11px; }
+
+  .org .role         { font-size: 11px; }
+  .org .name         { font-size: 14px !important; }
+  .org .meta         { font-size: 12px !important; }
+
+  .org .head .name   { font-size: 16px !important; }
+  .org .head .meta   { font-size: 14px !important; }
+
+  .org .programme-tab {
+    font-size: 14px;
+    padding: 12px 14px;
+  }
+  .org .programme-title { font-size: 18px; }
+  .org .sub-label       { font-size: 16px; }
+}
+</style>
+
+
+<div class="org">
+
+<h2 style="font-size: 30px">Our people</h2>
+
+<p class="intro" style="font-size: 18px">
+Meet the academics and researchers who lead our programs and teach the next generation of biomedical scientists and engineers.
+</p>
+
+
+<!-- =========================================================
+     HEAD OF DEPARTMENT
+     ========================================================= -->
+
+<div class="block">
+
+<p class="label">Head of Department</p>
+
+<div class="head">
+
+<div class="photo">
+<img src="images/staff/head.png" alt="Description">
+</div>
+
+<div>
+<span class="name" style="font-weight: 600; font-size: 24px;">
+Assoc. Prof. Dr.&nbsp;Surapong Chatpun
+</span>
+
+<span class="meta" style="font-size: 16px">
+Email:&nbsp;surapong.c@psu.ac.th
+</span>
+</div>
+
+</div>
+</div>
+
+
+<!-- =========================================================
+     DEPUTY HEAD
+     ========================================================= -->
+
+<div class="block">
+
+<p class="label">Deputy Head of Department</p>
+
+<div class="leaders">
+
+<!-- Deputy 1 -->
+
+<div class="team">
+
+<div class="row">
+
+<div class="photo">
+<img src="images/staff/bms/KS.png" alt="BMS">
+</div>
+
+<div>
+
+<span class="role">
+Deputy Head of Department
+</span>
+
+<span class="name" style="font-size: 16px">
+Assist. Prof. Dr.<br>
+Kamonnut Singkhamanan
+</span>
+
+<span class="meta">
+skamonnu@medicine.psu.ac.th
+</span>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- Deputy 2 -->
+
+<div class="team">
+
+<div class="row">
+
+<div class="photo">
+PHOTO
+</div>
+
+<div>
+
+<span class="role">
+Deputy Head of Department
+</span>
+
+<span class="name">
+[ Name Surname ]
+</span>
+
+<span class="meta">
+[ Research area / email ]
+</span>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+
+<!-- =========================================================
+     STAFF
+     ========================================================= -->
+
+<div class="block">
+
+
+<!-- ===================== PROGRAMME TABS ===================== -->
+
+<div class="programme-tabs">
+
+<button
+    type="button"
+    class="programme-tab active"
+    onclick="showProgramme('bms', this)">
+    Biomedical Sciences
+</button>
+
+<button
+    type="button"
+    class="programme-tab"
+    onclick="showProgramme('bme', this)">
+    Biomedical Engineering
+</button>
+
+</div>
+
+
+<!-- =========================================================
+     BMS
+     ========================================================= -->
+
+<div id="bms" class="programme-content active">
+
+<h3 class="programme-title">
+Biomedical Sciences
+</h3>
+
+
+<!-- ----- Academic staff ----- -->
+
+<p class="sub-label">
+Academic staff
+</p>
+
+<div class="staff">
+
+
+<!-- Lecturer 01 -->
+
+<div class="person">
+
+<div class="photo">
+<img src="images/staff/bms/PG.png" alt="Potchanapond Graidist">
+</div>
+
+<span class="role">Lecturer</span>
+
+<span class="name" style="font-size: 16px">
+Prof. Dr.<br>
+Potchanapond Graidist
+</span>
+
+<span class="meta">
+Email: gpotchan@medicine.psu.ac.th
+</span>
+
+</div>
+
+
+<!-- Lecturer 02 -->
+
+<div class="person">
+
+<div class="photo">
+<img src="images/staff/bms/KK.png" alt="Kanyanatt Kanokwiroon">
+</div>
+
+<span class="role">Lecturer</span>
+
+<span class="name" style="font-size: 16px">
+Assoc. Prof. Dr.<br>
+Kanyanatt Kanokwiroon
+</span>
+
+<span class="meta">
+Email: kanyanatt.k@psu.ac.th
+</span>
+
+</div>
+
+
+<!-- Lecturer 03 -->
+
+<div class="person">
+
+<div class="photo">
+<img src="images/staff/bms/PR.png" alt="Pritsana Raungrut">
+</div>
+
+<span class="role">Lecturer</span>
+
+<span class="name" style="font-size: 16px">
+Assoc. Prof. Dr.<br>
+Pritsana Raungrut
+</span>
+
+<span class="meta">
+Email: rpritsana@gmail.com
+</span>
+
+</div>
+
+
+<!-- Lecturer 04 -->
+
+<div class="person">
+
+<div class="photo">
+<img src="images/staff/bms/RW.png" alt="Raphatphorn Navakanitworakul">
+</div>
+
+<span class="role">Lecturer</span>
+
+<span class="name" style="font-size: 16px">
+Assoc. Prof. Dr.<br>
+Raphatphorn Navakanitworakul
+</span>
+
+<span class="meta">
+Email: raphatphorn.n@psu.ac.th
+</span>
+
+</div>
+
+
+<!-- Lecturer 05 -->
+
+<div class="person">
+
+<div class="photo">
+<img src="images/staff/bms/KSs.png" alt="Komwit Surachat">
+</div>
+
+<span class="role">Lecturer</span>
+
+<span class="name" style="font-size: 16px">
+Assoc. Prof. Dr.<br>
+Komwit Surachat
+</span>
+
+<span class="meta">
+Email: Komwit.s@psu.ac.th
+</span>
+
+</div>
+
+
+<!-- Lecturer 06 -->
+
+<div class="person">
+
+<div class="photo">
+<img src="images/staff/bms/NP.png" alt="Nawamin Pinpathomrat">
+</div>
+
+<span class="role">Lecturer</span>
+
+<span class="name" style="font-size: 16px">
+Assoc. Prof. Dr.<br>
+Nawamin Pinpathomrat, M.D.
+</span>
+
+<span class="meta">
+Email: nawamin.p@psu.ac.th
+</span>
+
+</div>
+
+
+<!-- Lecturer 07 -->
+
+<div class="person">
+
+<div class="photo">
+<img src="images/staff/bms/KL.png" alt="Kittinun Leetanaporn">
+</div>
+
+<span class="role">Lecturer</span>
+
+<span class="name" style="font-size: 16px">
+Asst. Prof. Dr.<br>
+Kittinun Leetanaporn, M.D.
+</span>
+
+<span class="meta">
+Email: kittinun.l@psu.ac.th
+</span>
+
+</div>
+
+
+<!-- Lecturer 08 -->
+
+<div class="person">
+
+<div class="photo">
+<img src="images/staff/bms/SS.png" alt="Rassanee Bissanum">
+</div>
+
+<span class="role">Lecturer</span>
+
+<span class="name" style="font-size: 16px">
+Dr. Rassanee Bissanum
+</span>
+
+<span class="meta">
+Email: Rassanee.b@gmail.com
+</span>
+
+</div>
+
+
+<!-- Lecturer 09 -->
+
+<div class="person">
+
+<div class="photo">
+<img src="images/staff/bms/CH.png" alt="Pemikar Srifa">
+</div>
+
+<span class="role">Lecturer</span>
+
+<span class="name" style="font-size: 16px">
+Dr. Pemikar Srifa
+</span>
+
+<span class="meta">
+Email: spemikar@medicine.psu.ac.th
+</span>
+
+</div>
+
+
+<!-- Lecturer 10 -->
+
+<div class="person">
+
+<div class="photo">
+<img src="images/staff/bms/TD.png" alt="Theerawat Dobutr">
+</div>
+
+<span class="role">Lecturer</span>
+
+<span class="name" style="font-size: 16px">
+Dr. Theerawat Dobutr
+</span>
+
+<span class="meta">
+Email: dtheeraw@medicine.psu.ac.th
+</span>
+
+</div>
+
+
+<!-- Lecturer 11 -->
+
+<div class="person">
+
+<div class="photo">
+<img src="images/staff/bms/Am.png" alt="Ampapan Naknaen">
+</div>
+
+<span class="role">Lecturer</span>
+
+<span class="name" style="font-size: 16px">
+Asst. Prof. Dr.<br>
+Ampapan Naknaen
+</span>
+
+<span class="meta">
+Email: ampapan.nk@gmail.com
+</span>
+
+</div>
+
+
+<!-- Lecturer 12 -->
+
+<div class="person">
+
+<div class="photo">
+<img src="images/staff/bms/AMM.png" alt="Pongsakorn Choochuen">
+</div>
+
+<span class="role">Lecturer</span>
+
+<span class="name" style="font-size: 16px">
+Dr. Pongsakorn Choochuen, M.D.
+</span>
+
+<span class="meta">
+Email: pongsakorn.choochuen@gmail.com
+</span>
+
+</div>
+
+
+<!-- Lecturer 13 -->
+
+<div class="person">
+
+<div class="photo">
+<img src="images/staff/bms/HB.png" alt="Hattaya Benya-aphikul">
+</div>
+
+<span class="role">Lecturer</span>
+
+<span class="name" style="font-size: 16px">
+Dr. Hattaya Benya-aphikul
+</span>
+
+<span class="meta">
+Email: bhattaya@medicine.psu.ac.th
+</span>
+
+</div>
+
+</div>
+
+
+<!-- ----- Scientist and Supporting Staff ----- -->
+
+<p class="sub-label">
+Scientist and Supporting Staff
+</p>
+
+<div class="scientific">
+
+
+<!-- Scientist 01 -->
+
+<div class="scientist">
+
+<div class="photo">
+<img src="images/staff/bms/KN.png" alt="Phanvasri Saengsuwan">
+</div>
+
+<span class="role">
+Scientific Staff
+</span>
+
+<span class="name" style="font-size: 16px">
+Miss Phanvasri Saengsuwan
+</span>
+
+<span class="meta">
+Senior Professional Level<br>
+Email: sphanvas@medicine.psu.ac.th
+</span>
+
+</div>
+
+
+<!-- Scientist 02 -->
+
+<div class="scientist">
+
+<div class="photo">
+<img src="images/staff/bms/DR.png" alt="Saowanee Muangchanburee">
+</div>
+
+<span class="role">
+Scientific Staff
+</span>
+
+<span class="name" style="font-size: 16px">
+Miss Saowanee Muangchanburee
+</span>
+
+<span class="meta">
+Senior Professional Level<br>
+Email: msaowane@medicine.psu.ac.th
+</span>
+
+</div>
+
+
+<!-- Scientist 03 -->
+
+<div class="scientist">
+
+<div class="photo">
+<img src="images/staff/bms/MY.png" alt="Mayuree Boonrach">
+</div>
+
+<span class="role">
+Supporting Staff
+</span>
+
+<span class="name" style="font-size: 16px">
+Miss Mayuree Boonrach
+</span>
+
+<span class="meta">
+Email: bmayuree@medicine.psu.ac.th
+</span>
+
+</div>
+
+
+<!-- Scientist 04 -->
+
+<div class="scientist">
+
+<div class="photo">
+<img src="images/staff/bms/KKW.png" alt="Kanokon Khannui">
+</div>
+
+<span class="role">
+Supporting Staff
+</span>
+
+<span class="name" style="font-size: 16px">
+Miss Kanokon Khannui
+</span>
+
+<span class="meta">
+Email: kkanokon@medicine.psu.ac.th
+</span>
+
+</div>
+
+
+<!-- Scientist 05 -->
+
+<div class="scientist">
+
+<div class="photo">
+<img src="images/staff/bms/SOM.png" alt="Somnuek Chuayprasom">
+</div>
+
+<span class="role">
+Supporting Staff
+</span>
+
+<span class="name" style="font-size: 16px">
+Mr. Somnuek Chuayprasom
+</span>
+
+<span class="meta">
+[ Position / email ]
+</span>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- =========================================================
+     BME
+     ========================================================= -->
+
+<div id="bme" class="programme-content">
+
+<h3 class="programme-title">
+Biomedical Engineering
+</h3>
+
+
+<!-- ----- Academic staff ----- -->
+
+<p class="sub-label">
+Academic staff
+</p>
+
+<div class="staff">
+
+
+<!-- Lecturer 01 -->
+
+<div class="person">
+<div class="photo">[ PHOTO ]</div>
+<span class="role">Lecturer</span>
+<span class="name">[ Name Surname ]</span>
+<span class="meta">[ Research area / email ]</span>
+</div>
+
+
+<!-- Lecturer 02 -->
+
+<div class="person">
+<div class="photo">[ PHOTO ]</div>
+<span class="role">Lecturer</span>
+<span class="name">[ Name Surname ]</span>
+<span class="meta">[ Research area / email ]</span>
+</div>
+
+
+<!-- Lecturer 03 -->
+
+<div class="person">
+<div class="photo">[ PHOTO ]</div>
+<span class="role">Lecturer</span>
+<span class="name">[ Name Surname ]</span>
+<span class="meta">[ Research area / email ]</span>
+</div>
+
+
+<!-- Lecturer 04 -->
+
+<div class="person">
+<div class="photo">[ PHOTO ]</div>
+<span class="role">Lecturer</span>
+<span class="name">[ Name Surname ]</span>
+<span class="meta">[ Research area / email ]</span>
+</div>
+
+
+<!-- Lecturer 05 -->
+
+<div class="person">
+<div class="photo">[ PHOTO ]</div>
+<span class="role">Lecturer</span>
+<span class="name">[ Name Surname ]</span>
+<span class="meta">[ Research area / email ]</span>
+</div>
+
+
+<!-- Lecturer 06 -->
+
+<div class="person">
+<div class="photo">[ PHOTO ]</div>
+<span class="role">Lecturer</span>
+<span class="name">[ Name Surname ]</span>
+<span class="meta">[ Research area / email ]</span>
+</div>
+
+
+<!-- Lecturer 07 -->
+
+<div class="person">
+<div class="photo">[ PHOTO ]</div>
+<span class="role">Lecturer</span>
+<span class="name">[ Name Surname ]</span>
+<span class="meta">[ Research area / email ]</span>
+</div>
+
+
+<!-- Lecturer 08 -->
+
+<div class="person">
+<div class="photo">[ PHOTO ]</div>
+<span class="role">Lecturer</span>
+<span class="name">[ Name Surname ]</span>
+<span class="meta">[ Research area / email ]</span>
+</div>
+
+
+<!-- Lecturer 09 -->
+
+<div class="person">
+<div class="photo">[ PHOTO ]</div>
+<span class="role">Lecturer</span>
+<span class="name">[ Name Surname ]</span>
+<span class="meta">[ Research area / email ]</span>
+</div>
+
+
+<!-- Lecturer 10 -->
+
+<div class="person">
+<div class="photo">[ PHOTO ]</div>
+<span class="role">Lecturer</span>
+<span class="name">[ Name Surname ]</span>
+<span class="meta">[ Research area / email ]</span>
+</div>
+
+</div>
+
+
+<!-- ----- Scientific staff ----- -->
+
+<p class="sub-label">
+Scientific staff
+</p>
+
+<div class="scientific">
+
+
+<!-- Scientist 01 -->
+
+<div class="scientist">
+<div class="photo">PHOTO</div>
+<span class="role">Scientific Staff</span>
+<span class="name">[ Name Surname ]</span>
+<span class="meta">[ Position / email ]</span>
+</div>
+
+
+<!-- Scientist 02 -->
+
+<div class="scientist">
+<div class="photo">PHOTO</div>
+<span class="role">Scientific Staff</span>
+<span class="name">[ Name Surname ]</span>
+<span class="meta">[ Position / email ]</span>
+</div>
+
+
+<!-- Scientist 03 -->
+
+<div class="scientist">
+<div class="photo">PHOTO</div>
+<span class="role">Scientific Staff</span>
+<span class="name">[ Name Surname ]</span>
+<span class="meta">[ Position / email ]</span>
+</div>
+
+
+<!-- Scientist 04 -->
+
+<div class="scientist">
+<div class="photo">PHOTO</div>
+<span class="role">Scientific Staff</span>
+<span class="name">[ Name Surname ]</span>
+<span class="meta">[ Position / email ]</span>
+</div>
+
+
+<!-- Scientist 05 -->
+
+<div class="scientist">
+<div class="photo">PHOTO</div>
+<span class="role">Scientific Staff</span>
+<span class="name">[ Name Surname ]</span>
+<span class="meta">[ Position / email ]</span>
+</div>
+
+</div>
+
+</div>
+
+</div>
+</div>
+</div>
+
+
+<!-- =========================================================
+     TAB SCRIPT
+     ========================================================= -->
+
+<script>
+function showProgramme(programme, button) {
+
+    var contents = document.querySelectorAll('.org .programme-content');
+    var tabs = document.querySelectorAll('.org .programme-tab');
+
+    contents.forEach(function(content) {
+        content.classList.remove('active');
+    });
+
+    tabs.forEach(function(tab) {
+        tab.classList.remove('active');
+    });
+
+    document.getElementById(programme).classList.add('active');
+    button.classList.add('active');
+}
+</script>
+
+
+  <div class="tag-wrapper">
+    <div class="tags-list"></div>
+  </div>
+
+</article>
+	<div id="site-footer"></div>  
+
+
+<script src="header.js"></script>
+<script src="footer.js"></script>
+<script src="cookie.js"></script>
+</body>
+</html>

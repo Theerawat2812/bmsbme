@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>M.Sc. and Ph.D. in Biomedical Sciences | Department of Biomedical Sciences and Biomedical Engineering</title>
+<link rel="stylesheet" href="header.css">
+<link rel="stylesheet" href="footer.css">
+<body class="nav-hero">
+<style>
+:root{--side:clamp(20px,calc((100vw - 1320px) / 2),300px)}
+
+/* ===== HERO ===== */
+#hero{position:relative;height:clamp(280px,19.8vw,380px);overflow:hidden;color:#fff;
+  background:url("images/bmsprogram/head.jpg") center/cover no-repeat}
+#overlay{position:absolute;inset:0;background:linear-gradient(90deg,rgba(10,29,51,.78),rgba(10,29,51,.25))}
+#hero-text{position:absolute;left:var(--side);right:var(--side);bottom:clamp(28px,3vw,56px);max-width:1200px}
+#hero-text .crumb{font-size:clamp(13px,.83vw,15px);margin:0 0 10px;opacity:.85}
+#hero-text .crumb a:hover{text-decoration:underline}
+#hero-text h1{
+    margin: 0 0 10px;
+    font-size: 30px;
+    line-height: 1.15;
+    font-weight: bold;
+    color: #fff
+}
+#hero-text p{
+    margin: 0;
+    font-size: 18px;
+    font-weight: 300;
+    max-width: 1600px
+}
+@media(max-width:600px){#hero{height:320px}}
+
+/* ===== CONTENT ===== */
+.bmx,.bmx *{box-sizing:border-box}
+.bmx{--blue:#0066cc;--ink:#172b3a;--soft:#f3f8fc;--line:#d9e0e5;--mut:#667786;margin:0;font-family:Arial,Helvetica,sans-serif;color:var(--ink);background:#fff;line-height:1.6}
+.bmx img{max-width:100%}
+.bmx ul{list-style:none;margin:0;padding:0}
+.bmx a{color:inherit;text-decoration:none}
+.bmx .c{
+  max-width:1320px;
+  margin:0 auto;
+  padding:0 25px;
+}
+.bmx h2,.bmx h3,.bmx h4{margin-top:0;line-height:1.2}
+.bmx h2{font-size:clamp(20px,1.5vw,28px);margin-bottom:16px;color:#304175}
+.bmx h3{font-size:clamp(17px,1.15vw,22px);margin-bottom:8px;color:#0D134D}
+.bmx .sec{padding:clamp(28px,2.4vw,46px) 0}
+.bmx .soft{background:var(--soft)}
+.bmx .lead{max-width:1100px;font-size:clamp(15px,.94vw,18px);color:#000}
+.bmx .btn{display:inline-block;background:var(--blue);color:#fff;padding:12px 25px;margin-top:12px;font-weight:bold}
+.bmx .btn:hover{background:#004f9e}
+
+/* Overview */
+.bmx .ov{display:grid;grid-template-columns:1.4fr 1fr;gap:clamp(24px,3vw,60px);align-items:start}
+.bmx .facts{border:1px solid var(--line);background:#fff}
+.bmx .facts div{display:flex;justify-content:space-between;gap:16px;padding:14px 20px;border-top:1px solid var(--line);font-size:clamp(14px,.88vw,16px)}
+.bmx .facts div:first-child{border-top:0}
+.bmx .facts b{color:#304175}
+.bmx .facts span{color:var(--mut);text-align:right}
+
+/* Comparison table */
+.bmx .tw{margin-top:clamp(20px,1.8vw,35px);overflow-x:auto;border:1px solid var(--line);background:#fff}
+.bmx table{width:100%;border-collapse:collapse;min-width:720px;font-size:clamp(14px,.88vw,16px)}
+.bmx th,.bmx td{padding:clamp(14px,1.1vw,20px);text-align:left;vertical-align:top;border-top:1px solid var(--line)}
+.bmx thead th{background:#252C54;color:#fff;border-top:0;font-size:clamp(15px,1vw,18px)}
+.bmx tbody th{width:19%;color:#304175;background:#f7fafd;font-weight:bold}
+.bmx td{width:40.5%}
+.bmx td li{padding:3px 0 3px 16px;position:relative}
+.bmx td li::before{content:"";position:absolute;left:0;top:.8em;width:6px;height:6px;border-radius:50%;background:var(--blue)}
+.bmx td small{display:block;color:var(--mut);margin-top:4px}
+.bmx td .note{margin:10px 0 0;padding:8px 12px;background:#eef4fa;border-left:3px solid var(--blue);font-size:.93em}
+
+/* Highlight cards */
+.bmx .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(14px,1.3vw,25px);margin-top:clamp(20px,1.8vw,35px)}
+.bmx .card{border:1px solid var(--line);background:#fff;padding:clamp(18px,1.4vw,26px);border-top:3px solid var(--blue)}
+.bmx .card p{margin:0;font-size:clamp(14px,.88vw,16px);color:#436383}
+.bmx .card .big{display:block;font-size:clamp(20px,1.4vw,28px);font-weight:bold;color:var(--blue);margin-bottom:6px}
+
+/* Split */
+.bmx .split{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,3.1vw,60px);align-items:center}
+.bmx .ph{position:relative;width:100%;height:clamp(260px,26vw,460px);overflow:hidden;background:#dfe6ec}
+.bmx .ph img{position:absolute;top:0;left:0;width:100%!important;height:100%!important;min-height:0!important;max-width:none;object-fit:cover;object-position:center;display:block}
+.bmx .ph img{width:100%;height:80%;min-height:inherit;object-fit:cover;display:block}
+.bmx .tl{margin:20px 0 0;border-left:3px solid var(--blue)}
+.bmx .tl li{padding:0 0 14px 20px}
+.bmx .tl b{display:block;color:var(--blue)}
+
+/* CTA + footer */
+.bmx .contact{background:#1a7fd4;color:#fff;padding:clamp(18px,1.6vw,28px) 0}
+.bmx .contact .c{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center}
+.bmx .contact h2{color:#fff;margin-bottom:8px}
+.bmx .contact p{margin:0}
+.bmx .contact .btn{background:#fff;color:var(--blue)}
+
+@media(max-width:900px){
+  .bmx .ov,.bmx .split,.bmx .contact .c{grid-template-columns:1fr}
+  .bmx .cards{grid-template-columns:1fr}
+  .bmx .foot .g{grid-template-columns:1fr 1fr}
+
+  #hero-text h1{font-size:24px}
+  #hero-text p{font-size:15px}
+  .bmx h2{font-size:18px}
+  .bmx h3{font-size:16px}
+  .bmx span{font-size:16px!important}
+  .bmx .foot h4{font-size:16px}
+  .bmx .lead{font-size:14px}
+  .bmx .card p,
+  .bmx .facts div,
+  .bmx table{font-size:14px}
+  .bmx thead th{font-size:14px}
+  .bmx .card .big{font-size:20px}
+  .bmx .foot a{font-size:14px}
+  .bmx .fb{font-size:13px}
+  .bmx .btn{font-size:14px;padding:10px 20px}
+}
+
+@media(max-width:600px){
+  #hero{height:320px}
+  .bmx .c{padding:0 18px}
+  .bmx .foot .g{grid-template-columns:1fr}
+  #hero-text h1{font-size:22px}
+  #hero-text p{font-size:14px}
+  .bmx h2{font-size:17px}
+  .bmx h3{font-size:14px}
+  .bmx .lead{font-size:14px}
+  .bmx .card p,
+  .bmx .facts div,
+  .bmx table{font-size:13px}
+  .bmx span{font-size:13px!important}
+  .bmx thead th{font-size:13px}
+  .bmx .card .big{font-size:18px}
+  .bmx .btn{width:100%;text-align:center}
+}
+</style>
+</head>
+<body>
+
+<div id="hero">
+  <div id="overlay"></div>
+  <div id="site-nav"></div>
+  <div id="hero-text">
+    <h1>M.Sc. and Ph.D. in Biomedical Sciences</h1>
+    <p>Graduate programs in molecular biology, infectious diseases and human health, built around research.</p>
+  </div>
+</div>
+
+<div class="bmx">
+
+<section class="sec">
+  <div class="c ov">
+    <div>
+      <h2>About the programs</h2>
+      <p class="lead">Our graduate programs train you to do independent research in biomedical science. Choose a Master of Science for a focused two-year path, or a Doctor of Philosophy for in-depth research, with an option to earn a double degree with Kumamoto University, Japan.</p>
+      <a href="#" class="btn">Apply now</a>
+    </div>
+    <div class="facts">
+      <div><b>Degrees</b><span>M.Sc. and Ph.D.</span></div>
+      <div><b>M.Sc. duration</b><span>2 years</span></div>
+      <div><b>Ph.D. duration</b><span>3–5 years</span></div>
+      <div><b>Faculty</b><span>Faculty of Medicine, PSU</span></div>
+      <div><b>Campus</b><span>Hat Yai, Songkhla</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec soft">
+  <div class="c">
+    <h2>Overview</h2>
+    <div class="tw">
+      <table>
+        <thead>
+          <tr><th>Criteria</th><th>Master of Science (M.Sc.)</th><th>Doctor of Philosophy (Ph.D.)</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th>Duration</th>
+            <td>2 years</td>
+            <td>3–5 years<small>(depending on entry level)</small></td>
+          </tr>
+          <tr>
+            <th>Study plans</th>
+            <td>
+              <ul>
+                <li>Plan A1: 36 credits (Thesis only)</li>
+                <li>Plan A2: 36 credits (Coursework &amp; Thesis)</li>
+              </ul>
+              <p class="note">International students can select only Plan A1.</p>
+            </td>
+            <td>
+              <ul>
+                <li>Plan 1.1: Master’s entry, 3 years, 48 credits (Thesis only)</li>
+                <li>Plan 1.2: Bachelor’s entry, 4 years, 72 credits (Thesis only)</li>
+                <li>Plan 2.1: Master’s entry, 3 years, 48 credits (Coursework &amp; Thesis)</li>
+                <li>Plan 2.2: Bachelor’s entry, 5 years, 72 credits (Coursework &amp; Thesis)</li>
+              </ul>
+              <p class="note">International students can select only Plan 1.1 and Plan 1.2.</p>
+            </td>
+          </tr>
+          <tr>
+            <th>Double degree option</th>
+            <td>Not available</td>
+            <td>Available with Kumamoto University, Japan (subject to meeting course requirements).</td>
+          </tr>
+          <tr>
+            <th>Scholarship allowance</th>
+            <td>8,000 ฿ / month</td>
+            <td>10,000 ฿ / month</td>
+          </tr>
+          <tr>
+            <th>Other scholarship benefits</th>
+            <td>
+              <ul>
+                <li>Registration fee reimbursement</li>
+                <li>Grants for presenting papers (domestic): 15,000 ฿</li>
+              </ul>
+            </td>
+            <td>
+              <ul>
+                <li>Registration fee reimbursement</li>
+                <li>Grants for presenting papers: 15,000 ฿ (domestic), 80,000 ฿ (abroad)</li>
+                <li>Grants for conducting research: 15,000 ฿ (domestic), 300,000 ฿ (abroad)</li>
+              </ul>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="c">
+    <h2>Highlights</h2>
+    <div class="cards">
+      <div class="card"><span class="big">8,000–10,000 ฿</span><h3>Monthly allowance</h3><p>8,000 ฿ per month for M.Sc. and 10,000 ฿ per month for Ph.D. students.</p></div>
+      <div class="card"><span class="big">Up to 300,000 ฿</span><h3>Research grants</h3><p>Ph.D. students can receive up to 300,000 ฿ to conduct research abroad.</p></div>
+      <div class="card"><span class="big">Kumamoto University</span>
+        <h3>Double degree</h3><p>Ph.D. students can pursue a double degree with Kumamoto University, Japan.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec soft">
+  <div class="c split">
+    <div class="ph"><img src="https://bmsbme.psu.ac.th/filemanager/file/9/2632.jpg" alt="Biomedical Sciences laboratory"></div>
+    <div>
+      <h2>Research-centred study</h2>
+      <p class="lead">Your thesis is at the heart of your degree, supervised by academics who are active researchers.</p>
+      <ul class="tl">
+        <li><b>Laboratory research</b>Molecular biology, infectious diseases and human health.</li>
+        <li><b>Clinical links</b>Close ties to the Faculty of Medicine and hospital partners.</li>
+        <li><b>Presenting your work</b>Funding to present at domestic and international conferences.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="contact">
+  <div class="c">
+    <div><h2>Ready to apply?</h2><p>See admission requirements, or contact us with your questions.</p></div>
+    <div><a href="#" class="btn">Admissions</a></div>
+  </div>
+</section>
+
+</div>
+<div id="site-footer"></div>  
+
+
+<script src="header.js"></script>
+<script src="footer.js"></script> 
+<script src="cookie.js"></script>
+</body>
+</html>

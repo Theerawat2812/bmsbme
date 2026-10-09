@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Department of Biomedical Sciences and Biomedical Engineering</title>
+<!-- เมนูที่ใช้ร่วมทุกหน้า -->
+<link rel="stylesheet" href="header.css">
+<link rel="stylesheet" href="footer.css">
+<!-- CSS เฉพาะหน้านี้: รูป hero + สถิติ -->
+<style type="text/css">
+/* ===== HERO (ส่วนรูปด้านบน) ===== */
+#hero {
+  --side: clamp(20px, calc((100vw - 1320px) / 2), 300px);
+  position: relative; height: 380px; overflow: hidden; color: #fff;
+  background-image: url("./images/home/home.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+#overlay { position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(0,0,0,0.30); }
+
+#hero-text {
+  position: absolute; left: var(--side); right: var(--side);
+  top: 50%; transform: translateY(-50%);
+  max-width: 800px;
+}
+#hero-text h1 { margin: 0 0 8px; font-size: clamp(24px, 3vw, 30px); font-weight: normal; line-height: 1.3; color: #25456E; }
+#hero-text p { margin-top: 0; font-size: clamp(16px, 1.6vw, 20px); font-weight: 100; color: #FFFFFF; }
+
+#stats { position: absolute; right: var(--side); bottom: 0; max-width: calc(100% - 2 * var(--side)); background-color: rgba(30,40,48,0.80); }
+#stats table, #stats tbody { display: block; border-collapse: collapse; }
+#stats tr { display: flex; }
+#stats td { display: block; flex: 1 1 auto; padding: 12px clamp(16px, 2vw, 32px); vertical-align: top; border-left: 1px solid rgba(255,255,255,0.10); }
+#stats td.first { border-left: none; }
+#stats .num { font-size: 10px; font-weight: 600; line-height: 1.1; }
+#stats .num small { font-size: clamp(15px, 1.3vw, 18px); font-weight: bold; }
+#stats .label { font-size: clamp(14px, 1.3vw, 18px); font-weight: 300; }
+
+@media (max-width: 1100px) {
+  #hero { height: 360px; }
+  #stats { left: 0; right: 0; max-width: none; }
+  #stats td { text-align: center; }
+}
+
+@media (max-width: 600px) {
+  #hero { height: 340px; }
+  #stats tr { flex-direction: column; }
+  #stats td { padding: 10px 20px; text-align: left; border-left: none; border-top: 1px solid rgba(255,255,255,0.10); }
+  #stats td.first { border-top: none; }
+  #stats .num, #stats .label { display: inline; }
+  #stats .label { margin-left: 6px; font-size: 14px; }
+}
+</style>
+<!-- ============ CSS ก้อนที่ 2: เนื้อหาหน้า (.bmx) ============ -->
+<style>
+.bmx,.bmx *{box-sizing:border-box}
+.bmx{--navy:#0a1d33;--blue:#0066cc;--green:#428f46;--ink:#172b3a;--bg:#fff;--soft:#f3f8fc;--line:#d9e0e5;--ph:#dfe6ec;--phx:#607080;--mut:#667786;margin:0;font-family:Arial,Helvetica,sans-serif;color:var(--ink);background:var(--bg);line-height:1.6}
+.bmx img{max-width:110%}
+.bmx ul{list-style:none}
+.bmx a{color:inherit;text-decoration:none}
+.bmx .c{
+  max-width:1320px;
+  margin:0 auto;
+  padding:0 25px;
+}
+.bmx h1,.bmx h2,.bmx h3,.bmx h4{margin-top:0;line-height:1.2}
+.bmx{ font-family:"Segoe UI",Helvetica,Arial,sans-serif; }
+
+.bmx h1, .bmx h2{font-size:26px;
+  font-family:Georgia,"Times New Roman",serif;
+  font-weight:400;
+}
+.bmx h2{
+    font-size: 24px;
+    margin-bottom: 16px;
+    font-family: Georgia, "Times New Roman", serif
+}
+.bmx h3{font-size:20px;margin-bottom:8px;color:#FFFFFF}
+.bmx h4{font-size:24px;margin-bottom:8px;color:#0D134D}
+.bmx .sec{padding:40px 0}
+.bmx .soft{background:var(--soft)}
+.bmx .btn{display:inline-block;background:var(--blue);color:#fff;padding:6px 25px;margin-top:12px;font-weight:bold}
+.bmx .btn:hover{
+    background: #004f9e;
+    font-size: 16px;
+}
+.bmx .ph{background:var(--ph);color:var(--phx);display:flex;align-items:center;justify-content:center;text-align:center;font-size:14px;padding:0;overflow:hidden;position:relative}
+.bmx .ph img{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:center;
+  display:block;
+  max-width:none;
+}
+.bmx .lead{
+    max-width: 1200px;
+    color: #000000;
+    font-size: 16px
+}
+.bmx .hero{background:#F2F2F2;color:#0a1d33}
+.bmx .hero .ph{height:480px;background:#cfe3f3;color:#4a6a85}
+.bmx .hero .c{padding-top:50px;padding-bottom:60px}
+.bmx .hero p{
+    max-width: 960px;
+    font-size: 16px
+}
+.bmx .two{display:grid;grid-template-columns:1fr 1fr;gap:30px;margin-top:35px}
+
+/* ===== การ์ด Program (ขอบมน) ===== */
+.bmx a.prog{
+  display:flex;
+  flex-direction:column;
+  border:1px solid var(--line);
+  border-radius:10px !important;
+  overflow:hidden !important;
+  isolation:isolate;
+  background:#f5f7fa;
+  transition:border-color .2s, box-shadow .2s;
+}
+.bmx a.prog:hover{
+  border-color:var(--blue);
+  box-shadow:0 6px 20px rgba(0,102,204,.15);
+}
+.bmx .prog .ph{height:240px}
+.bmx .prog div.t{padding:26px;background:#f5f7fa}
+
+.bmx .tag{font-size:16px;letter-spacing:.08em;text-transform:uppercase;color:var(--blue);font-weight:bold}
+.bmx .learn{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:40px;border-top:1px solid var(--line)}
+.bmx .learn div{padding:22px 20px 10px 0}
+.bmx .learn span{
+    font-size: 22px;
+    font-weight: lighter;
+    color: var(--blue);
+    font-family: Georgia,"Times New Roman",serif;
+    font-style: normal;
+}
+.bmx .mos{display:grid;grid-template-columns:2fr 1fr 1fr;grid-template-rows:230px 230px;gap:14px;margin-top:35px}
+.bmx .mos a{position:relative;display:block;overflow:hidden;border-radius:10px !important;isolation:isolate}
+.bmx .mos a:first-child{grid-row:span 2}
+.bmx .mos .ph{height:100%}
+.bmx .mos strong{position:absolute;left:0;right:0;bottom:0;background:#FFFFFFE6 ;color:#0a1d33;padding:12px 16px;font-size:17px}
+.bmx .mos a:hover strong{background:var(--blue);color:#CDF3FE}
+.bmx .voices{display:grid;grid-template-columns:repeat(3,1fr);gap:25px;margin-top:30px}
+.bmx .voice{background:var(--bg);border:1px solid var(--line);padding:28px}
+.bmx .voice q{display:block;font-size:19px;line-height:1.5;margin-bottom:18px;quotes:none}
+.bmx .voice small{color:var(--mut)}
+.bmx .voice-img{
+  width:100%;
+  aspect-ratio:16/10;
+  overflow:hidden;
+  margin-bottom:18px;
+}
+.bmx .voice-img img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:center;
+  display:block;
+  max-width:none;
+}
+.bmx .day{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.bmx .day .ph{min-height:380px}
+.bmx .tl{list-style:none;padding:0;margin:20px 0 0;border-left:3px solid var(--blue)}
+.bmx .tl li{padding:0 0 16px 20px}
+.bmx .tl b{display:block;color:var(--blue)}
+.bmx .strip{background:#1a7fd4;color:#fff;padding:30px 0}
+.bmx .strip .g{display:grid;grid-template-columns:repeat(3,1fr)}
+.bmx .strip .g div{padding:10px 25px;border-left:1px solid rgba(255,255,255,.4)}
+.bmx .strip .g div:first-child{border-left:0;padding-left:0}
+.bmx .contact{background:#1a7fd4;color:#fff;padding:20px 0}
+.bmx .contact .c{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center}
+.bmx .contact .btn{background:#fff;color:var(--blue)}
+@media(max-width:900px){
+.bmx h1{font-size:22px}
+.bmx h2{font-size:18px}
+.bmx h3{font-size:18px}
+.bmx h4{font-size:18px}
+.bmx a{font-size:14px!important}
+.bmx p{font-size:14px!important}
+.bmx strong{font-size:15px!important}
+.bmx span{font-size:16px!important}
+.bmx .two,.bmx .day,.bmx .contact .c,.bmx .voices,.bmx .strip .g{grid-template-columns:1fr}
+.bmx .learn{grid-template-columns:1fr 1fr}
+.bmx .mos{grid-template-columns:1fr 1fr;grid-template-rows:auto}
+.bmx .mos a:first-child{grid-row:auto;grid-column:span 2}
+.bmx .mos a{height:200px}
+.bmx .strip .g div{border-left:0;border-top:1px solid rgba(255,255,255,.4);padding:20px 0}
+.bmx .strip .g div:first-child{border-top:0}
+.bmx .foot .g{grid-template-columns:1fr 1fr}
+}
+@media(max-width:600px){
+.bmx .c{padding:0 18px}
+.bmx h1{font-size:18px}
+.bmx h2{font-size:18px}
+.bmx h3{font-size:18px}
+.bmx h4{font-size:18px}
+.bmx a{font-size:14px!important}
+.bmx p{font-size:14px!important}
+.bmx strong{font-size:15px!important}
+.bmx span{font-size:16px!important}
+.bmx .hero .ph{height:280px}
+.bmx .learn,.bmx .mos{grid-template-columns:1fr}
+.bmx .mos a:first-child{grid-column:auto}
+.bmx .foot .g{grid-template-columns:1fr}
+}
+</style>
+</head>
+
+<body>
+
+<!-- รูป hero ของหน้าแรก -->
+<div id="hero">
+
+  <!-- เมนูจะถูกใส่ตรงนี้โดย header.js -->
+  <div id="site-nav"></div>
+
+  <div id="stats">
+    <table><tr>
+      <td class="first"><div class="num"><small>Explore </small></div><div class="label">the science of life</div></td>
+      <td><div class="num"><small>Create</small></div><div class="label">solutions for health</div></td>
+      <td><div class="num"><small>Innovate</small></div><div class="label">the future of medicine</div></td>
+    </tr></table>
+  </div>
+</div>
+
+<!-- ============ เนื้อหาหน้า ============ -->
+<div class="bmx">
+
+<section class="hero">
+  <div class="c">
+    <h1>Department of Biomedical Sciences and Biomedical Engineering</h1>
+    <p>Learn in our laboratories, grow with our community, and become part of a department that turns science into better health.</p>
+    <a href="#study" class="btn">About Us&nbsp;</a>
+  </div>
+</section>
+
+<section class="sec" id="study">
+  <div class="c">
+    <h2>Study with us</h2>
+    <p class="lead">Two programs, one shared community. Learn the science of the human body, build the technology that supports it, and do both alongside people who think differently from you.</p>
+    <div class="two">
+      <a href="bms.html" class="prog" style="border-radius:18px;overflow:hidden;">
+        <div class="ph"><img src="images/home/bmspro.jpg" alt="Biomedical Sciences"></div>
+        <div class="t"><span class="tag">Program</span>
+          <h4>Biomedical Sciences</h4>
+          <p style="color: #436383; font-size: 16px;">Explore molecular biology, infectious diseases and human health through hands-on laboratory work and research projects.</p></div>
+      </a>
+      <a href="#" class="prog" style="border-radius:18px;overflow:hidden;">
+        <div class="ph"><img src="images/home/bmepro.jpg" alt="Biomedical Engineering"></div>
+        <div class="t"><span class="tag">Program</span>
+          <h4>Biomedical Engineering</h4>
+          <p style="color: #436383">Combine engineering, medicine and computing to design devices, signals and systems that solve real clinical problems.</p></div>
+      </a>
+    </div>
+    <div class="learn">
+      <div><span>Labs</span><p>Hands-on practical training from early in your studies.</p></div>
+      <div><span>Projects</span><p>Final-year research with supervising academics.</p></div>
+      <div><span>Clinical links</span><p>Close ties to the Faculty of Medicine and hospital partners.</p></div>
+      <div><span>Careers</span><p>Pathways into research, industry, healthcare and further study.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec soft">
+  <div class="c">
+    <h2>Life in the department</h2>
+    <p class="lead">Learning here is not only lectures and labs. It is the people you meet, the places you work and the city you call home for a few years.</p>
+    <div class="mos">
+      <a href="#"><div class="ph"><img src="images/home/life-lab.jpg" alt="In the laboratory"></div><strong>In the laboratory</strong></a>
+      <a href="#"><div class="ph"><img src="images/home/student.jpg" alt="Study together"></div><strong>Study together</strong></a>
+      <a href="#"><div class="ph"><img src="images/home/campus.jpg" alt="Campus"></div><strong>Campus</strong></a>
+      <a href="#"><div class="ph"><img src="images/home/act.jpg" alt="Clubs and activities"></div><strong>Clubs &amp; activities</strong></a>
+      <a href="#"><div class="ph"><img src="images/home/hat.jpg" alt="Living in Hat Yai"></div><strong>Living in Hat Yai</strong></a>
+    </div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="c day">
+    <div>
+      <h2>How you will learn</h2>
+      <p class="lead">Teaching is led by active researchers. Your studies move from strong scientific foundations towards independent research and real-world problems.</p>
+      <ul class="tl">
+        <li><b>Foundations</b>Core principles in the life sciences, quantitative methods and engineering fundamentals.</li>
+        <li><b>Specialisation</b>Advanced modules, laboratory and design practice, and elective study in your areas of interest.</li>
+        <li><b>Research</b>An independent project supervised by academic staff, presented and assessed at an academic standard.</li>
+        <li><b>Beyond the degree</b>Preparation for postgraduate study, research careers, healthcare technology and industry.</li>
+      </ul>
+      <a href="#" class="btn">View curriculum</a>
+    </div>
+    <div class="ph"><img src="images/home/curriculum.jpg" alt="Curriculum"></div>
+  </div>
+</section>
+
+<section class="sec soft">
+  <div class="c">
+    <h2>Hear from our students</h2>
+    <div class="voices">
+      <div class="voice">
+        <div class="voice-img"><img src="images/home/alum1.jpg" alt="Student, Biomedical Sciences"></div>
+        <small>Name, Biomedical Sciences, Year 3</small>
+      </div>
+      <div class="voice">
+        <div class="voice-img"><img src="images/home/alum1.jpg" alt="Student, Biomedical Engineering"></div>
+        <small>Name, Biomedical Engineering, Year 2</small>
+      </div>
+      <div class="voice">
+        <div class="voice-img"><img src="images/home/alum1.jpg" alt="Alumni"></div>
+        <small>Name, Alumni, Class of 20XX</small>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="strip">
+  <div class="c g">
+    <div><h3>Education</h3><p>Developing future biomedical scientists, researchers and innovators.</p></div>
+    <div><h3>Research</h3><p>Interdisciplinary research addressing major health challenges.</p></div>
+    <div><h3>Innovation</h3><p>Translating discoveries into practical health solutions.</p></div>
+  </div>
+</section>
+
+<section class="contact">
+  <div class="c">
+    <div><h2>Connect with us</h2><p>Interested in studying, collaborating or conducting research with our department?</p></div>
+    <div><a href="#" class="btn">Contact the department</a></div>
+  </div>
+</section>
+
+</div>   <!-- ปิด .bmx -->
+
+<div id="site-footer"></div>
+
+<!-- เมนู: ต้องอยู่ท้ายหน้า -->
+<script src="header.js"></script>
+<script src="footer.js"></script>
+<script src="cookie.js"></script>
+</body>
+</html>

@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Alumni | BMS &amp; BME</title>
+<link rel="stylesheet" href="header.css">
+<link rel="stylesheet" href="footer.css">
+<style>
+  :root {
+    /* ตัวแปรเดิมของเว็บ (header.css อาจใช้อยู่) ห้ามเปลี่ยนชื่อหรือค่า */
+    --blue: #1f5f99; --blue-2: #5a9ad2; --navy: #0f1f33; --ink: #14263a; --muted: #5b6b7b;
+    --sky: #e6eff8; --line: rgba(15,40,70,.12);
+    --font: "Segoe UI", Helvetica, Arial, sans-serif;
+    /* ตัวแปรเฉพาะหน้านี้ */
+    --al-blue: #1f5f99; --al-blue-2: #5a9ad2; --al-navy: #0f1f33; --al-ink: #14263a; --al-muted: #5b6b7b;
+    --al-sky: #e6eff8; --al-line: rgba(15,40,70,.14);
+    --al-font: "Segoe UI", Helvetica, Arial, sans-serif;
+    --al-serif: Georgia, "Times New Roman", serif;
+    /* ระยะซ้าย-ขวาของข้อความใน hero (เหมือนหน้า Contact) */
+    --side: clamp(20px, calc((100vw - 1320px) / 2), 300px);
+  }
+
+  /* ---------- Hero: เหมือนหน้า Contact ---------- */
+  #hero { position: relative; height: clamp(280px, 19.8vw, 380px); overflow: hidden; color: #fff;
+    background: var(--al-navy) url("images/alumni/alumnicov.jpg") center / cover no-repeat; }
+  #overlay { position: absolute; inset: 0;
+    background: linear-gradient(90deg, rgba(15,31,51,.92) 0%, rgba(15,31,51,.75) 0%, rgba(31,95,153,.35) 80%); }
+  #hero-text { position: absolute; left: var(--side); right: var(--side); bottom: clamp(28px, 3vw, 56px); max-width: 1200px; }
+  #hero-text h1 { margin: 0 0 10px; font-size: 30px; line-height: 1.15; font-weight: bold; color: #fff; }
+  #hero-text p { margin: 0; font-size: 18px; font-weight: 300; max-width: 1640px; }
+  @media (max-width: 900px) { #hero-text h1 { font-size: 22px; } #hero-text p { font-size: 14px; } }
+  @media (max-width: 600px) { #hero { height: 320px; } #hero-text h1 { font-size: 20px; } #hero-text p { font-size: 14px; } }
+
+  /* ---------- เนื้อหา ---------- */
+  .al { font-family: var(--al-font); color: var(--al-ink); background: #fff; }
+  .al button { font-family: inherit; }
+  .al .wrap { width: min(1040px, calc(100% - 40px)); margin: 0 auto; }
+  .al h1, .al h2, .al h3, .al p { margin: 0; }
+  .al h1, .al h2, .al h3 { font-family: var(--al-serif); font-weight: 400; }
+  .al section { padding-top: 80px; }
+  .al .sec-head { margin-bottom: 32px; padding-bottom: 20px; border-bottom: 1px solid var(--al-line); }
+  .al .sec-head h2 {
+    font-size: 30px;
+    letter-spacing: -.01em;
+    line-height: 1.2;
+    font-family: var(--al-serif);
+    color: #0F1F33;
+  }
+  .al .sec-head p { margin-top: 8px; font-size: 15px; line-height: 1.6; color: var(--al-muted); }
+
+  /* ---------- Stats ---------- */
+  .al .bento { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0 32px; }
+  .al .tile { display: block; padding: 18px 0 0; border-top: 2px solid var(--al-blue); }
+  .al .tile b { display: block; font-family: var(--al-serif); font-weight: 400; font-size: clamp(40px, 5vw, 56px); line-height: 1; letter-spacing: -.02em; color: var(--al-blue); }
+  .al .tile span { display: block; margin-top: 12px; font-size: 15px; line-height: 1.45; color: var(--al-ink); }
+  .al .note { margin-top: 24px; font-size: 13px; color: var(--al-muted); }
+
+  /* ---------- Spotlight ---------- */
+  .al .filters { display: flex; flex-wrap: wrap; gap: 28px; margin-bottom: 36px; border-bottom: 1px solid var(--al-line); }
+  .al .pill { padding: 0 0 12px; margin-bottom: -1px; border: 0; border-bottom: 2px solid transparent; border-radius: 0; background: none; color: var(--al-muted); font: inherit; font-size: 15px; cursor: pointer; transition: color .2s, border-color .2s; }
+  .al .pill:hover { color: var(--al-blue); }
+  .al .pill[aria-pressed="true"] { color: var(--al-navy); border-bottom-color: var(--al-blue); font-weight: 600; }
+  .al .pill:focus-visible, .al .thumb:focus-visible, .al .btn:focus-visible { outline: 2px solid rgba(31,95,153,.5); outline-offset: 3px; }
+
+  .al .slide { display: none; grid-template-columns: 240px 1fr; gap: clamp(28px, 5vw, 64px); align-items: start; }
+  .al .slide.on { display: grid; animation: swap .4s ease; }
+  @keyframes swap { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+  .al .photo { position: relative; aspect-ratio: 4 / 5; border-radius: 4px; overflow: hidden; display: grid; place-items: center; background: var(--al-sky); color: var(--al-blue); font-family: var(--al-serif); font-size: 52px; }
+  .al .photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .al .badge { display: block; margin-top: 12px; font-size: 13px; color: var(--al-muted); }
+  .al .badge b { display: inline; margin-right: 6px; font-size: 13px; color: var(--al-blue); }
+
+  .al .tag { display: inline-block; color: var(--al-blue); font-size: 14px; font-weight: 600; }
+  .al .text h3 {
+    margin-top: 8px;
+    font-size: 32px;
+    letter-spacing: -.01em;
+    line-height: 1.15;
+  }
+  .al .role { margin-top: 8px; font-size: 16px; color: var(--al-muted); }
+  .al .story { margin-top: 22px; max-width: 540px; padding-left: 18px; border-left: 2px solid var(--al-blue-2); font-family: var(--al-serif); font-size: clamp(17px, 1.6vw, 19px); line-height: 1.7; }
+  .al .facts { display: flex; flex-wrap: wrap; gap: 12px 40px; margin: 26px 0 0; padding-top: 18px; border-top: 1px solid var(--al-line); max-width: 540px; }
+  .al .facts dt { font-size: 13px; color: var(--al-muted); }
+  .al .facts dd { margin: 4px 0 0; font-size: 15px; font-weight: 600; }
+
+  .al .thumbs { display: flex; gap: 8px; margin-top: 44px; padding-top: 20px; border-top: 1px solid var(--al-line); overflow-x: auto; scrollbar-width: thin; }
+  .al .thumb { display: flex; align-items: center; gap: 10px; flex-shrink: 0; padding: 6px 16px 6px 6px; border: 1px solid var(--al-line); border-radius: 99px; background: #fff; font: inherit; font-size: 14px; color: var(--al-ink); cursor: pointer; transition: border-color .2s, background-color .2s; }
+  .al .thumb[hidden] { display: none; }
+  .al .thumb:hover { border-color: var(--al-blue-2); }
+  .al .thumb[aria-pressed="true"] { border-color: var(--al-blue); background: var(--al-sky); }
+  .al .mini { width: 32px; height: 32px; border-radius: 50%; display: grid; place-items: center; overflow: hidden; background: var(--al-blue); color: #fff; font-size: 11px; font-weight: 600; }
+  .al .mini img { width: 100%; height: 100%; object-fit: cover; }
+
+  /* ---------- Quote ---------- */
+  .al .quote { margin: 0; text-align: center; }
+  .al .quote::before { content: "\201C"; display: block; font-family: var(--al-serif); font-size: 64px; line-height: .6; color: var(--al-blue-2); }
+  .al .quote p { margin: 0 auto; max-width: 680px; font-family: var(--al-serif); font-style: italic; font-size: clamp(20px, 2.4vw, 28px); line-height: 1.45; }
+  .al .quote cite { display: block; margin-top: 18px; font-style: normal; color: var(--al-muted); font-size: 14px; }
+
+  /* ---------- CTA ---------- */
+  .al .cta { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; padding: clamp(18px, 2.5vw, 28px); border-radius: 6px; color: #fff; background: #F0F0F0; }
+  .al .cta h2 {
+    font-size: clamp(22px, 2.6vw, 28px);
+    line-height: 1.2;
+    color: #1B2B70;
+  }
+  .al .cta p {
+    margin-top: 4px;
+    max-width: 640px;
+    line-height: 1.6;
+    font-size: 15px;
+    color: #000000;
+  }
+  .al .btn { display: inline-block; padding: 12px 26px; border-radius: 4px; background: #fff; color: var(--al-navy); font-size: 14px; font-weight: 600; transition: background-color .2s; }
+  .al .btn:hover { background: var(--al-sky); }
+  .al main { padding-bottom: 80px; }
+
+    /* ---------- Responsive ---------- */
+
+  /* Tablet */
+  @media (max-width: 900px) {
+    .al section { padding-top: 64px; }
+    .al main { padding-bottom: 64px; }
+    .al .sec-head { margin-bottom: 28px; padding-bottom: 16px; }
+    .al .sec-head h2 { font-size: 26px; }
+    .al .sec-head p { font-size: 14px; }
+
+    .al .bento { grid-template-columns: repeat(2, 1fr); gap: 32px 24px; }
+    .al .tile span { font-size: 14px; }
+
+    .al .slide { grid-template-columns: 200px 1fr; gap: 32px; }
+    .al .text h3 { font-size: 28px; }
+    .al .role { font-size: 15px; }
+
+    .al .quote p { font-size: clamp(19px, 3vw, 24px); }
+  }
+  /* Mobile */
+    /* Mobile */
+  @media (max-width: 600px) {
+    .al .wrap { width: calc(100% - 32px); }
+    .al section { padding-top: 48px; }
+    .al main { padding-bottom: 56px; }
+
+    .al .sec-head h2 { font-size: 22px; }
+    .al .sec-head p { font-size: 13.5px; }
+
+    .al .bento { gap: 28px 16px; }
+    .al .tile { padding-top: 14px; }
+    .al .tile b { font-size: 36px; }
+    .al .tile span { margin-top: 8px; font-size: 13px; }
+    .al .note { font-size: 12px; }
+
+    /* ปุ่มกรองเลื่อนข้างได้ */
+    .al .filters { flex-wrap: nowrap; gap: 22px; overflow-x: auto; scrollbar-width: none; margin-bottom: 28px; }
+    .al .filters::-webkit-scrollbar { display: none; }
+    .al .pill { flex-shrink: 0; white-space: nowrap; font-size: 14px; }
+
+    /* คอลัมน์เดียว + จัดกึ่งกลาง รูป ชื่อ ข้อมูล */
+    .al .slide.on { grid-template-columns: 1fr; gap: 24px; justify-items: center; text-align: center; }
+    .al .pwrap { width: 100%; max-width: 180px; margin: 0 auto; }
+    .al .photo { font-size: 40px; }
+    .al .badge, .al .badge b { font-size: 12px; }
+    .al .tag { font-size: 13px; }
+    .al .text { width: 100%; }
+    .al .text h3 { font-size: 24px; }
+    .al .role { font-size: 14px; }
+
+    /* ข้อความ story: ย้ายเส้นซ้ายไปเป็นเส้นบน เพราะกึ่งกลางแล้วเส้นซ้ายดูแปลก */
+    .al .story { max-width: none; margin: 18px auto 0; padding: 14px 0 0; border-left: 0; border-top: 2px solid var(--al-blue-2); font-size: 16px; line-height: 1.65; }
+
+    .al .facts { max-width: none; justify-content: center; gap: 12px 28px; margin-top: 20px; padding-top: 14px; }
+    .al .facts dt { font-size: 12px; }
+    .al .facts dd { font-size: 14px; }
+
+    .al .thumbs { margin-top: 32px; }
+    .al .thumb { font-size: 13px; padding-right: 12px; }
+
+    .al .quote::before { font-size: 48px; }
+    .al .quote p { font-size: 18px; line-height: 1.5; }
+    .al .quote cite { font-size: 13px; }
+
+    .al .cta { flex-direction: column; align-items: stretch; gap: 18px; }
+    .al .cta h2 { font-size: 22px; }
+    .al .cta p { font-size: 14px; }
+    .al .btn { display: block; text-align: center; background: var(--al-navy); color: #fff; padding: 13px 20px; }
+    .al .btn:hover { background: var(--al-blue); }
+  }
+</style>
+</head>
+
+<body class="nav-hero">
+
+<div id="hero">
+  <div id="overlay"></div>
+  <div id="site-nav"></div>
+  <div id="hero-text">
+    <h1>Our Alumni</h1>
+    <p>From university labs to hospitals and medical technology companies, our alumni are advancing biomedical science and engineering in Thailand and abroad.</p>
+  </div>
+</div>
+
+<div class="al">
+<main>
+  <section>
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>Where our graduates work</h2>
+        <p>Career paths of alumni from our latest alumni survey.</p>
+      </div>
+      <div class="bento">
+        <div class="tile"><b data-count="38">38%</b><span>Universities and research institutes</span></div>
+        <div class="tile"><b data-count="27">27%</b><span>Hospitals and clinical labs</span></div>
+        <div class="tile"><b data-count="19">19%</b><span>Biotech and pharma</span></div>
+        <div class="tile"><b data-count="11">11%</b><span>Medical device industry</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>Meet our graduates</h2>
+        <p>Pick a program, then choose an alumnus below to read their story.</p>
+      </div>
+
+      <div class="stage">
+        <div class="filters" role="group" aria-label="Filter alumni by program">
+          <button class="pill" data-filter="all" aria-pressed="true">All programs</button>
+          <button class="pill" data-filter="bms" aria-pressed="false">Biomedical Sciences</button>
+          <button class="pill" data-filter="bme" aria-pressed="false">Biomedical Engineering</button>
+        </div>
+
+        <!-- รูปซ้าย ข้อความขวา: คัดลอกทั้งก้อน <article class="slide"> เพื่อเพิ่มคนใหม่ (ปุ่มด้านล่างสร้างให้เอง) -->
+        <article class="slide on" data-prog="bms">
+          <div class="pwrap">
+            <div class="photo"><span><img src="images/staff/head.png"></span><!-- ใส่รูปจริง: <img src="images/alumni-1.jpg" alt="ชื่อ-นามสกุล"> --></div>
+            <div class="badge"><b>2019</b>Ph.D. graduate</div>
+          </div>
+          <div class="text">
+            <span class="tag">Biomedical Sciences</span>
+            <h3>Dr. Firstname Lastname</h3>
+            <p class="role">Assistant Professor, Faculty of Medicine</p>
+            <p class="story">Short story about the alumnus: what they studied, what they do today and how the program shaped their career. Keep it to two or three sentences.</p>
+            <dl class="facts">
+              <div><dt>Research focus</dt><dd>Cancer biology</dd></div>
+              <div><dt>Now at</dt><dd>University name</dd></div>
+            </dl>
+          </div>
+        </article>
+
+        <article class="slide" data-prog="bme">
+          <div class="pwrap">
+            <div class="photo"><span>CD</span></div>
+            <div class="badge"><b>2021</b>Ph.D. graduate</div>
+          </div>
+          <div class="text">
+            <span class="tag">Biomedical Engineering</span>
+            <h3>Dr. Firstname Lastname</h3>
+            <p class="role">R&amp;D Engineer, Medical device company</p>
+            <p class="story">Short story about the alumnus: what they studied, what they do today and how the program shaped their career. Keep it to two or three sentences.</p>
+            <dl class="facts">
+              <div><dt>Focus</dt><dd>Medical devices</dd></div>
+              <div><dt>Now at</dt><dd>Company name</dd></div>
+            </dl>
+          </div>
+        </article>
+
+        <article class="slide" data-prog="bms">
+          <div class="pwrap">
+            <div class="photo"><span>EF</span></div>
+            <div class="badge"><b>2020</b>M.Sc. graduate</div>
+          </div>
+          <div class="text">
+            <span class="tag">Biomedical Sciences</span>
+            <h3>Firstname Lastname</h3>
+            <p class="role">Medical Scientist, University hospital</p>
+            <p class="story">Short story about the alumnus: what they studied, what they do today and how the program shaped their career. Keep it to two or three sentences.</p>
+            <dl class="facts">
+              <div><dt>Focus</dt><dd>Clinical laboratory</dd></div>
+              <div><dt>Now at</dt><dd>Hospital name</dd></div>
+            </dl>
+          </div>
+        </article>
+
+        <article class="slide" data-prog="bme">
+          <div class="pwrap">
+            <div class="photo"><span>GH</span></div>
+            <div class="badge"><b>2022</b>M.Sc. graduate</div>
+          </div>
+          <div class="text">
+            <span class="tag">Biomedical Engineering</span>
+            <h3>Firstname Lastname</h3>
+            <p class="role">Biomedical Engineer, Regional hospital</p>
+            <p class="story">Short story about the alumnus: what they studied, what they do today and how the program shaped their career. Keep it to two or three sentences.</p>
+            <dl class="facts">
+              <div><dt>Focus</dt><dd>Equipment management</dd></div>
+              <div><dt>Now at</dt><dd>Hospital name</dd></div>
+            </dl>
+          </div>
+        </article>
+
+        <div class="thumbs" id="thumbs" role="group" aria-label="Choose an alumnus"></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <figure class="quote">
+        <p>The program gave me the lab skills and the network to move straight into a research role.</p>
+        <cite>Firstname Lastname, Biomedical Sciences Ph.D., Class of 2019</cite>
+      </figure>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="cta">
+        <div>
+          <h2>Are you a graduate?</h2>
+          <p>Tell us where you work now so we can keep in touch and share news, events and opportunities with the alumni community.</p>
+        </div>
+        <a class="btn" href="contact us.html">Update your details</a>
+      </div>
+    </div>
+  </section>
+</main>
+</div>
+
+<!-- ฟุตเตอร์ + cookie: คัดลอกบรรทัดเหล่านี้ให้ตรงกับที่ใช้ใน index.html -->
+<div id="site-footer"></div>
+<script src="header.js"></script>
+<script src="footer.js"></script>
+<script src="cookie.js"></script>
+<script>
+(function () {
+  var root = document.querySelector(".al");
+  var slides = root.querySelectorAll(".slide");
+  var thumbsBox = root.querySelector("#thumbs");
+  var pills = root.querySelectorAll(".pill");
+  var thumbs = [], filter = "all";
+
+  function show(i) {
+    for (var k = 0; k < slides.length; k++) {
+      slides[k].classList.toggle("on", k === i);
+      thumbs[k].setAttribute("aria-pressed", k === i ? "true" : "false");
+    }
+  }
+  // สร้างปุ่มเลือกคนจากข้อมูลในแต่ละ slide
+  for (var n = 0; n < slides.length; n++) {
+    (function (i) {
+      var s = slides[i], img = s.querySelector(".photo img");
+      var b = document.createElement("button");
+      b.className = "thumb"; b.type = "button";
+      b.innerHTML = '<span class="mini">' + (img ? '<img src="' + img.getAttribute("src") + '" alt="">' : s.querySelector(".photo span").textContent) + '</span>' + s.querySelector("h3").textContent;
+      b.onclick = function () { show(i); };
+      thumbsBox.appendChild(b); thumbs.push(b);
+    })(n);
+  }
+  show(0);
+
+  // กรองตามหลักสูตร แล้วเลือกคนแรกที่เหลือ
+  for (var p = 0; p < pills.length; p++) {
+    pills[p].onclick = function () {
+      filter = this.getAttribute("data-filter");
+      for (var a = 0; a < pills.length; a++) pills[a].setAttribute("aria-pressed", pills[a] === this ? "true" : "false");
+      var first = -1;
+      for (var k = 0; k < slides.length; k++) {
+        var ok = filter === "all" || slides[k].getAttribute("data-prog") === filter;
+        thumbs[k].hidden = !ok;
+        if (ok && first < 0) first = k;
+      }
+      if (first >= 0) show(first);
+    };
+  }
+
+  // ตัวเลข % วิ่งนับขึ้นเมื่อเลื่อนมาถึง
+  (function () {
+    var nums = root.querySelectorAll("[data-count]");
+    var reduce = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+    function run(el) {
+      var end = parseFloat(el.getAttribute("data-count")), t0 = null, dur = 1600;
+      function step(t) {
+        if (t0 === null) t0 = t;
+        var p = Math.min((t - t0) / dur, 1);
+        var e = 1 - Math.pow(1 - p, 3);
+        el.textContent = Math.round(end * e) + "%";
+        if (p < 1) requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+    }
+    if (reduce || !("IntersectionObserver" in window)) return;
+    for (var i = 0; i < nums.length; i++) nums[i].textContent = "0%";
+    var io = new IntersectionObserver(function (en) {
+      for (var k = 0; k < en.length; k++) {
+        if (en[k].isIntersecting) { run(en[k].target); io.unobserve(en[k].target); }
+      }
+    }, { threshold: .5 });
+    for (var j = 0; j < nums.length; j++) io.observe(nums[j]);
+  })();
+})();
+</script>
+</body>
+</html>

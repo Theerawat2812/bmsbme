@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Contact | Department of Biomedical Sciences and Biomedical Engineering</title>
+<link rel="stylesheet" href="header.css">
+<link rel="stylesheet" href="footer.css">
+<body class="nav-hero">
+<style>
+:root{--side:clamp(20px, calc((100vw - 1320px) / 2), 300px)}
+
+/* ===== HERO ===== */
+#hero{position:relative;height:clamp(280px,19.8vw,380px);overflow:hidden;color:#fff;
+  background:url(https://bmsbme.psu.ac.th/filemanager/file/15/businesswoman-reading-message-mobile-phone.jpg) center/cover no-repeat}
+#overlay{position:absolute;inset:0;background:linear-gradient(90deg,rgba(10,29,51,.78),rgba(10,29,51,.25))}
+#hero-text{position:absolute;left:var(--side);right:var(--side);bottom:clamp(28px,3vw,56px);max-width:1200px}
+#hero-text .crumb{font-size:clamp(13px,.83vw,15px);margin:0 0 10px;opacity:.85}
+#hero-text .crumb a:hover{text-decoration:underline}
+#hero-text h1{
+    margin: 0 0 10px;
+    font-size: 30px;
+    line-height: 1.15;
+    font-weight: bold;
+    color: #fff
+}
+#hero-text p{
+    margin: 0;
+    font-size: 18px;
+    font-weight: 300;
+    max-width: 1640px
+}
+@media(max-width:600px){#hero{height:320px}}
+
+/* ===== CONTENT ===== */
+.bmx h1, h2{font-size:2px;
+  font-family:Georgia,"Times New Roman",serif;
+  font-weight:400;
+}
+.bmx,.bmx *{box-sizing:border-box}
+.bmx{--blue:#0066cc;--ink:#172b3a;--soft:#f3f8fc;--line:#d9e0e5;--mut:#667786;margin:0;font-family:Arial,Helvetica,sans-serif;color:var(--ink);background:#fff;line-height:1.6}
+.bmx ul{list-style:none;margin:0;padding:0}
+.bmx a{color:inherit;text-decoration:none}
+.bmx .c{max-width:1320px; margin:0 auto; padding:0 25px}
+.bmx h2,.bmx h3,.bmx h4{margin-top:0;line-height:1.2}
+.bmx h2{
+    font-size: 20px;
+    margin-bottom: 16px;
+    color: #304175
+}
+.bmx h3{font-size:clamp(17px,1.15vw,22px);margin-bottom:8px;color:#0D134D}
+.bmx .sec{padding:clamp(28px,2.4vw,46px) 0}
+.bmx .soft{background:var(--soft)}
+.bmx .lead{max-width:1200px;font-size:clamp(15px,.94vw,18px);color:#000;margin:0}
+.bmx .btn{display:inline-block;background:var(--blue);color:#fff;padding:12px 25px;margin-top:12px;font-weight:bold;border:0;cursor:pointer;font-family:inherit;font-size:16px}
+.bmx .btn:hover{background:#004f9e}
+
+/* Info cards */
+.bmx .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(14px,1.3vw,25px);margin-top:clamp(20px,1.8vw,35px)}
+.bmx .card{border:1px solid var(--line);background:#fff;padding:clamp(18px,1.4vw,26px);border-top:3px solid var(--blue)}
+.bmx .card p{margin:0;font-size:clamp(14px,.88vw,16px);color:#436383}
+.bmx .card a:hover{color:var(--blue);text-decoration:underline}
+
+/* Form + map */
+.bmx .split{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,3.1vw,60px);align-items:start}
+.bmx form{display:grid;gap:14px}
+.bmx label{display:block;font-size:14px;font-weight:bold;color:#304175;margin-bottom:6px}
+.bmx input,.bmx textarea{width:100%;padding:12px 14px;font:inherit;font-size:16px;color:var(--ink);background:#fff;border:1px solid var(--line);outline:none}
+.bmx input:focus,.bmx textarea:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(0,102,204,.15)}
+.bmx textarea{min-height:150px;resize:vertical}
+.bmx .map{width:100%;height:clamp(300px,26vw,460px);border:1px solid var(--line);background:#dfe6ec}
+.bmx .map iframe{display:block;width:100%;height:100%;border:0}
+
+
+@media(max-width:900px){
+.bmx h1{font-size:18px!important}
+.bmx h2{font-size:18px!important}
+.bmx h3{font-size:15px!important}
+ .bmx .foot h4{font-size:16px!important}
+.bmx a{font-size:14px!important}
+.bmx p{font-size:14px!important}
+.bmx strong{font-size:15px!important}
+.bmx span{font-size:16px!important}
+.bmx .split{grid-template-columns:1fr}
+.bmx .cards{grid-template-columns:1fr}
+.bmx .foot .g{grid-template-columns:1fr 1fr}
+}
+@media(max-width:900px){
+  #hero-text h1{font-size:22px}
+  #hero-text p{font-size:14px}
+}
+@media(max-width:600px){
+  .bmx .c{padding:0 18px}
+  .bmx h2{font-size:15px!important}
+  .bmx h3{font-size:14px!important}
+  .bmx .foot h4{font-size:14px!important}
+  .bmx p, .bmx .lead{font-size:14px!important}
+  #hero-text h1{font-size:20px}
+  #hero-text p{font-size:14px}
+  .bmx .foot .g{grid-template-columns:1fr}
+}
+@media(max-width:900px){
+  .bmx .btn{font-size:14px;padding:10px 20px}
+}
+@media(max-width:600px){
+  .bmx .btn{font-size:14px;padding:10px 20px;width:100%} /* width:100% = ปุ่มเต็มความกว้างบนมือถือ (เอาออกได้) */
+}
+</style>
+</head>
+<body>
+
+<div id="hero">
+  <div id="overlay"></div>
+  <div id="site-nav"></div>
+  <div id="hero-text">
+    <h1>Contact us</h1>
+    <p>Questions about our programs, admission or research? We are happy to help.</p>
+  </div>
+</div>
+
+<div class="bmx">
+
+<section class="sec">
+  <div class="c">
+    <h2 style="font-size: 24px">Get in touch</h2>
+    <p class="lead">Department of Biomedical Sciences and Biomedical Engineering, Faculty of Medicine, Prince of Songkla University.</p>
+    <div class="cards">
+      <div class="card"><h3>Address</h3><p>15 Karnjanavanich Road,<br>Hat Yai, Songkhla 90110, Thailand</p></div>
+      <div class="card"><h3>Email</h3><p><a href="mailto:YOUR-EMAIL@psu.ac.th">bmsbme@medicine.psu.ac.th</a></p></div>
+      <div class="card"><h3>Phone</h3><p><a href="tel:+66000000000">+66 0-0000-0000</a><br>Mon–Fri, 08:30–16:30</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec soft">
+  <div class="c split">
+    <div>
+      <h2>Send us a message</h2>
+      <form id="contact-form">
+        <div><label for="f-name">Name</label><input type="text" id="f-name" required></div>
+        <div><label for="f-email">Email</label><input type="email" id="f-email" required></div>
+        <div><label for="f-subject">Subject</label><input type="text" id="f-subject" required></div>
+        <div><label for="f-msg">Message</label><textarea id="f-msg" required></textarea></div>
+        <div><button type="submit" class="btn">Send message</button></div>
+      </form>
+    </div>
+    <div>
+      <h2>Find us</h2>
+      <div class="map">
+       <iframe title="Map" allowfullscreen loading="lazy" referrerpolicy="strict-origin-when-cross-origin"
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1003.2499152478294!2d100.4946977677755!3d7.004849342484314!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x304d2964006943d9%3A0xf1bd40246c7ca5b5!2z4Lit4Liy4LiE4Liy4Lij4Lin4Li04LiI4Lix4LiiIOC4meC4p-C4seC4leC4geC4o-C4o-C4oSDguYHguKXguLDguJbguYjguLLguKLguJfguK3guJTguYDguJfguITguYLguJnguYLguKXguKLguLXguIHguLLguKPguYHguJ7guJfguKLguYw!5e0!3m2!1sth!2sth!4v1791219907936!5m2!1sth!2sth"></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+</div>   <!-- ปิด .bmx -->
+
+<div id="site-footer"></div>
+
+<!-- เมนู: ต้องอยู่ท้ายหน้า -->
+<script src="header.js"></script>
+<script src="footer.js"></script>
+<script src="cookie.js"></script>
+</body>
+
+<script src="header.js"></script>
+<script>
+// ฟอร์มนี้เปิดโปรแกรมอีเมลของผู้ใช้ (ไม่ต้องมี server) เปลี่ยนอีเมลปลายทางตรงนี้
+var CONTACT_EMAIL = "bmsbme@medicine.psu.ac.th";
+document.getElementById("contact-form").onsubmit = function (e) {
+  e.preventDefault();
+  var name = document.getElementById("f-name").value;
+  var email = document.getElementById("f-email").value;
+  var subject = document.getElementById("f-subject").value;
+  var msg = document.getElementById("f-msg").value;
+  var body = msg + "\n\n--\n" + name + " <" + email + ">";
+  window.location.href = "mailto:" + CONTACT_EMAIL +
+    "?subject=" + encodeURIComponent(subject) +
+    "&body=" + encodeURIComponent(body);
+};
+
+</script>
+	
+</html>

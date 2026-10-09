@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Our Mission | BMS &amp; BME</title>
+<link rel="stylesheet" href="header.css">
+<link rel="stylesheet" href="footer.css">
+<style>
+  :root {
+    /* ตัวแปรเดิมของเว็บ (header.css อาจใช้อยู่) ห้ามเปลี่ยนชื่อหรือค่า */
+    --blue: #1f5f99; --blue-2: #5a9ad2; --navy: #0f1f33; --ink: #14263a; --muted: #5b6b7b;
+    --sky: #e6eff8; --line: rgba(15,40,70,.12);
+    --font: "Segoe UI", Helvetica, Arial, sans-serif;
+    /* ตัวแปรเฉพาะหน้านี้ */
+    --ms-blue: #1f5f99; --ms-blue-2: #5a9ad2; --ms-navy: #0f1f33; --ms-ink: #14263a; --ms-muted: #5b6b7b;
+    --ms-sky: #e6eff8; --ms-line: rgba(15,40,70,.14);
+    --ms-font: "Segoe UI", Helvetica, Arial, sans-serif;
+    --ms-serif: Georgia, "Times New Roman", serif;
+    /* ระยะซ้าย-ขวาเดียวกับ BMSprogram.html */
+    --side: clamp(20px, calc((100vw - 1320px) / 2), 300px);
+  }
+
+  /* ---------- พื้นหลังไล่สี: อยู่ที่ body (ใต้ Nav ทั้งหมด) จางเป็นขาวทึบที่ท้าย Vision/Mission ---------- */
+  body.nav-solid {
+    background-color: #fff;
+    background-image:
+      linear-gradient(to bottom,
+        rgba(255,255,255,0) 0%,
+        rgba(255,255,255,.55) 55%,
+        rgba(255,255,255,1) 100%),
+      radial-gradient(ellipse 70% 90% at 0% 70%, #3cc3ff 0%, rgba(60,195,255,0) 70%),
+      radial-gradient(ellipse 55% 70% at 100% 0%, #6f86d6 0%, rgba(111,134,214,0) 70%),
+      radial-gradient(ellipse 60% 80% at 100% 80%, #5cc4ff 0%, rgba(92,196,255,0) 70%),
+      linear-gradient(135deg, #bfeaf5 0%, #eef3f8 50%, #eef3f8 100%);
+    background-repeat: no-repeat;
+    background-size: 100% 760px; /* สคริปต์ท้ายไฟล์จะปรับให้พอดีกับท้าย Vision/Mission */
+  }
+  /* ให้พื้นที่ hero (แถบใต้ Nav) โปร่งใส เห็น gradient ต่อเนื่อง */
+  body.nav-solid #hero { background: transparent !important; background-image: none !important; }
+  body.nav-solid #overlay { display: none; }
+
+  /* ---------- เนื้อหา ---------- */
+  .ms { font-family: var(--ms-font); color: var(--ms-ink); background: transparent; }
+  .ms button { font-family: inherit; }
+  .ms .wrap { max-width: 1320px; margin: 12px auto 0; margin-bottom: 0px;margin-top: 0px; padding: 0 25px; }
+  .ms h1, .ms h2, .ms h3, .ms p { margin: 0; }
+  .ms h1, .ms h2, .ms h3 { font-family: var(--ms-serif); font-weight: 400; }
+  .ms section { padding-top: 44px; }
+  .ms .sec-head { margin-bottom: 20px; padding-bottom: 14px; border-bottom: 1px solid var(--ms-line); }
+  .ms .sec-head h2 {
+    font-size: 28px;
+    letter-spacing: -.01em;
+    line-height: 1.2;
+}
+  .ms .sec-head p { margin-top: 6px; font-size: 15px; line-height: 1.55; color: var(--ms-muted); }
+
+  /* ---------- Statement ---------- */
+.ms .statement-row {
+  --pic-w: 200px;   /* ปรับขนาดรูปตรงนี้ที่เดียว */
+  display: grid;
+  grid-template-columns: 1fr var(--pic-w);
+  gap: 48px;
+  align-items: center;
+}
+.ms .statement-pic { line-height: 0; }
+.ms .statement-pic img { display: block; width: 100%; height: auto; }
+.ms .statement { margin: 0; max-width: 820px; }
+.ms .statement p { font-family: var(--ms-serif); font-size: clamp(22px, 2.8vw, 32px); line-height: 1.4; letter-spacing: -.01em; }
+.ms .statement p em { font-style: italic; color: var(--ms-blue); }
+
+  /* ---------- Vision + Mission ---------- */
+  .ms .duo { display: grid; grid-template-columns: 1fr 1fr; gap: 0 40px; }
+  .ms .duo > div { padding-top: 16px; border-top: 2px solid var(--ms-blue); }
+  .ms .duo h3 { font-size: 24px; line-height: 1.2; }
+  .ms .duo p { margin-top: 8px; font-size: 16px; line-height: 1.65; color: var(--ms-ink); }
+
+  /* ---------- Values ---------- */
+  .ms .values { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0 32px; }
+  .ms .value { padding-top: 0; border-top: none; }
+  .ms .value .pic { aspect-ratio: 3 / 4; margin-bottom: 14px; overflow: hidden; background: var(--ms-sky); }
+  .ms .value .pic img { display: block; width: 100%; height: 100%; object-fit: cover; }
+  .ms .value b { display: block; font-family: var(--ms-serif); font-weight: 400; font-size: 40px; line-height: 1; color: var(--ms-blue-2); }
+  .ms .value h3 { margin-top: 10px; font-size: 20px; line-height: 1.25; }
+  .ms .value p { margin-top: 6px; font-size: 15px; line-height: 1.6; color: var(--ms-muted); }
+
+  /* ---------- Focus areas ---------- */
+  .ms .focus { border-top: none; }
+  .ms .row { display: grid; grid-template-columns: 70px 260px 1fr; gap: 20px; align-items: baseline; padding: 16px 0; border-bottom: 1px solid var(--ms-line); transition: background-color .2s; }
+  .ms .row:hover { background: var(--ms-sky); }
+  .ms .row span { font-family: var(--ms-serif); font-size: 18px; color: var(--ms-blue); padding-left: 8px; }
+  .ms .row h3 {
+    font-size: 18px;
+    line-height: 1.25;
+}
+  .ms .row p { font-size: 15px; line-height: 1.6; color: var(--ms-muted); }
+
+  /* ---------- Quote ---------- */
+  .ms .quote { margin: 0; text-align: center; }
+  .ms .quote::before { content: "\201C"; display: block; font-family: var(--ms-serif); font-size: 64px; line-height: .6; color: var(--ms-blue-2); }
+  .ms .quote p { margin: 0 auto; max-width: 680px; font-family: var(--ms-serif); font-style: italic; font-size: clamp(20px, 2.4vw, 28px); line-height: 1.45; }
+  .ms .quote cite { display: block; margin-top: 14px; font-style: normal; color: var(--ms-muted); font-size: 14px; }
+
+  /* ---------- CTA ---------- */
+  .ms .cta { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 20px; padding: clamp(24px, 3vw, 32px); border-radius: 6px; color: var(--ms-ink); background: var(--ms-sky); border-left: 4px solid var(--ms-blue); }
+  .ms .cta h2 { font-size: clamp(22px, 2.6vw, 28px); line-height: 1.2; }
+  .ms .cta p { margin-top: 6px; max-width: 480px; color: var(--ms-muted); line-height: 1.6; font-size: 15px; }
+  .ms .btn { display: inline-block; padding: 12px 26px; border-radius: 4px; background: var(--ms-navy); color: #fff; font-size: 14px; font-weight: 600; text-decoration: none; transition: background-color .2s; }
+  .ms .btn:hover { background: var(--ms-blue); }
+  .ms .btn:focus-visible { outline: 2px solid rgba(31,95,153,.5); outline-offset: 3px; }
+  .ms main { padding-bottom: 48px; }
+
+  /* ---------- Responsive ---------- */
+
+/* แท็บเล็ต: 900px ลงมา */
+@media (max-width: 900px) {
+  .ms section { padding-top: 36px; }
+  .ms .wrap { margin-bottom: 16px; }
+
+/* Statement: รูปอยู่บนข้อความ และจัดกึ่งกลาง */
+.ms .statement-row { grid-template-columns: 1fr; gap: 24px; justify-items: center; }
+.ms .statement-pic { order: -1; width: 100%; max-width: 180px; }   /* order: -1 = ย้ายรูปขึ้นไปอยู่บนสุด */
+.ms .statement { text-align: center; }
+.ms .statement p { font-size: 24px; }
+
+  /* Vision / Mission */
+  .ms .duo { grid-template-columns: 1fr; gap: 28px; }
+  .ms .duo h3 { font-size: 22px; }
+
+  /* Values */
+  .ms .values { grid-template-columns: 1fr; gap: 28px; }
+  .ms .value .pic { aspect-ratio: 16 / 10; }
+  .ms .value b { font-size: 34px; }
+
+  /* Focus */
+  .ms .row { grid-template-columns: 50px 1fr; gap: 4px 16px; padding: 14px 0; }
+  .ms .row p { grid-column: 2; }
+  .ms .row h3 { font-size: 20px; }
+
+  .ms main { padding-bottom: 40px; }
+}
+
+/* มือถือ: 600px ลงมา */
+@media (max-width: 600px) {
+  .ms section { padding-top: 28px; }
+  .ms .wrap { padding: 0 18px; margin-bottom: 12px; }
+
+  /* Statement */
+  .ms .statement-row { gap: 20px; }
+  .ms .statement p { font-size: 20px; line-height: 1.45; }
+  .ms .statement-pic { max-width: 150px; }                /* ขนาดรูปบนมือถือ */
+
+  /* หัวข้อ section */
+  .ms .sec-head { margin-bottom: 16px; padding-bottom: 12px; }
+  .ms .sec-head h2 { font-size: 24px; }
+  .ms .sec-head p { font-size: 14px; }
+
+  /* Vision / Mission */
+  .ms .duo { gap: 22px; }
+  .ms .duo > div { padding-top: 12px; }
+  .ms .duo h3 { font-size: 20px; }
+  .ms .duo p { font-size: 15px; line-height: 1.6; }
+
+  /* Values */
+  .ms .values { gap: 24px; }
+  .ms .value b { font-size: 28px; }
+  .ms .value h3 { font-size: 18px; }
+  .ms .value p { font-size: 14px; }
+
+  /* Focus */
+  .ms .row { grid-template-columns: 36px 1fr; gap: 2px 12px; padding: 12px 0; }
+  .ms .row span { font-size: 16px; padding-left: 4px; }
+  .ms .row h3 { font-size: 18px; }
+  .ms .row p { font-size: 14px; }
+
+  /* CTA */
+  .ms .cta { padding: 20px; gap: 16px; }
+
+  .ms main { padding-bottom: 32px; }
+}
+</style>
+</head>
+
+<body class="nav-solid">
+
+<div id="hero">
+  <div id="overlay"></div>
+  <div id="site-nav"></div>
+  <div id="hero-text"></div>
+</div>
+
+<div class="ms">
+<main>
+
+    <section>
+      <div class="wrap">
+        <div class="statement-row">
+          <div class="statement">
+            <p>Our mission is to develop graduates and knowledge that <em>connect the laboratory to the clinic</em>, so that scientific ideas become technologies people can rely on.</p>
+          </div>
+          <div class="statement-pic"><img src="images/mission/psu.png" alt="Connecting the laboratory to the clinic"></div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <div class="duo">
+          <div>
+            <h3>Our vision</h3>
+            <p>To be a leading center in biomedical sciences and biomedical engineering, recognized for research that improves health and for graduates who lead in their fields.</p>
+          </div>
+          <div>
+            <h3>Our mission</h3>
+            <p>To provide rigorous, collaborative education, to carry out research that addresses real health needs, and to work with hospitals, industry and communities to put results into practice.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  <section>
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>What we stand for</h2>
+        <p>Three values guide how we teach, research and work together.</p>
+      </div>
+      <div class="values">
+        <div class="value"><div class="pic"><img src="images/mission/value-1.jpg" alt="Scientific integrity"></div><b>01</b><h3>Scientific integrity</h3><p>We value careful methods, honest reporting and respect for the evidence behind every result.</p></div>
+        <div class="value"><div class="pic"><img src="images/mission/value-2.jpg" alt="Collaboration"></div><b>02</b><h3>Collaboration</h3><p>Biology, medicine and engineering work best together, so we build teams across disciplines.</p></div>
+        <div class="value"><div class="pic"><img src="images/mission/value-3.jpg" alt="Service to society"></div><b>03</b><h3>Service to society</h3><p>We measure our success by the benefit our work brings to patients, clinicians and communities.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>How we work toward it</h2>
+        <p>Four areas where the mission shows up in our daily activity.</p>
+      </div>
+      <div class="focus">
+        <div class="row"><span>01</span><h3>Education</h3><p>Graduate programs that combine strong fundamentals with hands-on laboratory and design experience.</p></div>
+        <div class="row"><span>02</span><h3>Research</h3><p>Projects in disease mechanisms, diagnostics, medical devices and biomaterials with clear clinical relevance.</p></div>
+        <div class="row"><span>03</span><h3>Partnership</h3><p>Joint work with hospitals, companies and public agencies to test ideas in real settings.</p></div>
+        <div class="row"><span>04</span><h3>Community</h3><p>Training, outreach and knowledge sharing that bring biomedical advances to the wider public.</p></div>
+      </div>
+    </div>
+  </section>
+
+</main>
+</div>
+
+<div id="site-footer"></div>
+<script>
+  /* ปรับความสูง gradient ให้จบพอดีท้าย Vision/Mission */
+  (function () {
+    function fit() {
+      var d = document.querySelector('.duo');
+      if (!d) return;
+      var b = d.getBoundingClientRect().bottom + window.pageYOffset + 24;
+      document.body.style.backgroundSize = '100% ' + Math.round(b) + 'px';
+    }
+    window.addEventListener('load', fit);
+    window.addEventListener('resize', fit);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
+    fit();
+  })();
+</script>
+<script src="header.js"></script>
+<script src="footer.js"></script>
+<script src="cookie.js"></script>
+</body>
+</html>

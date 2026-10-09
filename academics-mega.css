@@ -1,0 +1,76 @@
+/* ===== Academics mega dropdown =====
+   วางต่อท้าย header.css (หรือแทรกไว้ใต้ส่วน Dropdown เดิม) */
+
+/* wrap ต้องเป็น static เพื่อให้เมนูกว้างเต็ม #nav (ซึ่งเป็น position:fixed) */
+#academics-wrap { display: inline-flex; align-items: center; position: static; flex-shrink: 0; }
+
+/* ลูกศร ▾ เหมือน About us / Our programs */
+#academics-wrap > .item::after {
+  content: ""; width: 7px; height: 7px; margin: -3px 0 0 9px;
+  border-right: 2px solid currentColor; border-bottom: 2px solid currentColor;
+  transform: rotate(45deg); transition: transform .25s cubic-bezier(.2,.8,.2,1);
+}
+#academics-wrap:hover > .item::after,
+#academics-wrap:focus-within > .item::after,
+#academics-wrap:has(#academics-menu[style*="block"]) > .item::after,
+#academics-wrap:has(#academics-menu[style*="grid"]) > .item::after {
+  transform: rotate(225deg); margin-top: 3px;
+}
+
+/* สะพานโปร่งใส กันเมนูหายตอนเลื่อนเมาส์ลง */
+#academics-wrap::after { content: ""; position: absolute; top: 100%; left: 0; right: 0; height: 30px; }
+
+#academics-menu {
+  display: none;
+  position: absolute; top: 100%; left: 0; right: 0;
+  margin: 0 clamp(8px, 1.5vw, 40px);
+  padding: 40px clamp(24px, 3vw, 48px) 36px;
+  grid-template-columns: repeat(4, 1fr);
+  column-gap: clamp(24px, 3vw, 48px);
+  background: #fff;
+  border-top: 4px solid #14263a;
+  box-shadow: 0 24px 60px -12px rgba(15,40,70,.35);
+  line-height: normal; white-space: normal;
+  animation: dropIn .28s cubic-bezier(.2,.9,.25,1);
+}
+#academics-wrap:hover #academics-menu,
+#academics-wrap:focus-within #academics-menu { display: grid; }
+
+/* หัวข้อคอลัมน์ + เส้นคั่นใต้หัวข้อ */
+#academics-menu .col h4 {
+  margin: 0 0 24px; padding-bottom: 18px;
+  font-size: 22px; font-weight: 700; color: #1b2a6b;
+  border-bottom: 2px solid #e6e6e6;
+}
+#academics-menu .col a {
+  position: relative; display: block;
+  padding: 11px 0 11px 26px;
+  color: #222; font-size: 18px; font-weight: 400; line-height: 1.4;
+  transition: color .2s, transform .2s;
+}
+/* ลูกศร › นำหน้า */
+#academics-menu .col a::before {
+  content: ""; position: absolute; left: 4px; top: 50%;
+  width: 7px; height: 7px; margin-top: -5px;
+  border-right: 2px solid #1b2a6b; border-top: 2px solid #1b2a6b;
+  transform: rotate(45deg);
+  transition: transform .2s;
+}
+#academics-menu .col a:hover,
+#academics-menu .col a:focus-visible { color: #1f5f99; outline: none; transform: translateX(4px); }
+#academics-menu .col a:hover::before { border-color: #1f5f99; }
+
+/* เมนูมือถือ */
+#m-academics-sub { display: none; padding-left: 16px; }
+#m-academics-sub a { font-size: 16px; color: #444; }
+#m-academics-sub .m-head { padding: 12px 0 4px; font-size: 14px; font-weight: bold; color: #1b2a6b; border-bottom: 1px solid #eee; }
+
+/* ซ่อนบนจอ ≤1100px: แก้บรรทัดเดิมใน @media (max-width:1100px) ให้เป็น
+   #about-wrap, #program-wrap, #academics-wrap, #nav .nav-link, #nav .right { display: none; }  */
+@media (max-width: 1100px) {
+  #academics-wrap { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #academics-menu { animation: none; }
+}
