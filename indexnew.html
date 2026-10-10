@@ -7,132 +7,263 @@
 <link rel="stylesheet" href="header.css">
 <link rel="stylesheet" href="footer.css">
 
-<!-- CSS เฉพาะหน้านี้: รูป hero + สถิติ -->
+<!-- CSS เฉพาะหน้านี้: Header ชื่อสาขา + เมนูย่อย (พื้นหลัง gradient ทับรูป) -->
 <style type="text/css">
-/* ===== HERO (ส่วนรูปด้านบน) ===== */
+/* ===== เมนูบนสุด (header.js): ตัวหนังสือและปุ่ม search เป็นสีดำ ===== */
+#site-nav,
+#site-nav a,
+#site-nav li,
+#site-nav span,
+#site-nav button,
+#site-nav i,
+#site-nav label,
+#site-nav [class*="search" i] {
+  color: #000 !important;
+}
+#site-nav svg [fill]:not([fill="none"]) { fill: #000 !important; }
+#site-nav svg [stroke]:not([stroke="none"]) { stroke: #000 !important; }
+#site-nav [class*="search" i] svg,
+#site-nav [class*="search" i] path { fill: #000 !important; }
+/* ถ้า icon search เป็นไฟล์รูป ให้เปลี่ยนเป็นสีดำ (ไม่แตะโลโก้) */
+#site-nav img[src*="search" i],
+#site-nav [class*="search" i] img { filter: brightness(0) !important; }
+#site-nav a:hover { color: #0066cc !important; }
+/* ===== HEADER สาขาวิชา ===== */
 #hero {
   --side: clamp(20px, calc((100vw - 1320px) / 2), 300px);
   position: relative;
-  height: clamp(480px, 75vh, 720px);
-  overflow: hidden; color: #fff;
-  background-image: url("./images/home/home.jpg");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+  overflow: hidden;
+  color: #0a1d33;
+  background-color: #eef5fb;
 }
 
-/* ชั้นสีทับรูป: ขาวนวลใต้ header + ดำจางๆ ทั้งรูป */
+/* ชั้นล่างสุด: รูปภาพ */
 #hero::before {
   content: "";
   position: absolute; inset: 0;
-  background:
-    linear-gradient(to bottom,
-      rgba(255,255,255,0.55) 0%,
-      rgba(255,255,255,0.25) 18%,
-      rgba(255,255,255,0) 40%),
-    rgba(0,0,0,0.25);
+  background-image: url("./images/home/home.jpg");
+  background-size: cover;
+  background-position: right center;
+  background-repeat: no-repeat;
+  z-index: 0;
+}
+
+/* ชั้นบน: gradient เดิม โปร่งแสงขึ้นเรื่อยๆ ไปทางขวาเพื่อให้เห็นรูป */
+#hero::after {
+  content: "";
+  position: absolute; inset: 0;
   z-index: 0;
   pointer-events: none;
+  background:
+    /* ขาวจางใต้เมนูหลัก */
+   
+    /* ม่วงน้ำเงินอ่อนมุมขวาบน (จางๆ) */
+    radial-gradient(ellipse 45% 60% at 30% 0%, #FFEEEB 0%, rgba(150,166,224,0) 100%),
+    /* ฟ้าอ่อนด้านซ้าย */
+    radial-gradient(ellipse 60% 90% at 10% 40%, #5CB3FF 10%, rgba(178,224,250,0) 100%),
+    /* gradient หลัก: ทึบด้านซ้าย -> โปร่งใสด้านขวา */
+    linear-gradient(to right,
+      #FFE8F8   20%,
+      rgba(238,245,251,0.97) 32%,
+      rgba(244,248,252,0.80) 45%,
+      rgba(250,252,254,0.40) 65%,
+      rgba(255,255,255,0)   100%);
 }
-
+/* ขอบกรอบ search / ปุ่ม / ช่องกรอก เป็นสีดำ */
+#site-nav [class*="search" i],
+#site-nav [id*="search" i],
+#site-nav input,
+#site-nav button,
+#site-nav form {
+  border-color: #000 !important;
+  outline-color: #000 !important;
+}
+#site-nav input { color: #000 !important; caret-color: #000; }
+#site-nav input::placeholder { color: #555 !important; opacity: 1; }
 #site-nav { position: relative; z-index: 2; }
 
-/* ข้อความกลาง hero */
-#hero-text {
-  position: absolute; left: var(--side); right: var(--side);
-  top: 50%; transform: translateY(-50%);
-  z-index: 1; text-align: center;
+#hero-inner {
+  position: relative; z-index: 1;
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 160px 25px 28px;
+  text-align: left;
 }
+
+/* ชื่อสาขา (ชิดซ้าย) */
 #hero-text h1 {
   margin: 0;
+  max-width: 900px;
   font-family: Georgia, "Times New Roman", serif;
-  font-size: clamp(28px, 4.5vw, 56px);
-  font-weight: 400; line-height: 1.25; color: #fff;
-  text-shadow: 0 2px 12px rgba(0,0,0,0.45);
+  font-size: clamp(30px, 4.2vw, 54px);
+  font-weight: 400;
+  line-height: 1.25;
+  color: #002857;
 }
 #hero-text h1 span { display: block; }
 #hero-text .hero-sub {
   margin: 14px 0 0;
-  font-family: "Segoe UI", Helvetica, Arial, sans-serif;
-  font-size: clamp(15px, 1.6vw, 22px);
-  font-weight: 300; letter-spacing: .04em; color: #fff;
-  text-shadow: 0 2px 10px rgba(0,0,0,0.45);
+  font-family: Cambria, "Hoefler Text", "Liberation Serif", Times, "Times New Roman", serif;
+  font-size: clamp(16px, 1.8vw, 24px);
+  font-weight: 400;
+  color: #436383;
 }
 
-/* Stats: การ์ดโปร่งแสงเรียงกลาง ไม่ชิดขอบล่าง (แบบ Chula) */
-#stats {
-  position: absolute; z-index: 1;
-  left: var(--side); right: var(--side);
-  bottom: 40px;
-  background: none;
+/* เมนูย่อย: ปุ่มเหลี่ยม เส้นน้ำเงินด้านบน อยู่กึ่งกลาง ไม่มีพื้นหลังครอบ */
+#hero-menu {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 22px;
+  margin: 120px auto 0;
+  padding: 0;
+  list-style: none;
+  --btn-h: 72px;   /* <<< ปรับความสูงปุ่มตรงนี้ */
 }
-#stats table, #stats tbody { display: block; border-collapse: separate; }
-#stats tr { display: flex; justify-content: center; gap: 20px; }
-#stats td, #stats td.first {
-  display: flex; flex-direction: column; justify-content: flex-end;
-  flex: 0 1 230px; min-height: 10px;
-  padding: 20px 24px;
-  text-align: left; vertical-align: bottom;
-  border: none;
-  border-radius: 16px;
-  background: rgba(255,255,255,0.18);
-  -webkit-backdrop-filter: blur(10px);
-  backdrop-filter: blur(10px);
-  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.12);
-  transition: background .2s, transform .2s;
+#hero-menu li { margin: 0; flex: 0 1 220px; }
+#hero-menu a {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 45px;
+  padding: 0 20px;
+  text-align: center;
+  border-top: 2px solid #s;
+  border-radius: 0;
+  background: rgba(255,255,255,0.88);
+  box-shadow: 0 2px 8px rgba(10,29,51,0.08);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 22px;
+  color: #0a1d33;
+  text-decoration: none;
+  overflow: hidden;
+  transition: transform .25s ease, box-shadow .25s ease, background .25s ease, color .25s ease;
 }
-#stats td:hover { background: rgba(255,255,255,0.28); transform: translateY(-3px); }
-#stats .num { font-size: 10px; font-weight: 600; line-height: 1.1; }
-#stats .num small { font-size: clamp(18px, 1.6vw, 22px); font-weight: bold; }
-#stats .label { font-size: clamp(14px, 1.2vw, 16px); font-weight: 300; line-height: 1.35; margin-top: 4px; }
-
+/* เส้นน้ำเงินด้านล่างที่ขยายออกจากกึ่งกลางเมื่อชี้ */
+#hero-menu a::after {
+  content: "";
+  position: absolute; left: 0; right: 0; bottom: 0;
+  height: 3px;
+  background: #0066cc;
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform .3s ease;
+}
+#hero-menu a:hover,
+#hero-menu a:focus-visible {
+  transform: translateY(-6px);
+  background: #fff;
+  color: #0066cc;
+  box-shadow: 0 14px 28px rgba(10,29,51,0.18);
+  outline: none;
+}
+#hero-menu a:hover::after,
+#hero-menu a:focus-visible::after { transform: scaleX(1); }
+#hero-menu a:active { transform: translateY(-2px); box-shadow: 0 6px 14px rgba(10,29,51,0.15); }
 
 /* ===== Effect: ไล่ปรากฏทีละชิ้น ===== */
 @keyframes heroFadeUp {
   from { opacity: 0; transform: translateY(24px); filter: blur(6px); }
   to   { opacity: 1; transform: translateY(0);    filter: blur(0); }
 }
-@keyframes heroZoom {
-  from { transform: scale(1.08); }
-  to   { transform: scale(1); }
-}
 #hero-text h1 span,
 #hero-text .hero-sub,
-#stats td {
+#hero-menu {
   animation: heroFadeUp .9s cubic-bezier(.22,.61,.36,1) backwards;
 }
 #hero-text h1 span:nth-child(1) { animation-delay: .2s; }
 #hero-text h1 span:nth-child(2) { animation-delay: .5s; }
-#hero-text .hero-sub            {
-    animation-delay: .85s;
-    font-size: 27.5px;
-    font-family: Cambria, "Hoefler Text", "Liberation Serif", Times, "Times New Roman", serif;
-}
-
-#stats td:nth-child(1)          { animation-delay: 1.2s; }
-#stats td:nth-child(2)          { animation-delay: 1.4s; }
-#stats td:nth-child(3)          { animation-delay: 1.6s; }
+#hero-text .hero-sub            { animation-delay: .85s; }
+#hero-menu                      { animation-delay: 1.1s; }
 @media (prefers-reduced-motion: reduce) {
-  #hero-text h1 span, #hero-text .hero-sub, #stats td { animation: none; }
+  #hero-text h1 span, #hero-text .hero-sub, #hero-menu { animation: none; }
 }
 
-/* แท็บเล็ต */
-@media (max-width: 1100px) {
-  #hero { height: clamp(440px, 65vh, 600px); }
-  #stats { bottom: 28px; }
-  #stats tr { gap: 14px; }
-  #stats td, #stats td.first { flex: 1 1 0; min-height: 110px; padding: 16px 18px; }
+/* ===== แท็บเล็ต / มือถือ ===== */
+@media (max-width: 900px) {
+  #hero {
+    display: flex;
+    flex-direction: column;
+    min-height: 440px;
+  }
+
+  /* คง gradient เดิมของจอใหญ่ แต่ให้ครอบเต็มกว้างขึ้น เพราะชื่อทับรูปมากขึ้น */
+  #hero::after {
+    background:
+      radial-gradient(ellipse 70% 60% at 30% 0%, #FFEEEB 0%, rgba(150,166,224,0) 100%),
+      radial-gradient(ellipse 90% 80% at 10% 40%, #5CB3FF 10%, rgba(178,224,250,0) 100%),
+      linear-gradient(to right,
+        #FFE8F8 10%,
+        rgba(238,245,251,0.95) 40%,
+        rgba(244,248,252,0.75) 65%,
+        rgba(255,255,255,0.35) 100%);
+  }
+
+  #hero-inner {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    padding: 100px 24px 0;
+    text-align: left;              /* เหมือนจอใหญ่ */
+  }
+
+  /* ชื่อสาขา: สไตล์เดิม ลดขนาดให้สมส่วน และอยู่กลางพื้นที่เหนือปุ่ม */
+  #hero-text {
+    margin: auto 0;
+    padding: 20px 0 28px;
+  }
+  #hero-text h1 {
+    max-width: 100%;
+    font-size: clamp(26px, 6.4vw, 40px);
+    line-height: 1.22;
+  }
+  #hero-text .hero-sub {
+    margin-top: 10px;
+    font-size: clamp(14px, 3.6vw, 18px);
+  }
+
+  /* ปุ่ม 4 ปุ่ม: ลงล่าง เตี้ย โปร่งแสง ยังเป็นปุ่มแยกเหมือนเดิม */
+  #hero-menu {
+    margin: 0 0 22px;
+    gap: 10px;
+    flex-wrap: nowrap;
+    justify-content: stretch;
+    animation: none;
+  }
+  #hero-menu li { flex: 1 1 0; }
+  #hero-menu a {
+    min-height: 38px;
+    padding: 0 6px;
+    font-size: 15px;
+    background: rgba(255,255,255,.45);          /* โปร่งแสงขึ้น */
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    box-shadow: 0 2px 8px rgba(10,29,51,.08);
+  }
+  #hero-menu a:hover,
+  #hero-menu a:focus-visible {
+    transform: translateY(-3px);
+    background: rgba(255,255,255,.8);
+    box-shadow: 0 8px 18px rgba(10,29,51,.15);
+  }
 }
 
-/* มือถือ */
+/* ===== มือถือ ===== */
 @media (max-width: 600px) {
-  #hero { height: 460px; }
-  #hero-text { top: 38%; }
-  #stats { bottom: 20px; left: 16px; right: 16px; }
-  #stats tr { flex-direction: column; gap: 10px; }
-  #stats td, #stats td.first { flex: none; min-height: 0; padding: 12px 18px; border-radius: 14px; }
-  #stats .num, #stats .label { display: inline; }
-  #stats .label { margin-left: 6px; font-size: 14px; }
+  #hero { min-height: 420px; }
+  #hero-inner { padding: 84px 18px 0; }
+  #hero-text h1 { font-size: clamp(24px, 7vw, 30px); }
+  #hero-menu {
+    margin-bottom: 18px;
+    gap: 8px;
+    flex-wrap: wrap;                 /* 2 x 2 */
+  }
+  #hero-menu li { flex: 0 0 calc(50% - 4px); }
+  #hero-menu a { min-height: 36px; font-size: 14px; }
 }
 </style>
 
@@ -254,6 +385,34 @@
 .bmx .contact{background:#1a7fd4;color:#fff;padding:20px 0}
 .bmx .contact .c{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center}
 .bmx .contact .btn{background:#fff;color:var(--blue)}
+
+/* ===== News slider ===== */
+.bmx .ns{background:#F2F2F2;padding:40px 0 36px}
+.bmx .ns-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:18px}
+.bmx .ns-head h2{margin:0;color:#002857}
+.bmx .ns-all{color:var(--blue);font-weight:bold}
+.bmx .ns-all:hover{text-decoration:underline}
+
+.bmx .ns-viewport{overflow:hidden;background:#fff;box-shadow:0 4px 18px rgba(10,29,51,.08)}
+.bmx .ns-track{display:flex;transition:transform .6s cubic-bezier(.22,.61,.36,1)}
+.bmx .ns-slide{flex:0 0 100%;display:grid;grid-template-columns:1.5fr 1fr;min-height:420px}
+
+.bmx .ns-img{position:relative;overflow:hidden;background:var(--ph)}
+.bmx .ns-img img{position:absolute;inset:0;width:100%;height:100%;max-width:none;object-fit:cover;object-position:center;display:block}
+
+.bmx .ns-body{display:flex;flex-direction:column;justify-content:center;padding:40px 36px;background:#f5f7fa;border-top:3px solid var(--blue)}
+.bmx .ns-date{font-size:14px;letter-spacing:.08em;text-transform:uppercase;color:var(--blue);font-weight:bold;margin-bottom:12px}
+.bmx .ns-title{font-size:28px;line-height:1.25;color:#002857;margin-bottom:14px}
+.bmx .ns-ex{color:#436383;font-size:16px;margin:0 0 6px}
+
+.bmx .ns-ctrl{display:flex;justify-content:space-between;align-items:center;margin-top:16px}
+.bmx .ns-dots{display:flex;gap:8px}
+.bmx .ns-dots button{width:26px;height:4px;padding:0;border:0;background:#c3d0dc;cursor:pointer;transition:background .25s,width .25s}
+.bmx .ns-dots button.on{background:var(--blue);width:44px}
+.bmx .ns-arrows{display:flex;gap:8px}
+.bmx .ns-arrows button{width:40px;height:40px;border:1px solid var(--line);background:#fff;color:#0a1d33;font-size:14px;cursor:pointer;transition:background .25s,color .25s,border-color .25s}
+.bmx .ns-arrows button:hover{background:var(--blue);border-color:var(--blue);color:#fff}
+
 @media(max-width:900px){
 .bmx h1{font-size:22px}
 .bmx h2{font-size:18px}
@@ -271,6 +430,12 @@
 .bmx .strip .g div{border-left:0;border-top:1px solid rgba(255,255,255,.4);padding:20px 0}
 .bmx .strip .g div:first-child{border-top:0}
 .bmx .foot .g{grid-template-columns:1fr 1fr}
+/* news slider */
+.bmx .ns-slide{grid-template-columns:1fr;min-height:0}
+.bmx .ns-img{height:240px}
+.bmx .ns-body{padding:24px 20px}
+.bmx .ns-title{font-size:20px}
+.bmx .ns-date{font-size:12px!important}
 }
 @media(max-width:600px){
 .bmx .c{padding:0 18px}
@@ -286,37 +451,90 @@
 .bmx .learn,.bmx .mos{grid-template-columns:1fr}
 .bmx .mos a:first-child{grid-column:auto}
 .bmx .foot .g{grid-template-columns:1fr}
+/* news slider */
+.bmx .ns-img{height:200px}
+.bmx .ns-arrows button{width:36px;height:36px}
 }
 </style>
 </head>
 
 <body>
 
-<!-- รูป hero ของหน้าแรก -->
+<!-- ===== HEADER: ชื่อสาขาวิชา + เมนูย่อย (gradient ทับรูป) ===== -->
 <div id="hero">
 
-  <!-- เมนูจะถูกใส่ตรงนี้โดย header.js -->
+  <!-- เมนูหลักของมหาวิทยาลัยจะถูกใส่ตรงนี้โดย header.js -->
   <div id="site-nav"></div>
 
-  <div id="hero-text">
-    <h1><span>Biomedical Sciences</span><span>&amp; Biomedical Engineering</span></h1>
-    <p class="hero-sub">Faculty of Medicine, Prince of Songkla University</p>
-  </div>
+  <div id="hero-inner">
+    <div id="hero-text">
+      <h1><span>Biomedical Sciences</span><span>&amp; Biomedical Engineering</span></h1>
+      <p class="hero-sub">Faculty of Medicine, Prince of Songkla University</p>
+    </div>
 
-  <div id="stats">
-    <table><tr>
-    </tr></table>
+    <ul id="hero-menu">
+      <li><a href="#study">Our Programs</a></li>
+      <li><a href="admission.html">Admission</a></li>
+      <li><a href="staff.html">Staff</a></li>
+      <li><a href="alumni.html">Alumni</a></li>
+    </ul>
   </div>
 </div>
 
 <!-- ============ เนื้อหาหน้า ============ -->
 <div class="bmx">
 
-<section class="hero">
+<!-- ===== News slider (แทนที่ส่วน hero เดิม) ===== -->
+<section class="ns" id="news">
   <div class="c">
-    <h1>Department of Biomedical Sciences and Biomedical Engineering</h1>
-    <p>Learn in our laboratories, grow with our community, and become part of a department that turns science into better health.</p>
-    <a href="#study" class="btn">About Us&nbsp;</a>
+    <div class="ns-head">
+      <h2>Latest News</h2>
+      <a href="news.html" class="ns-all">All news &rarr;</a>
+    </div>
+
+    <div class="ns-viewport" aria-roledescription="carousel" aria-label="Latest news">
+      <div class="ns-track">
+<!-- ข่าว 1*-->
+        <article class="ns-slide">
+          <div class="ns-img"><img src="images/home/news/pr2.jpeg" alt=""></div>
+          <div class="ns-body">
+            <span class="ns-date">12 Oct 2026 &middot; Event</span>
+            <h2 class="ns-title">Headline of the first news item goes here</h2>
+            <p class="ns-ex">A short summary of the news in one or two sentences, enough to make readers want to continue.</p>
+            <div><a href="#" class="btn">Read more</a></div>
+          </div>
+        </article>
+
+        <article class="ns-slide">
+          <div class="ns-img"><img src="images/home/news/14197.jpg" alt=""></div>
+          <div class="ns-body">
+            <span class="ns-date">05 Oct 2026 &middot; Research</span>
+            <h2 class="ns-title">Headline of the second news item goes here</h2>
+            <p class="ns-ex">A short summary of the news in one or two sentences, enough to make readers want to continue.</p>
+            <div><a href="#" class="btn">Read more</a></div>
+          </div>
+        </article>
+
+        <article class="ns-slide">
+          <div class="ns-img"><img src="images/home/news/14197.jpg" alt=""></div>
+          <div class="ns-body">
+            <span class="ns-date">28 Sep 2026 &middot; Event</span>
+            <h2 class="ns-title">Headline of the third news item goes here</h2>
+            <p class="ns-ex">A short summary of the news in one or two sentences, enough to make readers want to continue.</p>
+            <div><a href="#" class="btn">Read more</a></div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+
+    <div class="ns-ctrl">
+      <div class="ns-dots"></div>
+      <div class="ns-arrows">
+        <button type="button" class="ns-prev" aria-label="Previous">&#10094;</button>
+        <button type="button" class="ns-next" aria-label="Next">&#10095;</button>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -417,10 +635,54 @@
 
 <div id="site-footer"></div>
 
+<!-- News slider script -->
+<script>
+(function(){
+  var root=document.querySelector('.ns'); if(!root) return;
+  var track=root.querySelector('.ns-track');
+  var slides=root.querySelectorAll('.ns-slide');
+  var dotsBox=root.querySelector('.ns-dots');
+  var i=0,timer,n=slides.length;
+
+  for(var k=0;k<n;k++){
+    var b=document.createElement('button');
+    b.type='button'; b.setAttribute('aria-label','Slide '+(k+1));
+    (function(k){ b.onclick=function(){go(k);restart();}; })(k);
+    dotsBox.appendChild(b);
+  }
+  var dots=dotsBox.children;
+
+  function go(x){
+    i=(x+n)%n;
+    track.style.transform='translateX('+(-100*i)+'%)';
+    for(var k=0;k<n;k++) dots[k].classList.toggle('on',k===i);
+  }
+  function restart(){
+    clearInterval(timer);
+    if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    timer=setInterval(function(){go(i+1);},6000);
+  }
+
+  root.querySelector('.ns-prev').onclick=function(){go(i-1);restart();};
+  root.querySelector('.ns-next').onclick=function(){go(i+1);restart();};
+  root.addEventListener('mouseenter',function(){clearInterval(timer);});
+  root.addEventListener('mouseleave',restart);
+
+  /* ปัดซ้าย-ขวาบนมือถือ */
+  var sx=0;
+  track.addEventListener('touchstart',function(e){sx=e.touches[0].clientX;},{passive:true});
+  track.addEventListener('touchend',function(e){
+    var d=e.changedTouches[0].clientX-sx;
+    if(Math.abs(d)>40){go(d<0?i+1:i-1);restart();}
+  });
+
+  go(0); restart();
+})();
+</script>
+
 <!-- เมนู: ต้องอยู่ท้ายหน้า -->
 <script src="header.js"></script>
 <script src="footer.js"></script>
 <script src="cookie.js"></script>
 </body>
 </html>
-</document_content>
