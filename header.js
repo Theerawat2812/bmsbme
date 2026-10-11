@@ -36,13 +36,13 @@
           '</div>' +
           '<div class="col">' +
             '<h4>Biomedical Sciences</h4>' +
-            '<a href="phd-programme.html">Ph.D. Program</a>' +
-            '<a href="phd-plos.html">M.Sc.Program</a>' +
+            '<a href="BMScurriculum.html#msc">Ph.D. Program</a>' +
+            '<a href="BMScurriculum.html#phd">M.Sc. Program</a>' +
           '</div>' +
           '<div class="col">' +
             '<h4>Biomedical Engineering</h4>' +
             '<a href="msc-programme.html">Ph.D. Program</a>' +
-            '<a href="msc-plos.html">M.Sc.Program</a>' +
+            '<a href="msc-plos.html">M.Sc. Program</a>' +
           '</div>' +
           '<div class="col">' +
             '<h4>Scholarship</h4>' +
@@ -53,6 +53,7 @@
       '</div>' +
 
       '<a href="admission.html" class="item nav-link">Admission</a>' +
+      '<a href="alumni.html" class="item nav-link">Alumni</a>' +
       '<a href="contact us.html" class="item nav-link">Contact</a>' +
 
       '<div class="right">' +
@@ -83,8 +84,8 @@
           '<a href="overview.html">Overview</a>' +
           '<a href="course-descriptions.html">Course Descriptions</a>' +
           '<div class="m-head">Biomedical Sciences</div>' +
-          '<a href="phd-programme.html">Ph.D. Program</a>' +
-          '<a href="phd-plos.html">M.Sc.Program</a>' +
+          '<a href="BMScurriculum.html#phd">Ph.D. Program</a>' +
+          '<a href="BMScurriculum.html#msc">M.Sc. Program</a>' +
           '<div class="m-head">Biomedical Engineering</div>' +
           '<a href="msc-programme.html">Ph.D. Program</a>' +
           '<a href="msc-plos.html">M.Sc.Program</a>' +
@@ -93,6 +94,7 @@
           '<a href="ScholarshipPSU.html">MedPSU-Graduate Studies</a>' +
         '</div>' +
         '<a href="admission.html">Admission</a>' +
+        '<a href="alumni.html">Alumni</a>' +
         '<a href="contact us.html">Contact</a>' +
         '<form id="m-search" action="search.html" method="get">' +
           '<input type="text" name="q" placeholder="Search..." autocomplete="off">' +

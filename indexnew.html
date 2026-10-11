@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="en"><head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Department of Biomedical Sciences and Biomedical Engineering</title>
@@ -37,38 +36,18 @@
   background-color: #eef5fb;
 }
 
-/* ชั้นล่างสุด: รูปภาพ */
-#hero::before {
-  content: "";
-  position: absolute; inset: 0;
-  background-image: url("./images/home/home.jpg");
-  background-size: cover;
-  background-position: right center;
-  background-repeat: no-repeat;
+/* ชั้นล่างสุด: วิดีโอ */
+#hero .hero-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: right center;
   z-index: 0;
 }
 
-/* ชั้นบน: gradient เดิม โปร่งแสงขึ้นเรื่อยๆ ไปทางขวาเพื่อให้เห็นรูป */
-#hero::after {
-  content: "";
-  position: absolute; inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  background:
-    /* ขาวจางใต้เมนูหลัก */
-   
-    /* ม่วงน้ำเงินอ่อนมุมขวาบน (จางๆ) */
-    radial-gradient(ellipse 45% 60% at 30% 0%, #FFEEEB 0%, rgba(150,166,224,0) 100%),
-    /* ฟ้าอ่อนด้านซ้าย */
-    radial-gradient(ellipse 60% 90% at 10% 40%, #5CB3FF 10%, rgba(178,224,250,0) 100%),
-    /* gradient หลัก: ทึบด้านซ้าย -> โปร่งใสด้านขวา */
-    linear-gradient(to right,
-      #FFE8F8   20%,
-      rgba(238,245,251,0.97) 32%,
-      rgba(244,248,252,0.80) 45%,
-      rgba(250,252,254,0.40) 65%,
-      rgba(255,255,255,0)   100%);
-}
+
 /* ขอบกรอบ search / ปุ่ม / ช่องกรอก เป็นสีดำ */
 #site-nav [class*="search" i],
 #site-nav [id*="search" i],
@@ -86,7 +65,7 @@
   position: relative; z-index: 1;
   max-width: 1320px;
   margin: 0 auto;
-  padding: 160px 25px 28px;
+  padding: 160px 25px 128px;
   text-align: left;
 }
 
@@ -95,10 +74,10 @@
   margin: 0;
   max-width: 900px;
   font-family: Georgia, "Times New Roman", serif;
-  font-size: clamp(30px, 4.2vw, 54px);
+  font-size: clamp(30px, 4.2vw, 40px);
   font-weight: 400;
   line-height: 1.25;
-  color: #002857;
+  color: #C1AD69;
 }
 #hero-text h1 span { display: block; }
 #hero-text .hero-sub {
@@ -114,11 +93,11 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 22px;
+  gap: 20px;
   margin: 120px auto 0;
   padding: 0;
   list-style: none;
-  --btn-h: 72px;   /* <<< ปรับความสูงปุ่มตรงนี้ */
+  --btn-h: 40px;   /* <<< ปรับความสูงปุ่มตรงนี้ */
 }
 #hero-menu li { margin: 0; flex: 0 1 220px; }
 #hero-menu a {
@@ -126,7 +105,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 45px;
+  min-height: 35px; /*ปรับขนากปุ่ม*/
   padding: 0 20px;
   text-align: center;
   border-top: 2px solid #s;
@@ -134,7 +113,7 @@
   background: rgba(255,255,255,0.88);
   box-shadow: 0 2px 8px rgba(10,29,51,0.08);
   font-family: Georgia, "Times New Roman", serif;
-  font-size: 22px;
+  font-size: 18px;
   color: #0a1d33;
   text-decoration: none;
   overflow: hidden;
@@ -160,7 +139,11 @@
 }
 #hero-menu a:hover::after,
 #hero-menu a:focus-visible::after { transform: scaleX(1); }
-#hero-menu a:active { transform: translateY(-2px); box-shadow: 0 6px 14px rgba(10,29,51,0.15); }
+#hero-menu a:active {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 14px rgba(10,29,51,0.15);
+    font-size: 22px;
+}
 
 /* ===== Effect: ไล่ปรากฏทีละชิ้น ===== */
 @keyframes heroFadeUp {
@@ -173,7 +156,10 @@
   animation: heroFadeUp .9s cubic-bezier(.22,.61,.36,1) backwards;
 }
 #hero-text h1 span:nth-child(1) { animation-delay: .2s; }
-#hero-text h1 span:nth-child(2) { animation-delay: .5s; }
+#hero-text h1 span:nth-child(2) {
+    animation-delay: .5s;
+    font-size: clamp(30px, 4.2vw, 40px);
+}
 #hero-text .hero-sub            { animation-delay: .85s; }
 #hero-menu                      { animation-delay: 1.1s; }
 @media (prefers-reduced-motion: reduce) {
@@ -186,18 +172,6 @@
     display: flex;
     flex-direction: column;
     min-height: 440px;
-  }
-
-  /* คง gradient เดิมของจอใหญ่ แต่ให้ครอบเต็มกว้างขึ้น เพราะชื่อทับรูปมากขึ้น */
-  #hero::after {
-    background:
-      radial-gradient(ellipse 70% 60% at 30% 0%, #FFEEEB 0%, rgba(150,166,224,0) 100%),
-      radial-gradient(ellipse 90% 80% at 10% 40%, #5CB3FF 10%, rgba(178,224,250,0) 100%),
-      linear-gradient(to right,
-        #FFE8F8 10%,
-        rgba(238,245,251,0.95) 40%,
-        rgba(244,248,252,0.75) 65%,
-        rgba(255,255,255,0.35) 100%);
   }
 
   #hero-inner {
@@ -213,7 +187,7 @@
 
   /* ชื่อสาขา: สไตล์เดิม ลดขนาดให้สมส่วน และอยู่กลางพื้นที่เหนือปุ่ม */
   #hero-text {
-    margin: auto 0;
+    margin: auto 0;margin-bottom: 40px;
     padding: 20px 0 28px;
   }
   #hero-text h1 {
@@ -460,8 +434,13 @@
 
 <body>
 
-<!-- ===== HEADER: ชื่อสาขาวิชา + เมนูย่อย (gradient ทับรูป) ===== -->
+<!-- ===== HEADER: ชื่อสาขาวิชา + เมนูย่อย (gradient ทับวิดีโอ) ===== -->
 <div id="hero">
+
+  <!-- วิดีโอพื้นหลัง -->
+  <video class="hero-video" autoplay muted loop playsinline preload="auto">
+    <source src="images/home/pro.mp4" type="video/mp4">
+  </video>
 
   <!-- เมนูหลักของมหาวิทยาลัยจะถูกใส่ตรงนี้โดย header.js -->
   <div id="site-nav"></div>
@@ -471,13 +450,6 @@
       <h1><span>Biomedical Sciences</span><span>&amp; Biomedical Engineering</span></h1>
       <p class="hero-sub">Faculty of Medicine, Prince of Songkla University</p>
     </div>
-
-    <ul id="hero-menu">
-      <li><a href="#study">Our Programs</a></li>
-      <li><a href="admission.html">Admission</a></li>
-      <li><a href="staff.html">Staff</a></li>
-      <li><a href="alumni.html">Alumni</a></li>
-    </ul>
   </div>
 </div>
 
@@ -677,6 +649,17 @@
   });
 
   go(0); restart();
+})();
+</script>
+
+<!-- สั่งเล่นวิดีโอ header (กันเบราว์เซอร์ไม่ autoplay) -->
+<script>
+(function(){
+  var v=document.querySelector('#hero .hero-video'); if(!v) return;
+  v.muted=true;
+  var p=v.play();
+  if(p&&p.catch) p.catch(function(e){ console.warn('Hero video play failed:',e); });
+  v.addEventListener('error',function(){ console.warn('Hero video not found/unsupported:',v.currentSrc||'images/home/h1.mp4'); },true);
 })();
 </script>
 
