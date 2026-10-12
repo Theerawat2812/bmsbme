@@ -41,8 +41,8 @@
           '</div>' +
           '<div class="col">' +
             '<h4>Biomedical Engineering</h4>' +
-            '<a href="msc-programme.html">Ph.D. Program</a>' +
-            '<a href="msc-plos.html">M.Sc. Program</a>' +
+            '<a href="BMEcurriculum.html#msc">Ph.D. Program</a>' +
+            '<a href="BMEcurriculum.html#phd">M.Sc. Program</a>' +
           '</div>' +
           '<div class="col">' +
             '<h4>Scholarship</h4>' +
@@ -87,8 +87,8 @@
           '<a href="BMScurriculum.html#phd">Ph.D. Program</a>' +
           '<a href="BMScurriculum.html#msc">M.Sc. Program</a>' +
           '<div class="m-head">Biomedical Engineering</div>' +
-          '<a href="msc-programme.html">Ph.D. Program</a>' +
-          '<a href="msc-plos.html">M.Sc.Program</a>' +
+          '<a href="BMEcurriculum.html#phd">Ph.D. Program</a>' +
+          '<a href="BMScurriculum.html#msc">M.Sc.Program</a>' +
           '<div class="m-head">Scholarship</div>' +
           '<a href="Scholarship.html">PSU-Graduate Studies</a>' +
           '<a href="ScholarshipPSU.html">MedPSU-Graduate Studies</a>' +

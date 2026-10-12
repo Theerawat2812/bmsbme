@@ -35,7 +35,8 @@
   /* ---------- เนื้อหา ---------- */
   .al { font-family: var(--al-font); color: var(--al-ink); background: #fff; }
   .al button { font-family: inherit; }
-  .al .wrap { width: min(1040px, calc(100% - 40px)); margin: 0 auto; }
+  /* ความกว้างเท่ากับหน้าอื่น (.bmx .c): max 1320px, padding 25px */
+  .al .wrap { max-width: 1320px; margin: 0 auto; padding: 0 25px; box-sizing: border-box; }
   .al h1, .al h2, .al h3, .al p { margin: 0; }
   .al h1, .al h2, .al h3 { font-family: var(--al-serif); font-weight: 400; }
   .al section { padding-top: 80px; }
@@ -63,7 +64,7 @@
   .al .pill[aria-pressed="true"] { color: var(--al-navy); border-bottom-color: var(--al-blue); font-weight: 600; }
   .al .pill:focus-visible, .al .thumb:focus-visible, .al .btn:focus-visible { outline: 2px solid rgba(31,95,153,.5); outline-offset: 3px; }
 
-  .al .slide { display: none; grid-template-columns: 240px 1fr; gap: clamp(28px, 5vw, 64px); align-items: start; }
+  .al .slide { display: none; grid-template-columns: 280px 1fr; gap: clamp(28px, 5vw, 64px); align-items: start; }
   .al .slide.on { display: grid; animation: swap .4s ease; }
   @keyframes swap { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
 
@@ -80,8 +81,8 @@
     line-height: 1.15;
   }
   .al .role { margin-top: 8px; font-size: 16px; color: var(--al-muted); }
-  .al .story { margin-top: 22px; max-width: 540px; padding-left: 18px; border-left: 2px solid var(--al-blue-2); font-family: var(--al-serif); font-size: clamp(17px, 1.6vw, 19px); line-height: 1.7; }
-  .al .facts { display: flex; flex-wrap: wrap; gap: 12px 40px; margin: 26px 0 0; padding-top: 18px; border-top: 1px solid var(--al-line); max-width: 540px; }
+  .al .story { margin-top: 22px; max-width: 760px; padding-left: 18px; border-left: 2px solid var(--al-blue-2); font-family: var(--al-serif); font-size: clamp(17px, 1.6vw, 19px); line-height: 1.7; }
+  .al .facts { display: flex; flex-wrap: wrap; gap: 12px 40px; margin: 26px 0 0; padding-top: 18px; border-top: 1px solid var(--al-line); max-width: 760px; }
   .al .facts dt { font-size: 13px; color: var(--al-muted); }
   .al .facts dd { margin: 4px 0 0; font-size: 15px; font-weight: 600; }
 
@@ -100,7 +101,7 @@
   .al .quote cite { display: block; margin-top: 18px; font-style: normal; color: var(--al-muted); font-size: 14px; }
 
   /* ---------- CTA ---------- */
-  .al .cta { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; padding: clamp(18px, 2.5vw, 28px); border-radius: 6px; color: #fff; background: #F0F0F0; }
+  .al .cta { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; padding: clamp(18px, 2.5vw, 28px); border-radius: 6px; color: #fff; background: #F9F9F9; }
   .al .cta h2 {
     font-size: clamp(22px, 2.6vw, 28px);
     line-height: 1.2;
@@ -137,9 +138,8 @@
     .al .quote p { font-size: clamp(19px, 3vw, 24px); }
   }
   /* Mobile */
-    /* Mobile */
   @media (max-width: 600px) {
-    .al .wrap { width: calc(100% - 32px); }
+    .al .wrap { padding: 0 18px; }
     .al section { padding-top: 48px; }
     .al main { padding-bottom: 56px; }
 
