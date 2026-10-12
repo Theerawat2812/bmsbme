@@ -20,7 +20,7 @@
       '<div id="program-wrap">' +
         '<a href="#" class="item" id="program-btn">Our programs</a>' +
         '<div id="program-menu">' +
-          '<a href="bms.html">Biomedical Sciences</a>' +
+          '<a href="BMS.html">Biomedical Sciences</a>' +
           '<a href="bme.html">Biomedical Engineering</a>' +
         '</div>' +
       '</div>' +
@@ -75,7 +75,7 @@
         '</div>' +
         '<a href="#" id="m-program-btn">Our programs &#9662;</a>' +
         '<div id="m-program-sub">' +
-          '<a href="bms.html">Biomedical Sciences</a>' +
+          '<a href="BMS.html">Biomedical Sciences</a>' +
           '<a href="bme.html">Biomedical Engineering</a>' +
         '</div>' +
         '<a href="#" id="m-academics-btn">Academics &#9662;</a>' +
