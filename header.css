@@ -1,312 +1,265 @@
 /* header.css - CSS ของเมนู (ใช้ร่วมทุกหน้า) */
+
 * { box-sizing: border-box; }
 body { margin: 0; padding: 0; background-color: #FFFFFF; font-family: "Segoe UI", Helvetica, Arial, sans-serif; }
+
 a { text-decoration: none; color: inherit; }
 
 /* ===== NAV (Flexbox) ===== */
 #nav {
+  /* ขอบข้างของแถบ: 300px ที่จอ 1920 → ลดลงเรื่อยๆ → ต่ำสุด 20px */
+  --nav-pad: clamp(20px, calc((100vw - 1320px) / 2), 300px);
   position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
   height: 70px;
   display: flex; align-items: center;
-  /* ขอบข้างปรับต่อเนื่อง: 300px ที่จอ 1920 → ลดลงเรื่อยๆ → ต่ำสุด 20px */
-  padding: 0 clamp(20px, calc((100vw - 1320px) / 2), 300px);
+  padding: 0 var(--nav-pad);
   gap: clamp(50px, 1.7vw, 100px);
-  background-color: transparent;
+  background-color: #21326E;
   white-space: nowrap;
   transition: background-color 0.3s, box-shadow 0.3s;
 }
 #nav .item {
   display: inline-flex; align-items: center; flex-shrink: 0;
   padding: 5px 0; border: 0; border-bottom: 1.5px solid transparent;
-  font-size: clamp(15px, 1.2vw, 18px); line-height: 1;
+  font-size: clamp(15px, 1.2vw, 18px); line-height: 1; font-weight: 200;
   color: #FFFFFF; cursor: pointer; transition: opacity 0.2s, color 0.3s;
 }
 #nav .item:hover { opacity: 0.8; }
-#nav .logo { padding: 0; border: 0; flex-shrink: 0; }
-#nav .logo img { display: block; border: 0; height: clamp(34px, 3.2vw, 44px); width: auto; transition: height 0.2s; }
-#nav .btn { padding: 8px clamp(14px, 1.5vw, 23px); border: 1px solid #fff; border-radius: 30px; font-weight: bold; }
-#nav .btn:hover { background-color: rgba(255,255,255,0.2); opacity: 1; }
 
-/* กลุ่มด้านขวา: ดันไปชิดขวาด้วย margin-left:auto (ไม่ใช้ absolute แล้ว) */
+/* โลโก้ดันทุกอย่างไปชิดขวา */
+#nav .logo { padding: 0; border: 0; flex-shrink: 0; margin-right: auto; }
+#nav .logo img { display: block; border: 0; height: clamp(34px, 3.2vw, 44px); width: auto; transition: height 0.2s; filter: brightness(0) invert(1); }
+
+/* กลุ่มด้านขวา (ปุ่ม Search) */
 #nav .right {
-  margin-left: auto; position: static;
+  margin-left: 0; position: static;
   display: flex; align-items: center; gap: clamp(12px, 1.5vw, 24px);
   flex-shrink: 0;
 }
 #nav .right .item { margin-right: 0; }
 
-/* เมื่อ scroll ลง */
-#nav.scrolled { background-color: #fff; box-shadow: 0 2px 10px rgba(0,0,0,0.15); }
-#nav.scrolled .item { color: #222; }
-#nav.scrolled .btn { border-color: #222; }
-#nav.scrolled .btn:hover { background-color: rgba(0,0,0,0.07); }
-#nav.scrolled #search-form { border: 1px solid #ccc; }
 /* เมนูของหน้าที่กำลังแสดง: เส้นใต้ */
 #nav .item.active { border-bottom-color: #fff; }
 #nav.scrolled .item.active { border-bottom-color: #C4C4C4; }
 
 /* เมนูมือถือ */
-#mobile-menu a.active { color: #1f5f99; font-weight: bold; }
-/* Dropdown (About us + Our programs): modern glass */
-#about-wrap, #program-wrap { display: inline-flex; align-items: center; position: relative; flex-shrink: 0; }
-#about-wrap .item, #program-wrap .item { margin-right: 0; }
+#mobile-menu a.active { color: #1f5f99; font-weight: 300; }
+
+/* ===== Dropdown (About us / Our programs / Academics): แถบเหลี่ยมใต้ navbar ===== */
+#about-wrap, #program-wrap, #academics-wrap {
+  display: inline-flex; align-items: center; align-self: stretch; position: static; flex-shrink: 0;
+}
+#about-wrap, #program-wrap { position: relative; }
+
+/* เมาส์ชี้ที่ปุ่ม = เปิดเมนูทันที, เมาส์ออก = ปิด (ทับ inline style จาก JS ด้วย !important) */
+#about-wrap:hover #about-menu,
+#program-wrap:hover #program-menu { display: block !important; }
+#academics-wrap:hover #academics-menu { display: grid !important; }
+#about-wrap:not(:hover) #about-menu,
+#program-wrap:not(:hover) #program-menu,
+#academics-wrap:not(:hover) #academics-menu { display: none !important; }
+#about-wrap:hover > .item::after,
+#program-wrap:hover > .item::after,
+#academics-wrap:hover > .item::after { transform: rotate(225deg); margin-top: 3px; }
 
 /* ลูกศร ▾ ข้างปุ่ม หมุนเมื่อเปิดเมนู */
 #about-wrap > .item::after,
-#program-wrap > .item::after {
+#program-wrap > .item::after,
+#academics-wrap > .item::after {
   content: ""; width: 7px; height: 7px; margin: -3px 0 0 9px;
-  border-right: 2px solid currentColor; border-bottom: 2px solid currentColor;
+  border-right: 1px solid currentColor; border-bottom: 1px solid currentColor;
   transform: rotate(45deg); transition: transform .25s cubic-bezier(.2,.8,.2,1);
 }
-#about-wrap:hover > .item::after,
-#about-wrap:focus-within > .item::after,
 #about-wrap:has(#about-menu[style*="block"]) > .item::after,
-#program-wrap:hover > .item::after,
-#program-wrap:focus-within > .item::after,
-#program-wrap:has(#program-menu[style*="block"]) > .item::after {
+#program-wrap:has(#program-menu[style*="block"]) > .item::after,
+#academics-wrap:has(#academics-menu[style*="grid"]) > .item::after {
   transform: rotate(225deg); margin-top: 3px;
 }
 
-#about-menu, #program-menu {
-  display: none; position: absolute; top: 100%; left: -20px; width: 280px;
-  margin-top: 16px; padding: 10px;
-  background: rgba(255,255,255,.82);
-  -webkit-backdrop-filter: saturate(180%) blur(22px); backdrop-filter: saturate(180%) blur(22px);
-  border: 1px solid rgba(255,255,255,.7);
-  border-radius: 20px;
-  box-shadow:
-    0 0 0 1px rgba(15,40,70,.06),
-    0 4px 12px rgba(15,40,70,.06),
-    0 24px 60px -12px rgba(15,40,70,.35);
-  line-height: normal; white-space: normal;
-  transform-origin: 40px -10px;
-  animation: dropIn .28s cubic-bezier(.2,.9,.25,1);
-}
 @keyframes dropIn {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* แถบดรอปดาวน์: ติดใต้ navbar เต็มความกว้าง สีเดียวกับ navbar ไม่มีขอบมน */
+#about-menu, #program-menu, #academics-menu {
+  display: none; position: absolute; top: 100%; left: 0; right: 0;
+  margin: 0; padding: 14px var(--nav-pad) 22px;
+  background: #3B67A0;
+  border: 0; border-top: 1px solid rgba(255,255,255,.18); border-radius: 0;
+  box-shadow: 0 14px 24px -10px rgba(15,40,70,.45);
+  line-height: normal; white-space: normal;
+  animation: dropIn .2s ease;
+}
+/* About us / Our programs: กล่องเหลี่ยมอยู่กึ่งกลางใต้ปุ่ม รายการเรียงแนวตั้ง */
+#about-menu, #program-menu {
+  left: 50%; right: auto; width: max-content; min-width: 220px;
+  padding: 8px; transform: translateX(-50%);
+  animation: dropInCenter .2s ease;
+}
+@keyframes dropInCenter {
+  from { opacity: 0; transform: translate(-50%, -8px); }
+  to   { opacity: 1; transform: translate(-50%, 0); }
+}
+#about-menu > a, #program-menu > a { display: flex; justify-content: flex-start; text-align: left; margin: 0; white-space: nowrap; }
+
+/* Academics: 4 คอลัมน์ */
+#academics-menu { grid-template-columns: repeat(4, 1fr); column-gap: 24px; }
+
+/* ลิงก์ในดรอปดาวน์: ฟอนต์เท่าปุ่มเมนู */
+#about-menu a, #program-menu a, #academics-menu .col a {
+  align-items: center;
+  padding: 12px 16px; border-radius: 0;
+  color: #fff;
+  font-size: clamp(15px, 1.2vw, 18px); font-weight: 200; line-height: 1.2;
+  transition: background-color .2s;
+}
+#about-menu a:hover, #about-menu a:focus-visible,
+#program-menu a:hover, #program-menu a:focus-visible,
+#academics-menu .col a:hover, #academics-menu .col a:focus-visible {
+  background: #3a50a3; outline: none;
+}
+#academics-menu .col a { display: flex; }
+
+/* หัวข้อคอลัมน์ Academics */
+#academics-menu .col h4 {
+  margin: 0 0 6px; padding: 8px 16px 12px;
+  font-size: clamp(15px, 1.2vw, 18px); font-weight: 400; line-height: 1.2; color: #ccd7ff;
+  border-bottom: 1px solid rgba(255,255,255,.2);
+}
+
+/* เมนูมือถือ: Academics */
+#m-academics-sub { display: none; padding-left: 16px; }
+#m-academics-sub a { font-size: 16px; font-weight: 200; color: #444; }
+#m-academics-sub .m-head { padding: 12px 0 4px; font-size: 14px; font-weight: 300; color: #1f5f99; border-bottom: 1px solid #eee; }
+
+@media (max-width: 1280px) {
+  #about-menu a, #program-menu a, #academics-menu .col a, #academics-menu .col h4 { font-size: 15px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #about-menu, #program-menu, #search-form, #search-results, #academics-menu { animation: none; }
+}
+
+/* ===== ปุ่ม Search: สี่เหลี่ยมจัตุรัส สีอ่อนกว่าแถบนิดเดียว + ไอคอนแว่นขยายตรงกลาง (ไม่มีตัวหนังสือ) ===== */
+#nav #search-open {
+  display: block; flex-shrink: 0;
+  width: 70px; height: 70px;            /* เท่าความสูงแถบ = จัตุรัส */
+  padding: 0; border: 0; border-radius: 0;
+  font-size: 0; line-height: 0; color: transparent; overflow: hidden;
+  background-color: #2d418a;            /* อ่อนกว่า #21326E เล็กน้อย */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='10.5' cy='10.5' r='6.5'/%3E%3Cline x1='15.5' y1='15.5' x2='21' y2='21'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: center; background-size: 24px 24px;
+  margin-right: 0;                      /* อยู่ในแนวเดียวกับเนื้อหา ขอบขวาตรงกับปุ่ม Contact */
+  transition: background-color .2s;
+}
+#nav #search-open:hover { background-color: #3a50a3; opacity: 1; }
+
+/* ช่องค้นหา: เปิดแล้วเลื่อนลงมาใต้แถบเมนู ไม่มีพื้นหลังของแถบ
+   ขอบขวาตรงกับขอบขวาของปุ่มแว่นขยายบนแถบเมนู (ไม่เกินระยะปุ่ม) */
+@keyframes searchIn {
   from { opacity: 0; transform: translateY(-10px) scale(.96); filter: blur(4px); }
   to   { opacity: 1; transform: none; filter: none; }
 }
-
-/* สะพานโปร่งใส กันเมนูหายตอนเลื่อนเมาส์ */
-#about-menu::before, #program-menu::before { content: ""; position: absolute; left: 0; right: 0; top: -18px; height: 18px; }
-
-/* รายการ: เข้าทีละอัน (stagger) */
-#about-menu a, #program-menu a {
-  position: relative; display: flex; align-items: center; justify-content: space-between;
-  padding: 13px 16px; border-radius: 12px;
-  color: #14263a; font-size: 15px; font-weight: 500; letter-spacing: .01em;
-  opacity: 0; transform: translateY(-6px);
-  animation: itemIn .35s cubic-bezier(.2,.9,.25,1) forwards;
-  transition: background-color .2s, color .2s, transform .2s;
-}
-#about-menu a:nth-child(1), #program-menu a:nth-child(1) { animation-delay: .04s; }
-#about-menu a:nth-child(2), #program-menu a:nth-child(2) { animation-delay: .08s; }
-#about-menu a:nth-child(3), #program-menu a:nth-child(3) { animation-delay: .12s; }
-#about-menu a:nth-child(4), #program-menu a:nth-child(4) { animation-delay: .16s; }
-#about-menu a:nth-child(5), #program-menu a:nth-child(5) { animation-delay: .20s; }
-#about-menu a:nth-child(n+6), #program-menu a:nth-child(n+6) { animation-delay: .24s; }
-@keyframes itemIn { to { opacity: 1; transform: none; } }
-
-/* ลูกศรขวา เลื่อนเข้ามาตอน hover */
-#about-menu a::after, #program-menu a::after {
-  content: ""; width: 7px; height: 7px; flex-shrink: 0;
-  border-right: 2px solid currentColor; border-top: 2px solid currentColor;
-  transform: translateX(-8px) rotate(45deg); opacity: 0;
-  transition: transform .2s cubic-bezier(.2,.8,.2,1), opacity .2s;
-}
-#about-menu a:hover, #about-menu a:focus-visible,
-#program-menu a:hover, #program-menu a:focus-visible {
-  background: linear-gradient(90deg, rgba(31,95,153,.12), rgba(31,95,153,.04));
-  color: #1f5f99; outline: none;
-}
-#about-menu a:hover::after, #about-menu a:focus-visible::after,
-#program-menu a:hover::after, #program-menu a:focus-visible::after {
-  transform: translateX(0) rotate(45deg); opacity: 1;
-}
-#about-menu a:active, #program-menu a:active { transform: scale(.98); }
-
-@media (prefers-reduced-motion: reduce) {
-  #about-menu, #about-menu a, #program-menu, #program-menu a { animation: none; opacity: 1; transform: none; }
-}
-
-/* Search */
 #search-form {
-  font-size: 10px; display: none; align-items: center; margin: 0;
-  background: #fff; border-radius: 30px; padding: 4px 6px 4px 20px; line-height: normal;
-  flex-shrink: 1; min-width: 0;
+  display: none; position: absolute; top: 100%; right: var(--nav-pad);
+  width: min(460px, calc(100% - 2 * var(--nav-pad))); margin: 10px 0 0; padding: 0;
+  align-items: center; gap: 8px;
+  background: none; border: 0; box-shadow: none;
+  line-height: normal; white-space: normal;
+  transform-origin: 100% 0;
+  animation: searchIn .28s cubic-bezier(.2,.9,.25,1);
 }
-#search-input { border: none; outline: none; font-size: 16px; width: clamp(140px, 16vw, 260px); padding: 10px 0; font-family: inherit; color: #222; background: none; min-width: 0; }
-#search-form button { border: none; cursor: pointer; font-size: 15px; font-family: inherit; border-radius: 24px; padding: 10px 18px; }
+#search-input {
+  flex: 1; min-width: 0; padding: 12px 18px;
+  border: 1px solid #cfd6e4; border-radius: 24px; outline: none;
+  font-size: 16px; font-family: inherit; color: #222; background: #fff;
+  box-shadow: 0 8px 24px -6px rgba(15,40,70,.35);
+}
+#search-input:focus { border-color: #1f5f99; }
+#search-form button { border: none; cursor: pointer; font-size: 15px; font-family: inherit; border-radius: 24px; padding: 12px 18px; box-shadow: 0 8px 24px -6px rgba(15,40,70,.35); }
 #search-go { background-color: #1f5f99; color: #fff; font-weight: bold; }
-#search-close { background: none; color: #666; font-size: 20px; }
+#search-close { background: #fff; color: #666; font-size: 16px; width: 44px; padding: 12px 0; }
+
+/* แถบผลการค้นหา: อยู่ใต้ช่องค้นหา กว้างเท่าช่องค้นหา (ขอบขวาตรงกับปุ่มแว่นขยาย) */
+#search-results {
+  display: none; position: absolute; top: 100%; left: 0; right: 0; margin-top: 10px; padding: 8px;
+  max-height: min(440px, calc(100vh - 170px)); overflow-y: auto;
+  background: rgba(255,255,255,.96);
+  -webkit-backdrop-filter: saturate(180%) blur(22px); backdrop-filter: saturate(180%) blur(22px);
+  border: 1px solid rgba(255,255,255,.7); border-radius: 16px;
+  box-shadow: 0 0 0 1px rgba(15,40,70,.06), 0 24px 60px -12px rgba(15,40,70,.35);
+  text-align: left; animation: searchIn .22s cubic-bezier(.2,.9,.25,1);
+}
+#search-results .sr-item, #search-results .sr-all {
+  display: block; padding: 10px 14px; border-radius: 10px; color: #14263a;
+  transition: background-color .2s, color .2s;
+}
+#search-results .sr-item:hover, #search-results .sr-item:focus-visible, #search-results .sr-all:hover {
+  background: linear-gradient(90deg, rgba(31,95,153,.12), rgba(31,95,153,.04)); outline: none;
+}
+#search-results .sr-title { display: block; font-size: 15px; font-weight: 600; color: #1f5f99; }
+#search-results .sr-snip { display: block; margin-top: 3px; font-size: 13px; line-height: 1.5; color: #444; }
+#search-results .sr-all { margin-top: 4px; text-align: center; font-size: 14px; font-weight: 600; color: #1f5f99; border-top: 1px solid rgba(15,40,70,.08); border-radius: 0 0 10px 10px; }
+#search-results .sr-msg { padding: 12px 14px; font-size: 14px; color: #555; }
+#search-results mark { background: #ffe58a; color: inherit; padding: 0 2px; border-radius: 3px; }
 
 /* ===== MOBILE: เมนู 3 ขีด ===== */
 #burger {
   display: none; margin-left: auto; flex-shrink: 0;
-  width: 44px; height: 40px; padding: 0; border: 0; background: none; cursor: pointer;
+  width: 44px; height: 70px; align-self: stretch; padding: 0; border: 0; background: none; cursor: pointer;
 }
-#burger span { display: block; width: 28px; height: 3px; margin: 6px auto; background: #fff; border-radius: 2px; transition: background-color 0.3s; }
-#nav.scrolled #burger span, #nav.open #burger span { background: #222; }
-#nav.open { background-color: #fff; }
+#burger span { display: block; width: 28px; height: 3px; margin: 6px auto; background: #fff; border-radius: 0; transition: background-color 0.3s; }
 
 #mobile-menu {
   display: none; position: absolute; top: 70px; left: 0; right: 0;
-  background: #fff; box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-  padding: 6px 24px 20px 24px; font-size: 16px; line-height: normal; white-space: normal;
-  max-height: calc(100vh - 70px); overflow-y: auto; /* เมนูยาวเลื่อนได้ */
+  background: #fff; box-shadow: 0 8px 16px rgba(0,0,0,0.2); border-radius: 0;
+  padding: 6px 24px 20px 24px; font-size: 16px; font-weight: 200; line-height: normal; white-space: normal;
+  max-height: calc(100vh - 70px); overflow-y: auto;
 }
 #nav.open #mobile-menu { display: block; animation: menuIn 0.25s ease; }
 @keyframes menuIn { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: none; } }
-#mobile-menu a { display: block; padding: 14px 0; color: #222; font-size: 17px; border-bottom: 1px solid #eee; }
+#mobile-menu a { display: block; padding: 14px 0; color: #222; font-size: 17px; font-weight: 200; border-bottom: 1px solid #eee; transition: color .2s; }
+#mobile-menu a:hover { color: #1f5f99; }
 #m-about-sub, #m-program-sub { display: none; padding-left: 16px; }
-#m-about-sub a, #m-program-sub a { font-size: 16px; color: #444; }
+#m-about-sub a, #m-program-sub a { font-size: 16px; font-weight: 200; color: #444; }
 #m-search { margin: 16px 0 0 0; display: flex; gap: 8px; }
-#m-search input { flex: 1; min-width: 0; padding: 11px 16px; font-size: 16px; font-family: inherit; border: 1px solid #bbb; border-radius: 24px; outline: none; }
-#m-search button { padding: 11px 18px; font-size: 15px; font-family: inherit; font-weight: bold; color: #fff; background-color: #1f5f99; border: 0; border-radius: 24px; cursor: pointer; }
+#m-search input { flex: 1; min-width: 0; padding: 11px 18px; font-size: 16px; font-family: inherit; color: #222; background: #fff; border: 1px solid #bbb; border-radius: 24px; outline: none; }
+#m-search button { padding: 11px 18px; font-size: 15px; font-family: inherit; font-weight: bold; color: #fff; background-color: #1f5f99; border: 0; border-radius: 24px; cursor: pointer; transition: background-color .2s; }
+#m-search button:hover { background-color: #3a50a3; }
 
-/* จอเล็กลงเล็กน้อย */
+/* เมนูย่อยในเมนูมือถือ: ฟอนต์ขนาดเท่ากันทั้งหมด (16px) */
+#mobile-menu #m-about-sub a, #mobile-menu #m-program-sub a, #mobile-menu #m-academics-sub a { font-size: 16px; font-weight: 200; color: #444; }
+#mobile-menu #m-about-sub a:hover, #mobile-menu #m-program-sub a:hover, #mobile-menu #m-academics-sub a:hover,
+#mobile-menu #m-about-sub a.active, #mobile-menu #m-program-sub a.active, #mobile-menu #m-academics-sub a.active { color: #1f5f99; }
+#mobile-menu #m-academics-sub .m-head { padding: 12px 0 4px; font-size: 16px; font-weight: 300; color: #1f5f99; border-bottom: 1px solid #eee; }
+
+/* เมาส์ชี้ที่ปุ่ม About us / Our programs / Academics ในเมนู 3 ขีด = เปิดเมนูย่อยเอง (เฉพาะอุปกรณ์ที่มีเมาส์) */
+@media (hover: hover) {
+  #m-about-btn:hover + #m-about-sub, #m-about-sub:hover,
+  #m-program-btn:hover + #m-program-sub, #m-program-sub:hover,
+  #m-academics-btn:hover + #m-academics-sub, #m-academics-sub:hover { display: block !important; }
+  #m-about-btn:not(:hover) + #m-about-sub:not(:hover),
+  #m-program-btn:not(:hover) + #m-program-sub:not(:hover),
+  #m-academics-btn:not(:hover) + #m-academics-sub:not(:hover) { display: none !important; }
+}
+
 @media (max-width: 1280px) {
-  #nav .item { font-size: 16px; }
+  #nav .item { font-size: 15px; font-weight: 200; }
 }
 
 /* สลับเป็นเมนู 3 ขีดที่ 1100px */
 @media (max-width: 1100px) {
   #nav { padding: 0 20px; gap: 0; }
-  #about-wrap, #program-wrap, #nav .nav-link, #nav .right { display: none; }
+  #about-wrap, #program-wrap, #academics-wrap, #nav .nav-link, #nav .right { display: none; }
   #burger { display: block; }
 }
 
 @media (max-width: 480px) {
   #nav { height: 70px; }
   #mobile-menu { top: 70px; max-height: calc(100vh - 70px); padding: 4px 20px 18px; }
-  #nav .logo img { height: px; }
-  #burger { height: 36px; }
 }
 
 /* หน้าที่ไม่มีรูป hero */
 body.nav-solid { padding-top: 90px; }
 @media (max-width: 480px) { body.nav-solid { padding-top: 70px; } }
-
-/*Bright logo */
-body.nav-hero #nav .logo img {
-  filter: brightness(0) invert(1);
-  transition: filter 0.3s;
-}
-
-body.nav-hero #nav.scrolled .logo img {
-  filter: none;
-}
-body.nav-hero #nav .logo img {
-  filter: brightness(0) invert(1);
-  transition: filter 0.3s;
-}
-
-body.nav-hero #nav.scrolled .logo img,
-body.nav-hero #nav.open .logo img {
-  filter: none;
-}
-/* ค่าเริ่มต้น (ทุกหน้า): โลโก้สีปกติ -> ขีดดำ */
-#burger span {
-  background: #000;
-}
-
-/* หน้า nav-hero ตอนอยู่บนสุด: โลโก้ขาว -> ขีดขาว */
-body.nav-hero #nav:not(.scrolled):not(.open) #burger span {
-  background: #fff;
-}
-/* ===== Academics mega dropdown (สไตล์เดียวกับ About us / Our programs) =====
-   วางต่อท้าย header.css  (ถ้ามีก้อน Academics เก่าอยู่ ให้ลบก้อนเก่าออกก่อน) */
-
-#academics-wrap { display: inline-flex; align-items: center; position: static; flex-shrink: 0; }
-
-/* ลูกศร ▾ หมุนเมื่อเปิด (เหมือนปุ่มอื่น) */
-#academics-wrap > .item::after {
-  content: ""; width: 7px; height: 7px; margin: -3px 0 0 9px;
-  border-right: 2px solid currentColor; border-bottom: 2px solid currentColor;
-  transform: rotate(45deg); transition: transform .25s cubic-bezier(.2,.8,.2,1);
-}
-#academics-wrap:has(#academics-menu[style*="grid"]) > .item::after {
-  transform: rotate(225deg); margin-top: 3px;
-}
-
-/* กล่องเมนู: glass + มุมมน + เงา เหมือน #about-menu / #program-menu
-   กว้างสูงสุด 1000px อยู่กึ่งกลาง หดตามจอเอง */
-#academics-menu {
-  display: none;
-  position: absolute; top: 100%; left: 0; right: 0;
-  width: min(1000px, calc(100% - 40px));
-  margin: 8px auto 0; padding: 14px;
-  grid-template-columns: repeat(4, 1fr);
-  column-gap: 8px;
-  background: rgba(255,255,255,.82);
-  -webkit-backdrop-filter: saturate(180%) blur(22px); backdrop-filter: saturate(180%) blur(22px);
-  border: 1px solid rgba(255,255,255,.7);
-  border-radius: 20px;
-  box-shadow:
-    0 0 0 1px rgba(15,40,70,.06),
-    0 4px 12px rgba(15,40,70,.06),
-    0 24px 60px -12px rgba(15,40,70,.35);
-  line-height: normal; white-space: normal;
-  transform-origin: 50% -10px;
-  animation: dropIn .28s cubic-bezier(.2,.9,.25,1);
-}
-
-/* หัวข้อคอลัมน์ */
-#academics-menu .col h4 {
-  margin: 0 0 6px; padding: 8px 16px 12px;
-  font-size: 16px; font-weight: 700; color: #1f5f99; letter-spacing: .01em;
-  border-bottom: 1px solid rgba(15,40,70,.1);
-}
-
-/* รายการ: ขนาด/สี/hover/ลูกศรขวา/แอนิเมชัน เหมือนเมนูอื่น */
-#academics-menu .col a {
-  position: relative; display: flex; align-items: center; justify-content: space-between;
-  padding: 13px 16px; border-radius: 12px;
-  color: #14263a; font-size: 15px; font-weight: 500; letter-spacing: .01em;
-  opacity: 0; transform: translateY(-6px);
-  animation: itemIn .35s cubic-bezier(.2,.9,.25,1) forwards;
-  transition: background-color .2s, color .2s, transform .2s;
-}
-#academics-menu .col a:nth-child(2) { animation-delay: .04s; }
-#academics-menu .col a:nth-child(3) { animation-delay: .08s; }
-#academics-menu .col a:nth-child(4) { animation-delay: .12s; }
-#academics-menu .col a:nth-child(5) { animation-delay: .16s; }
-#academics-menu .col a:nth-child(n+6) { animation-delay: .20s; }
-
-#academics-menu .col a::after {
-  content: ""; width: 7px; height: 7px; flex-shrink: 0; margin-left: 10px;
-  border-right: 2px solid currentColor; border-top: 2px solid currentColor;
-  transform: translateX(-8px) rotate(45deg); opacity: 0;
-  transition: transform .2s cubic-bezier(.2,.8,.2,1), opacity .2s;
-}
-#academics-menu .col a:hover,
-#academics-menu .col a:focus-visible {
-  background: linear-gradient(90deg, rgba(31,95,153,.12), rgba(31,95,153,.04));
-  color: #1f5f99; outline: none;
-}
-#academics-menu .col a:hover::after,
-#academics-menu .col a:focus-visible::after {
-  transform: translateX(0) rotate(45deg); opacity: 1;
-}
-#academics-menu .col a:active { transform: scale(.98); }
-
-/* เมนูมือถือ (เหมือน About us / Our programs) */
-#m-academics-sub { display: none; padding-left: 16px; }
-#m-academics-sub a { font-size: 16px; color: #444; }
-#m-academics-sub .m-head { padding: 12px 0 4px; font-size: 14px; font-weight: bold; color: #1f5f99; border-bottom: 1px solid #eee; }
-
-/* จอแคบลงก่อนสลับเป็นมือถือ: ลดขนาดเล็กน้อยให้ 4 คอลัมน์ยังพอดี */
-@media (max-width: 1250px) {
-  #academics-menu { padding: 10px; }
-  #academics-menu .col a { font-size: 14px; padding: 12px 12px; }
-  #academics-menu .col h4 { font-size: 15px; padding: 8px 12px 10px; }
-}
-
-/* ซ่อนที่จอ ≤1100px แล้วใช้เมนู 3 ขีดแทน (เหมือนเมนูอื่น) */
-@media (max-width: 1100px) {
-  #academics-wrap { display: none; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  #academics-menu, #academics-menu .col a { animation: none; opacity: 1; transform: none; }
-}

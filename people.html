@@ -4,11 +4,17 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>People - BMS&amp;BME</title>
+
+<!-- Web fonts: เหมือนหน้า Home -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sarabun:wght@400;500;600;700&display=swap" rel="stylesheet">
+
 <link rel="stylesheet" href="header.css">
 <link rel="stylesheet" href="footer.css">
 </head>
 
-<!-- class="nav-solid" = เมนูพื้นขาวตลอด (หน้านี้ไม่มีรูป hero) -->
+<!-- class="nav-solid" = หน้านี้ไม่มีรูป hero -->
 <body class="nav-solid">
 
 <!-- เมนูจะถูกใส่ตรงนี้โดย header.js -->
@@ -18,206 +24,80 @@
   <div id="article-body">
 
 <style type="text/css">
-body.nav-solid {
-    background-color: #fff;
-    background-image:
-      linear-gradient(to bottom,
-        rgba(255,255,255,0) 0%,
-        rgba(255,255,255,.55) 55%,
-        rgba(255,255,255,1) 100%),
-      radial-gradient(ellipse 70% 90% at 0% 70%, #3cc3ff 0%, rgba(60,195,255,0) 70%),
-      radial-gradient(ellipse 55% 70% at 100% 0%, #6f86d6 0%, rgba(111,134,214,0) 70%),
-      radial-gradient(ellipse 60% 80% at 100% 80%, #5cc4ff 0%, rgba(92,196,255,0) 70%),
-      linear-gradient(135deg, #bfeaf5 0%, #eef3f8 50%, #eef3f8 100%);
-    background-repeat: no-repeat;
-    background-size: 100% 760px; /* สคริปต์ท้ายไฟล์จะปรับให้พอดีกับท้าย Vision/Mission */
-  }
-/* ===== Our people — all rules are scoped to .org ===== */
-
-.org {
-    --blue: #1a7fd4;
-    --green: #2f9e5a;
-    --line: #e3eaf0;
-
-    max-width: 1320px;   /* เดิม 1200px */
-    margin: 0 auto;
-    padding: 60px 25px;
-    ...
+/* ===== Theme เดียวกับหน้า Home ===== */
+:root{
+  --ink:#2b3a4a; --head:#1f3a56; --mut:#6b7b8c; --line:#e6edf3;
+  --tint:#f4f9fd; --tint2:#e8f3fc; --blue:#3f8fd2; --blue-dk:#2f78b8; --sky:#bfe0f8;
+  --wrap:1320px;
+  --font:'Inter','Sarabun',Helvetica,Arial,sans-serif;
 }
+html{scroll-behavior:smooth}
+body.nav-solid{ background:#fff; padding-top:70px; }
 
-.org * {
-    box-sizing: border-box;
+.pb, .pb *, .org, .org *{ box-sizing:border-box; font-family:var(--font); }
+.pb .w, .org{ max-width:var(--wrap); margin:0 auto; padding:0 25px; }
+
+/* ----- Page banner (เหมือน hero แต่เตี้ยกว่า) ----- */
+.pb{ background: ; color:#fff; padding:56px 0 52px; }
+.pb .tag{ display:inline-block; font-size:13px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:#fff; opacity:.9; }
+.pb h1{ margin:12px 0 0; font-size:clamp(26px,3.6vw,42px); line-height:1.15; font-weight:500; color:#fff; }
+.pb .intro{ max-width:620px; margin:14px 0 0; font-size:18px; line-height:1.7; color:#f0f7fd; }
+
+/* ===== Our people — rules scoped to .org ===== */
+.org{ --av:150px; --av-bme:calc(var(--av) - 5px); padding-top:56px; padding-bottom:72px; color:var(--ink); line-height:1.6; }
+.org .block{ margin-bottom:56px; }
+.org .block:last-child{ margin-bottom:0; }
+
+/* ----- Section label (เหมือน .tag + เส้น) ----- */
+.org .label{
+  display:flex; align-items:center; gap:14px; margin:0 0 20px;
+  font-size:13px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--blue);
 }
+.org .label::after{ content:""; flex:1; height:1px; background:var(--line); }
 
-
-/* ----- Headings ----- */
-
-.org h2 {
-    margin: 0 0 10px;
-    font-size: 40px;
-    line-height: 1.15;
+/* ----- Shared: photo, role, name, meta ----- */
+.org .photo{
+  position:relative; display:flex; flex:none; align-items:center; justify-content:center; overflow:hidden;
+  background:var(--tint2); color:var(--mut); font-size:11px; text-align:center;
 }
-
-.org .intro {
-    max-width: 620px;
-    margin: 0 0 56px;
-    font-size: 18px;
-    color: #667786;
+/* รูปเต็มกรอบเสมอ (absolute) ขนาดไฟล์/สัดส่วนของรูปต้นฉบับไม่มีผลกับขนาดวงกลม */
+.org .photo img{
+  position:absolute; inset:0; display:block; width:100%; height:100%; max-width:none;
+  object-fit:cover; object-position:center top;
 }
-
-.org .block {
-    margin-bottom: 60px;
-}
-
-
-/* ----- Section label ----- */
-
-.org .label {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin: 0 0 18px;
-    font-size: 12px;
-    font-weight: bold;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: #667786;
-}
-
-.org .label::after {
-    content: "";
-    flex: 1;
-    height: 1px;
-    background: var(--line);
-}
-
-
-/* ----- Shared: photo, role, name ----- */
-
-.org .photo {
-    display: flex;
-    flex: none;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    background: linear-gradient(135deg, #e1edf7, #cfe0ee);
-    color: #6f8aa3;
-    font-size: 11px;
-    text-align: center;
-}
-
-.org .photo img {
-    display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center top;
-}
-
-.org .role {
-    display: block;
-    margin-bottom: 4px;
-    font-size: 12px;
-    font-weight: bold;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--blue);
-}
-
-.org .name {
-    display: block;
-    font-size: 18px;
-    font-weight: bold;
-    line-height: 1.3;
-}
-
-.org .meta {
-    display: block;
-    margin-top: 2px;
-    font-size: 14px;
-    color: #667786;
-}
-
+.org .role{ display:block; margin-bottom:4px; font-size:12px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--blue-dk); }
+.org .name{ display:block; font-size:16px; font-weight:700; line-height:1.35; color:var(--head); }
+.org .meta{ display:block; margin-top:4px; font-size:14px; color:var(--mut); overflow-wrap:anywhere; }
 
 /* ----- Head of Department ----- */
-
-.org .head {
-    display: flex;
-    align-items: center;
-    gap: 36px;
-    padding: 36px;
-    border-radius: 24px;
-    background: linear-gradient(120deg, #ffff, #ffff);
-	box-shadow: 0 6px 20px rgba(10, 29, 51, 0.05);
+.org .head{
+  display:flex; align-items:center; gap:36px; padding:32px;
+  border-radius:6px; background:#fff; border:1px solid var(--line);
+  box-shadow:0 10px 30px rgba(31,58,86,.08); transition:transform .25s, box-shadow .25s;
 }
+.org .head .photo{ width:200px; height:240px; border-radius:6px; }
+.org .head .name{ font-size:24px; font-weight:600; margin-bottom:4px; }
+.org .head .meta{ font-size:16px; }
 
-.org .head .photo {
-    width: 200px;
-    height: 240px;
-    border-radius: 18px;
+/* ----- Deputy heads ----- */
+.org .leaders{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:24px; }
+.org .team{
+  padding:28px; border-radius:6px; background:#fff; border:1px solid var(--line);
+  box-shadow:0 10px 30px rgba(31,58,86,.08); transition:transform .25s, box-shadow .25s;
 }
-
-.org .head .name {
-    margin-bottom: 4px;
-    font-size: 30px;
-}
+.org .team:hover{ transform:translateY(-4px); box-shadow:0 16px 38px rgba(31,58,86,.14); }
+.org .row{ display:flex; align-items:center; gap:20px; }
+.org .row + .row{ margin-top:32px; padding-top:32px; border-top:1px solid var(--line); }
 
 
-/* ----- Leadership ----- */
-
-.org .leaders {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 24px;
-}
-
-.org .team {
-    padding: 36px 28px;
-    border-radius: 22px;
-    background: #ffffff;
-    box-shadow: 0 6px 24px rgba(10, 29, 51, 0.08);
-}
-
-.org .row {
-    display: flex;
-    align-items: center;
-    gap: 18px;
-}
-
-.org .row + .row {
-    margin-top: 40px;
-    padding-top: 40px;
-    border-top: 1px solid var(--line);
-}
-
-.org .row .photo {
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-}
-
-.org .director .role {
-    color: var(--green);
-}
-
-.org .director .photo {
-    background: linear-gradient(135deg, #dff1e6, #c7e3d2);
-    color: #5f8f73;
-}
-
-
-/* =========================================================
-   PROGRAMME TABS
-   ========================================================= */
-
+/* ===== Programme tabs (แบบเดิมของผู้ใช้ — ห้ามเปลี่ยน) ===== */
 .org .programme-tabs {
     display: flex;
     justify-content: center;
     gap: 0;
     margin: 0 0 40px;
-    border-bottom: 1px solid var(--line);
+    border-bottom: 1px solid #e3eaf0;
 }
-
 .org .programme-tab {
     position: relative;
     padding: 14px 28px;
@@ -229,7 +109,6 @@ body.nav-solid {
     font-weight: bold;
     cursor: pointer;
 }
-
 .org .programme-tab::after {
     content: "";
     position: absolute;
@@ -239,178 +118,95 @@ body.nav-solid {
     height: 3px;
     background: transparent;
 }
+.org .programme-tab.active { color: #1a7fd4; }
+.org .programme-tab.active::after { background: #1a7fd4; }
 
-.org .programme-tab.active {
-    color: var(--blue);
+.org .programme-content{ display:none; }
+.org .programme-content.active{ display:block; }
+
+.org .programme-title{ margin:0; padding-left:16px; border-left:4px solid var(--blue); font-size:28px; line-height:1.2; font-weight:700; color:var(--head); }
+
+.org .sub-label{
+  display:flex; align-items:center; gap:16px; margin:36px 0 26px;
+  font-size:14px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--blue);
+}
+.org .sub-label::before, .org .sub-label::after{ content:""; flex:1; height:1px; background:var(--line); }
+
+/* ----- Staff grids ----- */
+.org .staff, .org .scientific{ display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); column-gap:24px; row-gap:0; }
+.org .person, .org .scientist{
+  display:grid; grid-row:span 4; grid-template-rows:subgrid; row-gap:0;
+  justify-items:center; align-content:start; margin-bottom:34px; padding:0; text-align:center; min-width:0;
+}
+.org .person .photo, .org .scientist .photo{ margin:0 0 14px; }
+.org .person .role, .org .scientist .role{ margin:0 0 4px; }
+.org .person .name, .org .scientist .name, .org .person .meta, .org .scientist .meta{ width:100%; }
+/* เบราว์เซอร์ที่ยังไม่รองรับ subgrid: จองที่ชื่อ 2 บรรทัดให้เท่ากัน */
+@supports not (grid-template-rows: subgrid){
+  .org .person, .org .scientist{ display:block; }
+  .org .person .photo, .org .scientist .photo{ margin:0 auto 14px; }
+  .org .person .name, .org .scientist .name{ min-height:calc(2 * 1.35em); }
+}
+.org .person .photo, .org .scientist .photo{ transition:transform .25s; }
+.org .person:hover .photo, .org .scientist:hover .photo{ transform:translateY(-4px); }
+.org .row .photo, .org .person .photo, .org .scientist .photo{
+  width:var(--av); height:var(--av); aspect-ratio:1/1; flex:none; border-radius:50%;
 }
 
-.org .programme-tab.active::after {
-    background: var(--blue);
+/* BME: รูปวงกลมเล็กกว่า BMS 5px (เปลี่ยนตัวเลข 5px ที่ --av-bme ด้านบนได้) */
+#bme{ --av:var(--av-bme); }
+#bme .person .photo, #bme .scientist .photo{
+  width:var(--av-bme) !important; height:var(--av-bme) !important;
 }
 
-
-/* ----- Programme content ----- */
-
-.org .programme-content {
-    display: none;
+/* ===== Responsive ===== */
+@media (max-width:1000px){
+  .org{ --av:130px; }
+  .org .staff, .org .scientific{ grid-template-columns:repeat(3,minmax(0,1fr)); }
 }
-
-.org .programme-content.active {
-    display: block;
+@media (max-width:900px){
+  .org .staff, .org .scientific{ grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .org .leaders{ grid-template-columns:minmax(0,1fr); }
 }
-
-
-/* ----- Programme title ----- */
-
-.org .programme-title {
-    margin: 0 0 0;
-    padding-left: 16px;
-    border-left: 5px solid var(--blue);
-    font-size: 28px;
-    line-height: 1.2;
-}
-
-
-/* ----- Sub label ----- */
-
-.org .sub-label {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    margin: 34px 0 28px;
-    font-size: 20px;
-    font-weight: bold;
-    color: #667786;
-    text-align: center;
-}
-
-.org .sub-label::before,
-.org .sub-label::after {
-    content: "";
-    flex: 1;
-    height: 1px;
-    background: #e3eaf0;
-}
-
-
-/* ----- Academic staff ----- */
-
-.org .staff {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 34px 24px;
-}
-
-.org .person {
-    text-align: center;
-}
-
-.org .person .photo {
-    width: 150px;
-    height: 150px;
-    margin: 0 auto 14px;
-    border-radius: 50%;
-    transition: transform 0.25s;
-}
-
-.org .person:hover .photo {
-    transform: translateY(-4px);
-}
-
-.org .person .name {
-    font-size: 17px;
-}
-
-
-/* ----- Scientific staff ----- */
-
-.org .scientific {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 34px 24px;
-}
-
-.org .scientist {
-    padding: 22px 14px;
-    border-radius: 16px;
-    text-align: center;
-}
-
-.org .scientist .photo {
-    width: 150px;
-    height: 150px;
-    margin: 0 auto 12px;
-    border-radius: 50%;
-}
-
-.org .scientist .name {
-    font-size: 15px;
-}
-
-
-/* =========================================================
-   RESPONSIVE
-   ========================================================= */
-
-@media (max-width: 900px) {
-  .org { padding: 40px 18px; }
-  .org .staff,
-  .org .scientific { grid-template-columns: 1fr 1fr; }
-  .org .leaders { grid-template-columns: 1fr; }
-}
-
-@media (max-width: 600px) {
-
-  /* layout */
-  .org { padding: 40px 18px; }
-
-  .org .head {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    padding: 24px 18px;
-  }
-
-  .org .head .photo {
-    width: 50%;
-    max-width: 280px;
-    height: 230px;
-  }
-
-  .org .row {
-    flex-direction: column;
-    text-align: center;
-  }
-
-  /* font sizes (ใช้ !important เพราะใน HTML มี inline style) */
-  .org h2            { font-size: 24px !important; }
-  .org .intro        { font-size: 15px !important; margin-bottom: 36px; }
-  .org .label        { font-size: 11px; }
-
-  .org .role         { font-size: 11px; }
-  .org .name         { font-size: 14px !important; }
-  .org .meta         { font-size: 12px !important; }
-
-  .org .head .name   { font-size: 16px !important; }
-  .org .head .meta   { font-size: 14px !important; }
-
-  .org .programme-tab {
-    font-size: 14px;
-    padding: 12px 14px;
-  }
-  .org .programme-title { font-size: 18px; }
-  .org .sub-label       { font-size: 16px; }
+@media (max-width:600px){
+  .pb{ padding:40px 0 36px; }
+  .pb .w, .org{ padding-left:18px; padding-right:18px; }
+  .pb .tag{ font-size:11px; letter-spacing:.05em; }
+  .pb .intro{ font-size:15px; }
+  .org{ padding-top:36px; padding-bottom:48px; }
+  .org .block{ margin-bottom:40px; }
+  .org .label{ font-size:11px; }
+  .org .head{ flex-direction:column; align-items:center; text-align:center; padding:22px 18px; gap:20px; }
+  .org .head .photo{ width:50%; max-width:240px; height:210px; }
+  .org .head .name{ font-size:18px; }
+  .org .head .meta{ font-size:14px; }
+  .org .team{ padding:20px 16px; }
+  .org .row{ flex-direction:column; text-align:center; }
+  .org .programme-tab{ font-size:14px; padding:12px 14px; }
+  .org .programme-title{ font-size:20px; }
+  .org{ --av:110px; }
+  .org .staff, .org .scientific{ column-gap:12px; }
+  .org .person, .org .scientist{ margin-bottom:26px; }
+  .org .person .photo, .org .scientist .photo{ margin-bottom:10px; }
+  .org .role{ font-size:10px; }
+  .org .name{ font-size:13px; }
+  .org .meta{ font-size:11.5px; }
 }
 </style>
 
+<!-- ===== Page banner ===== -->
+<section class="pb">
+  <div class="w">
+    <h1 style="color: #000000">Our people</h1>
+    <p class="intro" style="color: #43759B">Meet the academics and researchers who lead our programs and teach the next generation of biomedical scientists and engineers.</p>
+  </div>
+</section>
 
 <div class="org">
 
-<h2 style="font-size: 30px">Our people</h2>
 
-<p class="intro" style="font-size: 18px">
-Meet the academics and researchers who lead our programs and teach the next generation of biomedical scientists and engineers.
-</p>
+
+
 
 
 <!-- =========================================================
@@ -419,7 +215,7 @@ Meet the academics and researchers who lead our programs and teach the next gene
 
 <div class="block">
 
-<p class="label" style="font-size: 16px">Head of Department</p>
+<p class="label" style="font-size: 18px">Head of Department</p>
 
 <div class="head">
 
@@ -428,11 +224,11 @@ Meet the academics and researchers who lead our programs and teach the next gene
 </div>
 
 <div>
-<span class="name" style="font-weight: 600; font-size: 24px;">
+<span class="name">
 Assoc. Prof. Dr.&nbsp;Surapong Chatpun
 </span>
 
-<span class="meta" style="font-size: 16px">
+<span class="meta">
 Email:&nbsp;surapong.c@psu.ac.th
 </span>
 </div>
@@ -447,7 +243,7 @@ Email:&nbsp;surapong.c@psu.ac.th
 
 <div class="block">
 
-<p class="label" style="font-size: 14px">Deputy Head of Department</p>
+<p class="label" style="font-size: 16px">Deputy Head of Department</p>
 
 <div class="leaders">
 
@@ -467,7 +263,7 @@ Email:&nbsp;surapong.c@psu.ac.th
 Deputy Head of Department
 </span>
 
-<span class="name" style="font-size: 16px">
+<span class="name">
 Assist. Prof. Dr.<br>
 Kamonnut Singkhamanan
 </span>
@@ -499,7 +295,7 @@ skamonnu@medicine.psu.ac.th
 Deputy Head of Department
 </span>
 
-<span class="name" style="font-size: 16px">
+<span class="name">
 Assoc. Prof. Dr.<br>
 Tonghathai Phairatana
 </span>
@@ -576,7 +372,7 @@ Academic staff
 
 <span class="role">Lecturer</span>
 
-<span class="name" style="font-size: 16px">
+<span class="name">
 Prof. Dr.<br>
 Potchanapond Graidist
 </span>
@@ -598,7 +394,7 @@ Email: gpotchan@medicine.psu.ac.th
 
 <span class="role">Lecturer</span>
 
-<span class="name" style="font-size: 16px">
+<span class="name">
 Assoc. Prof. Dr.<br>
 Kanyanatt Kanokwiroon
 </span>
@@ -620,7 +416,7 @@ Email: kanyanatt.k@psu.ac.th
 
 <span class="role">Lecturer</span>
 
-<span class="name" style="font-size: 16px">
+<span class="name">
 Assoc. Prof. Dr.<br>
 Pritsana Raungrut
 </span>
@@ -642,7 +438,7 @@ Email: rpritsana@gmail.com
 
 <span class="role">Lecturer</span>
 
-<span class="name" style="font-size: 16px">
+<span class="name">
 Assoc. Prof. Dr.<br>
 Raphatphorn Navakanitworakul
 </span>
@@ -664,7 +460,7 @@ Email: raphatphorn.n@psu.ac.th
 
 <span class="role">Lecturer</span>
 
-<span class="name" style="font-size: 16px">
+<span class="name">
 Assoc. Prof. Dr.<br>
 Komwit Surachat
 </span>
@@ -686,7 +482,7 @@ Email: Komwit.s@psu.ac.th
 
 <span class="role">Lecturer</span>
 
-<span class="name" style="font-size: 16px">
+<span class="name">
 Assoc. Prof. Dr.<br>
 Nawamin Pinpathomrat, M.D.
 </span>
@@ -708,7 +504,7 @@ Email: nawamin.p@psu.ac.th
 
 <span class="role">Lecturer</span>
 
-<span class="name" style="font-size: 16px">
+<span class="name">
 Asst. Prof. Dr.<br>
 Kittinun Leetanaporn, M.D.
 </span>
@@ -730,7 +526,7 @@ Email: kittinun.l@psu.ac.th
 
 <span class="role">Lecturer</span>
 
-<span class="name" style="font-size: 16px">
+<span class="name">
 Dr. Rassanee Bissanum
 </span>
 
@@ -751,7 +547,7 @@ Email: Rassanee.b@gmail.com
 
 <span class="role">Lecturer</span>
 
-<span class="name" style="font-size: 16px">
+<span class="name">
 Dr. Pemikar Srifa
 </span>
 
@@ -772,7 +568,7 @@ Email: spemikar@medicine.psu.ac.th
 
 <span class="role">Lecturer</span>
 
-<span class="name" style="font-size: 16px">
+<span class="name">
 Dr. Theerawat Dobutr
 </span>
 
@@ -793,7 +589,7 @@ Email: dtheeraw@medicine.psu.ac.th
 
 <span class="role">Lecturer</span>
 
-<span class="name" style="font-size: 16px">
+<span class="name">
 Asst. Prof. Dr.<br>
 Ampapan Naknaen
 </span>
@@ -815,7 +611,7 @@ Email: ampapan.nk@gmail.com
 
 <span class="role">Lecturer</span>
 
-<span class="name" style="font-size: 16px">
+<span class="name">
 Dr. Pongsakorn Choochuen, M.D.
 </span>
 
@@ -836,7 +632,7 @@ Email: pongsakorn.choochuen@gmail.com
 
 <span class="role">Lecturer</span>
 
-<span class="name" style="font-size: 16px">
+<span class="name">
 Dr. Hattaya Benya-aphikul
 </span>
 
@@ -870,7 +666,7 @@ Scientist and Supporting Staff
 Scientific Staff
 </span>
 
-<span class="name" style="font-size: 16px">
+<span class="name">
 Miss Phanvasri Saengsuwan
 </span>
 
@@ -894,7 +690,7 @@ Email: sphanvas@medicine.psu.ac.th
 Scientific Staff
 </span>
 
-<span class="name" style="font-size: 16px">
+<span class="name">
 Miss Saowanee Muangchanburee
 </span>
 
@@ -918,7 +714,7 @@ Email: msaowane@medicine.psu.ac.th
 Supporting Staff
 </span>
 
-<span class="name" style="font-size: 16px">
+<span class="name">
 Miss Mayuree Boonrach
 </span>
 
@@ -941,7 +737,7 @@ Email: bmayuree@medicine.psu.ac.th
 Supporting Staff
 </span>
 
-<span class="name" style="font-size: 16px">
+<span class="name">
 Miss Kanokon Khannui
 </span>
 
@@ -964,7 +760,7 @@ Email: kkanokon@medicine.psu.ac.th
 Supporting Staff
 </span>
 
-<span class="name" style="font-size: 16px">
+<span class="name">
 Mr. Somnuek Chuayprasom
 </span>
 
@@ -1074,7 +870,7 @@ Academic staff
 <div class="person">
 <div class="photo"><img src="images/staff/bme/wa.png" alt="Atichart"></div>
 <span class="role">Lecturer</span>
-<span class="name">Assist. Prof. Dr.<br>Wanwara	Thuptimdang</span>
+<span class="name">Assist. Prof. Dr.<br>Wanwara Thuptimdang</span>
 <span class="meta">wanwara.t@psu.ac.th</span>
 </div>
 
