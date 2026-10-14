@@ -10,7 +10,7 @@ a { text-decoration: none; color: inherit; }
   /* ขอบข้างของแถบ: 300px ที่จอ 1920 → ลดลงเรื่อยๆ → ต่ำสุด 20px */
   --nav-pad: clamp(20px, calc((100vw - 1320px) / 2), 300px);
   position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
-  height: 70px;
+  height: 60px;
   display: flex; align-items: center;
   padding: 0 var(--nav-pad);
   gap: clamp(50px, 1.7vw, 100px);
@@ -21,14 +21,14 @@ a { text-decoration: none; color: inherit; }
 #nav .item {
   display: inline-flex; align-items: center; flex-shrink: 0;
   padding: 5px 0; border: 0; border-bottom: 1.5px solid transparent;
-  font-size: clamp(15px, 1.2vw, 18px); line-height: 1; font-weight: 200;
+  font-size: clamp(15px, 1.2vw, 15px); line-height: 1; font-weight: 200;
   color: #FFFFFF; cursor: pointer; transition: opacity 0.2s, color 0.3s;
 }
 #nav .item:hover { opacity: 0.8; }
 
 /* โลโก้ดันทุกอย่างไปชิดขวา */
 #nav .logo { padding: 0; border: 0; flex-shrink: 0; margin-right: auto; }
-#nav .logo img { display: block; border: 0; height: clamp(34px, 3.2vw, 44px); width: auto; transition: height 0.2s; filter: brightness(0) invert(1); }
+#nav .logo img { display: block; border: 0; height: clamp(34px, 3.2vw, 40px); width: auto; transition: height 0.2s; filter: brightness(0) invert(1); }
 
 /* กลุ่มด้านขวา (ปุ่ม Search) */
 #nav .right {
@@ -111,7 +111,7 @@ a { text-decoration: none; color: inherit; }
   align-items: center;
   padding: 12px 16px; border-radius: 0;
   color: #fff;
-  font-size: clamp(15px, 1.2vw, 18px); font-weight: 200; line-height: 1.2;
+  font-size: clamp(12px, 1.2vw, 15px); font-weight: 200; line-height: 1.2;
   transition: background-color .2s;
 }
 #about-menu a:hover, #about-menu a:focus-visible,
@@ -124,7 +124,7 @@ a { text-decoration: none; color: inherit; }
 /* หัวข้อคอลัมน์ Academics */
 #academics-menu .col h4 {
   margin: 0 0 6px; padding: 8px 16px 12px;
-  font-size: clamp(15px, 1.2vw, 18px); font-weight: 400; line-height: 1.2; color: #ccd7ff;
+  font-size: clamp(12px, 1.2vw, 15px); font-weight: 400; line-height: 1.2; color: #ccd7ff;
   border-bottom: 1px solid rgba(255,255,255,.2);
 }
 
@@ -144,7 +144,7 @@ a { text-decoration: none; color: inherit; }
 /* ===== ปุ่ม Search: สี่เหลี่ยมจัตุรัส สีอ่อนกว่าแถบนิดเดียว + ไอคอนแว่นขยายตรงกลาง (ไม่มีตัวหนังสือ) ===== */
 #nav #search-open {
   display: block; flex-shrink: 0;
-  width: 70px; height: 70px;            /* เท่าความสูงแถบ = จัตุรัส */
+  width: 70px; height: 60px;            /* เท่าความสูงแถบ = จัตุรัส */
   padding: 0; border: 0; border-radius: 0;
   font-size: 0; line-height: 0; color: transparent; overflow: hidden;
   background-color: #2d418a;            /* อ่อนกว่า #21326E เล็กน้อย */

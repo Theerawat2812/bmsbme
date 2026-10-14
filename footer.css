@@ -1,7 +1,7 @@
 /* footer.css - CSS ของ footer (ใช้ร่วมทุกหน้า) */
 .site-foot, .site-foot * { box-sizing: border-box; }
 .site-foot {
-  background: #21326E; color: #fff; padding: 55px 0 25px;
+  background: #F2F6F7; color: #0000; padding: 28px 0 2px;
   font-family: "Segoe UI", Helvetica, Arial, sans-serif; line-height: 1.6; font-size: 16px;
   /* ให้สีพื้นหลังขยายเต็มจอ แม้ footer ถูกวางอยู่ในกล่องที่จำกัดความกว้าง */
   box-shadow: 0 0 0 100vmax #21326E;
@@ -13,21 +13,21 @@
 /* Desktop: หัวข้อกดพับไม่ได้ */
 .site-foot summary {
   list-style: none; cursor: default; pointer-events: none;
-  color: #fff; font-weight: bold; font-family: Arial, Helvetica, sans-serif; margin: 0 0 12px;
-  font-size: clamp(16px, 1vw, 20px); line-height: 1.2;
+  color: #1D4C6E; font-weight: bold; font-family: Arial, Helvetica, sans-serif; margin: 0 0 12px;
+  font-size: clamp(16px, 1vw, 18px); line-height: 1.2;
 }
 .site-foot summary::-webkit-details-marker { display: none; }
 .site-foot ul { list-style: none; padding: 0; margin: 0; }
-.site-foot li { margin-bottom: 8px; color: #fff; }
+.site-foot li { margin-bottom: 8px; color: #1D4C6E; }
 .site-foot li,
-.site-foot li a { font-size: clamp(14px, .9vw, 16px); }
-.site-foot a { color: #fff; text-decoration: none; transition: color .2s; }
+.site-foot li a { font-size: clamp(14px, 1vw, 14px); }
+.site-foot a { color: #1D4C6E; text-decoration: none; transition: color .2s; }
 /* ลิงก์/รายการ: บางเหมือนตัวหนังสือบนเมนู (หัวข้อ summary ยังเป็นตัวหนาเหมือนเดิม) */
 .site-foot li, .site-foot a { font-weight: 200; }
-.site-foot a:hover { color: #9fb4ff; }
+.site-foot a:hover { color: #8CCFFF; }
 .site-foot .fb {
-  border-top: 1px solid rgba(255,255,255,.25); margin-top: 40px; padding-top: 20px;
-  font-size: 14px; color: #fff;
+  border-top: 1px solid #709BBA; margin-top: 25px; padding-top: 25px;
+  font-size: 14px; color: #1D4C6E; margin-top: 20px; margin-bottom: 20px;
 }
 .site-foot summary {
   display: block;          /* ไม่ใช่ list-item จึงไม่มี marker */
@@ -50,7 +50,7 @@
   .site-foot summary::after {
     content: ""; position: absolute; right: 6px; top: 50%;
     width: 5px; height: 5px; margin-top: -6px;
-    border-right: 2px solid #fff; border-bottom: 2px solid #fff;
+    border-right: 2px solid #1D4C6E; border-bottom: 2px solid #1D4C6E;
     transform: rotate(45deg);      /* ปิด: ชี้ลง */
   }
   .site-foot details[open] summary::after {
