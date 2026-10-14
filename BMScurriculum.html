@@ -90,7 +90,12 @@ body.nav-solid{background:#fff}
 .panel{display:none; padding-top:0}
 #r-msc:checked ~ #panel-msc,
 #r-phd:checked ~ #panel-phd{display:block}
-.panel h3{font-size:24px; font-weight:700; line-height:1.3; color:var(--blue-dk)}
+.panel h3{
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1.3;
+    color: var(--blue-dk)
+}
 .panel .meta{margin-top:4px; color:var(--mut); font-size:16px}
 
 /* ---------- Program information ---------- */
@@ -110,14 +115,12 @@ body.nav-solid{background:#fff}
 .plans th,.plans td{padding:14px 18px; text-align:left; border-bottom:1px solid var(--line); font-family:var(--font); font-size:15px; line-height:1.5}
 .plans thead th{background:var(--blue-dk); color:#fff; font-weight:600}
 .plans td:first-child{font-weight:600; color:var(--head)}
-.plans tbody tr:nth-child(even) td{background:var(--tint)}
-.plans tbody tr:hover td{background:var(--tint2)}
 .plans tbody tr:last-child td{border-bottom:0}
 .plans .n{text-align:center}
 
 /* ---------- Faculty (กะทัดรัด พับไว้ คลิกเพื่อดูรายชื่อ) ---------- */
 #faculty{padding:28px 0 36px}
-.fac-wrap{border-radius:6px; background:#fff; border:1px solid var(--line)}
+.fac-wrap{border-radius:6px; background:none; border:1px solid var(--line)}
 .fac-top{
   display:flex; align-items:center; justify-content:space-between; gap:16px;
   padding:12px 18px; cursor:pointer; list-style:none; border-radius:6px;
@@ -158,8 +161,9 @@ body.nav-solid{background:#fff}
 .fac .rank:empty::before{content:"\00a0"}
 
 /* ---------- Responsive ---------- */
+/* หมายเหตุ: ใช้ .pg .fac เพื่อให้ชนะกฎหลัก .pg .fac (3 คอลัมน์) */
 @media (max-width:1000px){
-  .fac{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .pg .fac{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
 @media (max-width:900px){
   .info{column-gap:32px}
@@ -185,7 +189,7 @@ body.nav-solid{background:#fff}
   .fac-top{padding:11px 14px}
   .fac-top h2{font-size:16px}
   .count{font-size:12.5px}
-  .pg .fac{padding:16px 14px 20px; gap:16px}
+  .pg .fac{grid-template-columns:minmax(0,1fr); padding:16px 14px 20px; gap:16px}   /* มือถือ: เรียงแถวเดียว */
   .fac .nm{font-size:15px}
   .fac .rank{font-size:12.5px}
   .fac .em{font-size:13px}
@@ -195,7 +199,7 @@ body.nav-solid{background:#fff}
   .plans thead{position:absolute; left:-9999px}
   .plans{border:0; border-radius:0; overflow:visible}
   .plans tr{margin-bottom:14px; border:1px solid var(--line); border-radius:6px; overflow:hidden}
-  .plans td,.plans tbody tr:nth-child(even) td{display:flex; justify-content:space-between; gap:16px; padding:10px 16px; border:0; text-align:right; background:#fff}
+  .plans td,.plans tbody tr:nth-child(even) td{display:flex; justify-content:space-between; gap:16px; padding:10px 16px; border:0; text-align:right; background:none}
   .plans td{font-size:14px}
   .plans td::before{content:attr(data-label); color:var(--mut); font-size:13px; text-align:left}
   .plans tbody tr td:first-child,
@@ -203,9 +207,6 @@ body.nav-solid{background:#fff}
   .plans tbody tr:hover td:first-child{display:block; text-align:left; background:var(--blue-dk); color:#fff; box-shadow:none}
   .plans td:first-child::before{display:none}
   .plans .n{text-align:right}
-}
-@media (max-width:640px){
-  .fac{grid-template-columns:minmax(0,1fr)}
 }
 @media (max-width:600px){
   .w{padding:0 18px}
@@ -218,7 +219,7 @@ body.nav-solid{background:#fff}
 
 /* กันไม่ให้ header.css ทับขนาดหัวข้อ */
 body #hero .w h1{
-    font-size: 30px !important;
+    font-size: 24px !important;
     font-weight: 600 !important;
     color: var(--head) !important
 }
@@ -316,7 +317,7 @@ body #hero .w p{
 </section>
 
 <!-- ===== Faculty (คลิกเพื่อเปิด/พับรายชื่อ) ===== -->
-<section class="sec tint" id="faculty">
+<section class="sec" id="faculty">
   <div class="w">
     <details class="fac-wrap">
       <summary class="fac-top">
