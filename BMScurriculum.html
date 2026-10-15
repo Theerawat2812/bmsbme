@@ -44,16 +44,17 @@ html{scroll-behavior:smooth}
 .pg a:focus-visible,.pg button:focus-visible,.pg summary:focus-visible,#hero .w a:focus-visible{outline:3px solid var(--sky); outline-offset:3px}
 .pg section[id]{scroll-margin-top:90px}
 .w{max-width:var(--wrap); margin:0 auto; padding:0 25px}
-.sec{padding:45px 0}
+.sec{padding:4px 0}
 .tint{background:var(--tint)}
 .tag{display:inline-block; font-size:13px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--blue)}
 .pg h2{font-size:30px; font-weight:700; line-height:1.25; color:var(--head)}
 .pg h4{margin-top:36px; font-size:16px; font-weight:700; line-height:1.4; color:var(--head)}
 
-/* ---------- Hero: พื้นขาว ต่อจาก navbar ---------- */
-body.nav-solid{background:#fff}
+/* ---------- Hero: เหมือนหน้า index (พื้นสีกรมท่า ตำแหน่งตัวหนังสือเท่ากัน) ---------- */
+body.nav-solid{background:#46538C}
 #overlay{display:none}
 #hero{position:relative; background:none; padding:28px 0 0; color:var(--ink)}
+#hero .w{max-width:var(--wrap); margin:25px auto 25px; padding:0 25px}
 #hero .w h1{
   margin:10px 0 0;
   font-size:clamp(28px,3.6vw,44px);
@@ -66,8 +67,15 @@ body.nav-solid{background:#fff}
 /* ---------- Tabs (แบบเรียบ: ตัวอักษร + เส้นใต้) ---------- */
 /* แท็บแบบแฟ้มเอกสาร: แท็บที่เลือกสูงกว่าและสีเดียวกับแถบข้อมูลด้านล่าง */
 .tabs{
-  display:flex; align-items:flex-end; gap:6px; margin-top:28px; padding:0;
+  position:relative; isolation:isolate;
+  display:flex; align-items:flex-end; gap:3px; margin-top:0; padding:6px 0 0;
   background:none; border:0;
+}
+/* พื้นกรมท่าเต็มความกว้างจอ อยู่หลังแท็บ (ต่อจาก hero) */
+.tabs::before{
+  content:""; position:absolute; z-index:-1; top:0; bottom:0;
+  left:50%; width:100vw; margin-left:-50vw;
+  background:#46538C;
 }
 .tab-radio{position:absolute; opacity:0; width:1px; height:1px; pointer-events:none}
 .tab{
@@ -82,7 +90,8 @@ body.nav-solid{background:#fff}
 .tab:hover{background:#c6dbf0; color:var(--head)}
 #r-msc:checked ~ .tabs label[for="r-msc"],
 #r-phd:checked ~ .tabs label[for="r-phd"]{
-  background:#eef5fc; color:var(--tab-on);
+    background: #eef5fc;
+    color: #CF6B36;
 }
 #r-msc:focus-visible ~ .tabs label[for="r-msc"],
 #r-phd:focus-visible ~ .tabs label[for="r-phd"]{outline:3px solid #7fb4ea; outline-offset:2px}
@@ -94,20 +103,26 @@ body.nav-solid{background:#fff}
     font-size: 20px;
     font-weight: 700;
     line-height: 1.3;
-    color: var(--blue-dk)
+    color: #21326E
 }
 .panel .meta{margin-top:4px; color:var(--mut); font-size:16px}
 
 /* ---------- Program information ---------- */
 .box{position:relative; isolation:isolate; padding:32px 0 20px}
 .box::before{content:""; position:absolute; z-index:-1; top:0; bottom:0; left:50%; width:100vw; margin-left:-50vw; background:#eef5fc}
-#programs{overflow-x:clip}
+#programs{overflow-x:clip; padding-top:0}
 .box h4{margin-top:28px}
 .info{display:grid; grid-template-columns:1fr 1fr; column-gap:56px; margin-top:8px}
 .info div{padding:12px 0; border-bottom:1px solid #d3e2f1}
 .info div:nth-last-child(-n+2){border-bottom:0}
 .info dt{font-size:13.5px; color:var(--mut)}
-.info dd{margin-top:1px; color:var(--ink); font-weight:500; overflow-wrap:anywhere}
+.info dd{
+    margin-top: 1px;
+    color: var(--ink);
+    font-weight: 500;
+    overflow-wrap: anywhere;
+    font-size: 15px;
+}
 .info .full{grid-column:1 / -1}
 
 /* ---------- Study plans ---------- */
@@ -128,7 +143,10 @@ body.nav-solid{background:#fff}
 }
 .fac-top::-webkit-details-marker{display:none}
 .fac-top:hover{background:var(--tint)}
-.fac-top h2{font-size:17px; font-weight:600}
+.fac-top h2{
+    font-size: 16px;
+    font-weight: 600
+}
 .fac-top .right{display:flex; align-items:center; gap:12px}
 .count{color:var(--mut); font-size:13px}
 .chev{
@@ -179,7 +197,7 @@ body.nav-solid{background:#fff}
   .panel{padding-top:0}
   .panel h3{font-size:19px}
   .panel .meta{font-size:14px}
-  .tabs{margin-top:22px; gap:4px}
+  .tabs{padding-top:22px; gap:4px}
   .tab{flex:1 1 0; min-width:0; padding-left:8px; padding-right:8px; font-size:15px}
   .box{padding:24px 0 14px}
   .info{grid-template-columns:1fr}
@@ -210,6 +228,7 @@ body.nav-solid{background:#fff}
 }
 @media (max-width:600px){
   .w{padding:0 18px}
+  #hero .w{padding:30px 18px}   /* เท่ากับหน้า index */
   .tag{font-size:11px; letter-spacing:.05em; line-height:1.5}
 }
 @media (max-width:480px){
@@ -217,14 +236,14 @@ body.nav-solid{background:#fff}
 }
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.chev{transition:none}}
 
-/* กันไม่ให้ header.css ทับขนาดหัวข้อ */
+/* กันไม่ให้ header.css ทับขนาดหัวข้อ (เหมือนหน้า index) */
 body #hero .w h1{
-    font-size: 24px !important;
+    font-size: 25px !important;
     font-weight: 600 !important;
-    color: var(--head) !important
+    color: #FFFFFF !important;
 }
 body #hero .w p{
-    color: var(--mut) !important;
+    color: #98ACCE !important;
     font-size: 14px;
 }
 </style>

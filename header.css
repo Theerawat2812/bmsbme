@@ -87,7 +87,6 @@ a { text-decoration: none; color: inherit; }
   margin: 0; padding: 14px var(--nav-pad) 22px;
   background: #3B67A0;
   border: 0; border-top: 1px solid rgba(255,255,255,.18); border-radius: 0;
-  box-shadow: 0 14px 24px -10px rgba(15,40,70,.45);
   line-height: normal; white-space: normal;
   animation: dropIn .2s ease;
 }
@@ -261,7 +260,7 @@ a { text-decoration: none; color: inherit; }
 }
 
 /* หน้าที่ไม่มีรูป hero */
-body.nav-solid { padding-top: 90px; }
+body.nav-solid { padding-top: 60px; }
 @media (max-width: 480px) { body.nav-solid { padding-top: 70px; } }
 
 /* =====================================================================

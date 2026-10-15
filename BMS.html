@@ -25,6 +25,7 @@
   --tint2:#e8f3fc;
   --blue:#3f8fd2;
   --blue-dk:#2f78b8;
+  --thead:#21326E;   /* สีหัวตาราง (กรมท่าเดียวกับ navbar) */
   --sky:#bfe0f8;
   --wrap:1320px;
   --font:'Inter','Sarabun',Helvetica,Arial,sans-serif;
@@ -32,7 +33,7 @@
 html{scroll-behavior:smooth}
 
 /* ===== HERO: พื้นขาว ต่อจาก navbar ===== */
-body.nav-solid{background:#fff}
+body.nav-solid{background:#46538C}
 #overlay{display:none}
 #hero{position:relative; background:none; padding:28px 0 0; color:var(--ink)}
 #hero,#hero *{box-sizing:border-box; font-family:var(--font)}
@@ -65,7 +66,7 @@ body.nav-solid{background:#fff}
 .bmx .sec{padding:clamp(28px,2.4vw,46px) 0}
 .bmx .soft{background:var(--tint)}
 .bmx .lead{max-width:1100px; font-size:clamp(15px,.94vw,18px); color:var(--ink)}
-.bmx .btn{display:inline-block; background:var(--blue-dk); color:#fff; padding:8px 35px; margin-top:10px; font-weight:600; border-radius:6px}
+.bmx .btn{display:inline-block; background:var(--blue-dk); color:#fff; padding:5px 35px; margin-top:10px; font-weight:600; border-radius:6px}
 .bmx .btn:hover{background:#25659d}
 
 /* Overview */
@@ -80,7 +81,8 @@ body.nav-solid{background:#fff}
 .bmx .tw{margin-top:clamp(20px,1.8vw,35px); overflow-x:auto; border:1px solid var(--line); background:#fff; border-radius:6px}
 .bmx table{width:100%; border-collapse:collapse; min-width:720px; font-size:clamp(14px,.88vw,16px)}
 .bmx th,.bmx td{padding:clamp(14px,1.1vw,20px); text-align:left; vertical-align:top; border-top:1px solid var(--line)}
-.bmx thead th{background:var(--blue-dk); color:#fff; border-top:0; font-weight:600; font-size:clamp(15px,1vw,18px)}
+/* หัวตาราง: เปลี่ยนสีที่ตัวแปร --thead ด้านบน */
+.bmx table thead th{background:var(--thead) !important; color:#fff !important; border-top:0; font-weight:600; font-size:clamp(15px,1vw,18px)}
 .bmx tbody th{width:19%; color:var(--head); background:var(--tint); font-weight:600}
 .bmx td{width:40.5%}
 .bmx td li{padding:3px 0 3px 16px; position:relative}
@@ -145,15 +147,63 @@ body.nav-solid{background:#fff}
 }
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 
+/* ===== "Ready to apply?" ตอนย่อจอ: ลดขนาด/ระยะให้สมส่วน (ต้องอยู่หลัง media query ด้านบน) ===== */
+@media(max-width:900px){
+  .bmx .contact{padding:22px 0}
+  .bmx .contact .c{gap:14px; text-align:center; justify-items:center}
+  .bmx .contact h2{font-size:18px; margin-bottom:4px}
+  .bmx .contact p{font-size:14px; line-height:1.5}
+  .bmx .contact .btn{margin-top:0; padding:10px 28px; font-size:14px}
+}
+@media(max-width:600px){
+  .bmx .contact{padding:18px 0}
+  .bmx .contact .c{padding:0 18px; gap:12px}
+  .bmx .contact h2{font-size:17px}
+  .bmx .contact p{font-size:13px}
+  .bmx .contact .btn{width:100%; max-width:620px; padding:7px 50px; font-size:14px}
+}
+
+/* ===== "Research-centred study" ตอนย่อจอ: ลดขนาดตัวอักษรรายการ + รูป ===== */
+@media(max-width:900px){
+  .bmx .tl{margin-top:14px}
+  .bmx .tl li{font-size:14px; line-height:1.55; padding:0 0 10px 16px}
+  .bmx .tl b{font-size:15px}
+  .bmx .ph{height:clamp(200px,45vw,320px)}
+}
+@media(max-width:600px){
+  .bmx .tl li{font-size:13px; padding:0 0 8px 14px}
+  .bmx .tl b{font-size:14px}
+  .bmx .ph{height:200px}
+}
+
+/* ===== ลดระยะห่างระหว่างหัวข้อตอนย่อจอ ===== */
+@media(max-width:900px){
+  .bmx .sec{padding:40px 0}
+}
+@media(max-width:600px){
+  .bmx .c{padding:0 18px}          /* ตัด padding บน-ล่าง 30px ที่ติดมาจากกฎ hero */
+  .bmx .sec{padding:32px 0}
+}
+
 /* กันไม่ให้ header.css ทับขนาดหัวข้อ */
 body #hero .w h1{
     font-size: 25px !important;
     font-weight: 600 !important;
-    color: #21326E !important;
+    color: #FFFFFF !important;
 }
 body #hero .w p{
-    color: #34568E !important;
+    color: #98ACCE !important;
     font-size: 14px;
+}
+
+/* ===== หัวข้อ hero ตอนย่อจอ: ตัดบรรทัดหลัง Ph.D. + ตัวอักษรเล็กลง ===== */
+.m-br{display:none}
+@media(max-width:600px){
+  .m-br{display:inline}
+  body #hero .w h1{font-size:20px !important; line-height:1.3}
+}
+@media(max-width:360px){
+  body #hero .w h1{font-size:18px !important}
 }
 </style>
 </head>
@@ -167,7 +217,7 @@ body #hero .w p{
   <div id="site-nav"></div>
 
   <div class="w">
-    <h1>M.Sc. and Ph.D. in Biomedical Sciences</h1>
+    <h1>M.Sc. and Ph.D.<br class="m-br"> in Biomedical Sciences</h1>
     <p>Graduate programs in molecular biology, infectious diseases and human health, built around research.</p>
   </div>
 </div>
