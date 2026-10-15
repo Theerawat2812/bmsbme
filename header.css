@@ -85,7 +85,7 @@ a { text-decoration: none; color: inherit; }
 #about-menu, #program-menu, #academics-menu {
   display: none; position: absolute; top: 100%; left: 0; right: 0;
   margin: 0; padding: 14px var(--nav-pad) 22px;
-  background: #3B67A0;
+  background: #46538C; /*dropdown*/
   border: 0; border-top: 1px solid rgba(255,255,255,.18); border-radius: 0;
   line-height: normal; white-space: normal;
   animation: dropIn .2s ease;
@@ -109,22 +109,22 @@ a { text-decoration: none; color: inherit; }
 #about-menu a, #program-menu a, #academics-menu .col a {
   align-items: center;
   padding: 12px 16px; border-radius: 0;
-  color: #fff;
+  color: rgba(255,255,255,.8);
   font-size: clamp(12px, 1.2vw, 15px); font-weight: 200; line-height: 1.2;
   transition: background-color .2s;
 }
 #about-menu a:hover, #about-menu a:focus-visible,
 #program-menu a:hover, #program-menu a:focus-visible,
 #academics-menu .col a:hover, #academics-menu .col a:focus-visible {
-  background: #3a50a3; outline: none;
+  background: #21326E; outline: none;
 }
 #academics-menu .col a { display: flex; }
 
 /* หัวข้อคอลัมน์ Academics */
 #academics-menu .col h4 {
   margin: 0 0 6px; padding: 8px 16px 12px;
-  font-size: clamp(12px, 1.2vw, 15px); font-weight: 400; line-height: 1.2; color: #ccd7ff;
-  border-bottom: 1px solid rgba(255,255,255,.2);
+  font-size: clamp(12px, 1.2vw, 15px); font-weight: 600; line-height: 1.2; color: #FFFFFF;
+  border-bottom: 1px solid rgba(255,255,255,.3);
 }
 
 /* เมนูมือถือ: Academics */
