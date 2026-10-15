@@ -44,7 +44,8 @@ body.nav-solid{ background:#fff; padding-top:70px; }
 .pb .intro{ max-width:620px; margin:14px 0 0; font-size:18px; line-height:1.7; color:#f0f7fd; }
 
 /* ===== Our people — rules scoped to .org ===== */
-.org{ --av:150px; --av-bme:calc(var(--av) - 5px); padding-top:56px; padding-bottom:72px; color:var(--ink); line-height:1.6; }
+/* ขนาดรูปวงกลมปรับได้ที่ --av (BME เล็กกว่า BMS 5px ตาม --av-bme) */
+.org{ --av:130px; --av-bme:calc(var(--av) - 5px); padding-top:56px; padding-bottom:72px; color:var(--ink); line-height:1.6; }
 .org .block{ margin-bottom:56px; }
 .org .block:last-child{ margin-bottom:0; }
 
@@ -65,19 +66,19 @@ body.nav-solid{ background:#fff; padding-top:70px; }
   position:absolute; inset:0; display:block; width:100%; height:100%; max-width:none;
   object-fit:cover; object-position:center top;
 }
-.org .role{ display:block; margin-bottom:4px; font-size:12px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--blue-dk); }
-.org .name{ display:block; font-size:16px; font-weight:700; line-height:1.35; color:var(--head); }
-.org .meta{ display:block; margin-top:4px; font-size:14px; color:var(--mut); overflow-wrap:anywhere; }
+.org .role{ display:block; margin-bottom:4px; font-size:11px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--blue-dk); }
+.org .name{ display:block; font-size:14px; font-weight:700; line-height:1.35; color:var(--head); }
+.org .meta{ display:block; margin-top:4px; font-size:13px; color:var(--mut); overflow-wrap:anywhere; }
 
 /* ----- Head of Department ----- */
 .org .head{
-  display:flex; align-items:center; gap:36px; padding:32px;
+  display:flex; align-items:center; gap:32px; padding:28px;
   border-radius:6px; background:#fff; border:1px solid var(--line);
   box-shadow:0 10px 30px rgba(31,58,86,.08); transition:transform .25s, box-shadow .25s;
 }
-.org .head .photo{ width:200px; height:240px; border-radius:6px; }
-.org .head .name{ font-size:24px; font-weight:600; margin-bottom:4px; }
-.org .head .meta{ font-size:16px; }
+.org .head .photo{ width:170px; height:204px; border-radius:6px; }
+.org .head .name{ font-size:18px; font-weight:600; margin-bottom:4px; }
+.org .head .meta{ font-size:14px; }
 
 /* ----- Deputy heads ----- */
 .org .leaders{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:24px; }
@@ -159,7 +160,7 @@ body.nav-solid{ background:#fff; padding-top:70px; }
   width:var(--av-bme) !important; height:var(--av-bme) !important;
 }
 
-/* ===== Responsive ===== */
+/* ===== Responsive (ไม่ได้แก้ไข) ===== */
 @media (max-width:1000px){
   .org{ --av:130px; }
   .org .staff, .org .scientific{ grid-template-columns:repeat(3,minmax(0,1fr)); }
@@ -204,11 +205,6 @@ body.nav-solid{ background:#fff; padding-top:70px; }
 
 <div class="org">
 
-
-
-
-
-
 <!-- =========================================================
      HEAD OF DEPARTMENT
      ========================================================= -->
@@ -224,7 +220,7 @@ body.nav-solid{ background:#fff; padding-top:70px; }
 </div>
 
 <div>
-<span class="name" style="font-size: 18px">
+<span class="name">
 Assoc. Prof. Dr.&nbsp;Surapong Chatpun
 </span>
 
@@ -781,7 +777,7 @@ Mr. Somnuek Chuayprasom
 
 <div id="bme" class="programme-content">
 
-<h3 class="programme-title">
+<h3 class="programme-title" style="font-size: 24px">
 Biomedical Engineering
 </h3>
 
