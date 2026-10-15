@@ -69,18 +69,18 @@
 
       '<button type="button" id="burger" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>' +
       '<div id="mobile-menu">' +
-        '<a href="#" id="m-about-btn">About us &#9662;</a>' +
+        '<a href="#" id="m-about-btn">About us</a>' +
         '<div id="m-about-sub">' +
           '<a href="about.html">Who we are</a>' +
           '<a href="mission.html">Our mission</a>' +
           '<a href="people.html">Our staff</a>' +
         '</div>' +
-        '<a href="#" id="m-program-btn">Our programs &#9662;</a>' +
+        '<a href="#" id="m-program-btn">Our programs</a>' +
         '<div id="m-program-sub">' +
           '<a href="BMS.html">Biomedical Sciences</a>' +
           '<a href="bme.html">Biomedical Engineering</a>' +
         '</div>' +
-        '<a href="#" id="m-academics-btn">Academics &#9662;</a>' +
+        '<a href="#" id="m-academics-btn">Academics</a>' +
         '<div id="m-academics-sub">' +
           '<div class="m-head">Academics</div>' +
           '<a href="overview.html">Overview</a>' +

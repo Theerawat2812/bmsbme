@@ -263,3 +263,157 @@ a { text-decoration: none; color: inherit; }
 /* หน้าที่ไม่มีรูป hero */
 body.nav-solid { padding-top: 90px; }
 @media (max-width: 480px) { body.nav-solid { padding-top: 70px; } }
+
+/* =====================================================================
+   เพิ่มต่อท้ายไฟล์ header.css (ท้ายสุดของไฟล์)
+   1) ลูกศรสามเหลี่ยม (chevron) ในเมนู 3 ขีด หมุน 90° เมื่อเปิดเมนูย่อย
+   2) จัดกลุ่มเมนูย่อย Academics ให้อ่านง่าย (ไม่เปลี่ยนฟอนต์/ขนาดตัวอักษร)
+   ===================================================================== */
+
+/* ---------- 1) ลูกศรข้างปุ่ม About us / Our programs / Academics ---------- */
+#mobile-menu #m-about-btn,
+#mobile-menu #m-program-btn,
+#mobile-menu #m-academics-btn {
+  display: flex; align-items: center; justify-content: space-between;
+  cursor: pointer;
+}
+/* ปิดอยู่: ลูกศรชี้ขวา */
+#mobile-menu #m-about-btn::after,
+#mobile-menu #m-program-btn::after,
+#mobile-menu #m-academics-btn::after {
+  content: ""; flex-shrink: 0; width: 6px; height: 6px; margin-left: 12px;
+  border-right: 1.25px solid currentColor; border-bottom: 1.25px solid currentColor;
+  transform: rotate(-45deg);
+  transition: transform .25s cubic-bezier(.2,.8,.2,1);
+}
+/* เปิดอยู่ (JS ตั้ง display:block ให้เมนูย่อย): หมุน 90° ชี้ลง + เปลี่ยนสีปุ่ม */
+#mobile-menu #m-about-btn:has(+ #m-about-sub[style*="block"]),
+#mobile-menu #m-program-btn:has(+ #m-program-sub[style*="block"]),
+#mobile-menu #m-academics-btn:has(+ #m-academics-sub[style*="block"]) {
+  color: #1f5f99;
+}
+#mobile-menu #m-about-btn:has(+ #m-about-sub[style*="block"])::after,
+#mobile-menu #m-program-btn:has(+ #m-program-sub[style*="block"])::after,
+#mobile-menu #m-academics-btn:has(+ #m-academics-sub[style*="block"])::after {
+  transform: rotate(45deg);
+}
+/* อุปกรณ์ที่มีเมาส์: เมนูย่อยเปิดตอนเมาส์ชี้ ลูกศรก็หมุนตาม */
+@media (hover: hover) {
+  #mobile-menu #m-about-btn:hover::after,
+  #mobile-menu #m-about-btn:has(+ #m-about-sub:hover)::after,
+  #mobile-menu #m-program-btn:hover::after,
+  #mobile-menu #m-program-btn:has(+ #m-program-sub:hover)::after,
+  #mobile-menu #m-academics-btn:hover::after,
+  #mobile-menu #m-academics-btn:has(+ #m-academics-sub:hover)::after {
+    transform: rotate(45deg);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  #mobile-menu #m-about-btn::after,
+  #mobile-menu #m-program-btn::after,
+  #mobile-menu #m-academics-btn::after { transition: none; }
+}
+
+/* ---------- 2) Academics: หัวข้อเป็นแถบ + ลิงก์เยื้องเข้าไปมีเส้นนำสายตา ---------- */
+#mobile-menu #m-academics-sub {
+  padding-left: 0; margin: 2px 0 10px;
+}
+/* หัวข้อกลุ่ม: แถบพื้นฟ้าอ่อน + เส้นสีด้านซ้าย (สี/ขนาดฟอนต์เดิม) */
+#mobile-menu #m-academics-sub .m-head {
+  margin-top: 14px; padding: 10px 14px;
+  background: #eef3fa; border-bottom: 0; border-left: 3px solid #1f5f99;
+}
+#mobile-menu #m-academics-sub .m-head:first-child { margin-top: 4px; }
+/* ลิงก์ใต้หัวข้อ: เยื้องเข้า มีเส้นจางด้านซ้าย ตัดเส้นคั่นรายลิงก์ออกให้โล่ง */
+#mobile-menu #m-academics-sub a {
+  margin-left: 12px; padding: 12px 0 12px 22px;
+  border-bottom: 0; border-left: 1px solid #d3deec;
+}
+
+/* =====================================================================
+   เพิ่มต่อท้ายไฟล์ header.css (ท้ายสุดของไฟล์)
+   1) ลูกศรสามเหลี่ยม (chevron) ในเมนู 3 ขีด หมุน 90° เมื่อเปิดเมนูย่อย
+   2) จัดกลุ่มเมนูย่อย Academics ให้อ่านง่าย (ไม่เปลี่ยนฟอนต์/ขนาดตัวอักษร)
+   ===================================================================== */
+
+/* ---------- 1) ลูกศรข้างปุ่ม About us / Our programs / Academics ---------- */
+#mobile-menu #m-about-btn,
+#mobile-menu #m-program-btn,
+#mobile-menu #m-academics-btn {
+  display: flex; align-items: center; justify-content: space-between;
+  cursor: pointer;
+}
+/* ปิดอยู่: ลูกศรชี้ขวา */
+#mobile-menu #m-about-btn::after,
+#mobile-menu #m-program-btn::after,
+#mobile-menu #m-academics-btn::after {
+  content: ""; flex-shrink: 0; width: 6px; height: 6px; margin-left: 12px;
+  border-right: 1.25px solid currentColor; border-bottom: 1.25px solid currentColor;
+  transform: rotate(-45deg);
+  transition: transform .25s cubic-bezier(.2,.8,.2,1);
+}
+/* เปิดอยู่ (JS ตั้ง display:block ให้เมนูย่อย): หมุน 90° ชี้ลง + เปลี่ยนสีปุ่ม */
+#mobile-menu #m-about-btn:has(+ #m-about-sub[style*="block"]),
+#mobile-menu #m-program-btn:has(+ #m-program-sub[style*="block"]),
+#mobile-menu #m-academics-btn:has(+ #m-academics-sub[style*="block"]) {
+  color: #1f5f99;
+}
+#mobile-menu #m-about-btn:has(+ #m-about-sub[style*="block"])::after,
+#mobile-menu #m-program-btn:has(+ #m-program-sub[style*="block"])::after,
+#mobile-menu #m-academics-btn:has(+ #m-academics-sub[style*="block"])::after {
+  transform: rotate(45deg);
+}
+/* อุปกรณ์ที่มีเมาส์: เมนูย่อยเปิดตอนเมาส์ชี้ ลูกศรก็หมุนตาม */
+@media (hover: hover) {
+  #mobile-menu #m-about-btn:hover::after,
+  #mobile-menu #m-about-btn:has(+ #m-about-sub:hover)::after,
+  #mobile-menu #m-program-btn:hover::after,
+  #mobile-menu #m-program-btn:has(+ #m-program-sub:hover)::after,
+  #mobile-menu #m-academics-btn:hover::after,
+  #mobile-menu #m-academics-btn:has(+ #m-academics-sub:hover)::after {
+    transform: rotate(45deg);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  #mobile-menu #m-about-btn::after,
+  #mobile-menu #m-program-btn::after,
+  #mobile-menu #m-academics-btn::after { transition: none; }
+}
+
+/* ---------- 2) Academics: หัวข้อเป็นแถบ + ลิงก์เยื้องเข้าไปมีเส้นนำสายตา ---------- */
+#mobile-menu #m-academics-sub {
+  padding-left: 0; margin: 2px 0 10px;
+}
+/* หัวข้อกลุ่ม: แถบพื้นฟ้าอ่อน + เส้นสีด้านซ้าย (สี/ขนาดฟอนต์เดิม) */
+#mobile-menu #m-academics-sub .m-head {
+  margin-top: 14px; padding: 10px 14px;
+  background: #eef3fa; border-bottom: 0; border-left: 3px solid #1f5f99;
+}
+#mobile-menu #m-academics-sub .m-head:first-child { margin-top: 4px; }
+/* ลิงก์ใต้หัวข้อ: เยื้องเข้า มีเส้นจางด้านซ้าย ตัดเส้นคั่นรายลิงก์ออกให้โล่ง */
+#mobile-menu #m-academics-sub a {
+  margin-left: 12px; padding: 12px 0 12px 22px;
+  border-bottom: 0; border-left: 1px solid #d3deec;
+}
+
+/* ---------- 3) ผลการค้นหาในเมนู 3 ขีด (ใช้คู่กับ #m-search-results ใน header.js) ---------- */
+#m-search-results {
+  display: none; margin-top: 10px; padding: 6px; text-align: left;
+  max-height: min(360px, calc(100vh - 260px)); overflow-y: auto;
+  background: #fff; border: 1px solid #dfe6f1; border-radius: 12px;
+}
+#mobile-menu #m-search-results .sr-item,
+#mobile-menu #m-search-results .sr-all {
+  display: block; padding: 10px 12px; border-bottom: 0; border-radius: 8px; color: #14263a;
+}
+#mobile-menu #m-search-results .sr-item:hover,
+#mobile-menu #m-search-results .sr-item:focus-visible,
+#mobile-menu #m-search-results .sr-all:hover { background: rgba(31,95,153,.08); outline: none; }
+#m-search-results .sr-title { display: block; font-size: 15px; font-weight: 600; color: #1f5f99; }
+#m-search-results .sr-snip  { display: block; margin-top: 3px; font-size: 13px; line-height: 1.5; color: #444; }
+#mobile-menu #m-search-results .sr-all {
+  margin-top: 4px; text-align: center; font-size: 14px; font-weight: 600; color: #1f5f99;
+  border-top: 1px solid #e6ecf5; border-radius: 0 0 8px 8px;
+}
+#m-search-results .sr-msg { padding: 12px 14px; font-size: 14px; color: #555; }
+#m-search-results mark { background: #ffe58a; color: inherit; padding: 0 2px; border-radius: 3px; }
