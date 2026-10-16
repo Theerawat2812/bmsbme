@@ -1,0 +1,164 @@
+<div id="bmsMatch">
+<style type="text/css">
+#bmsMatch { max-width: 960px !important; margin: 24px auto !important; padding: 20px 24px !important; background: rgba(255,255,255,0.9) !important; border: 1px solid #e5e9f5 !important; border-radius: 20px !important; box-shadow: 0 15px 40px rgba(30,60,120,0.12) !important; font-family: Arial, Helvetica, sans-serif !important; color: #1c2333 !important; box-sizing: border-box !important; }
+#bmsMatch *, #bmsMatch *::before, #bmsMatch *::after { box-sizing: border-box !important; }
+
+/* ===== Single row bar ===== */
+#bmsMatch .m-bar { display: flex !important; align-items: center !important; gap: 14px !important; flex-wrap: nowrap !important; }
+#bmsMatch .m-title { flex: 0 0 auto !important; margin: 0 !important; padding: 0 !important; font-size: 22px !important; font-weight: 800 !important; white-space: nowrap !important; background: linear-gradient(90deg,#ff6b6b,#ffa94d,#4f7cff,#7b5bff,#ff4fa3) !important; -webkit-background-clip: text !important; background-clip: text !important; -webkit-text-fill-color: transparent !important; color: transparent !important; }
+#bmsMatch #mField { flex: 1 1 auto !important; min-width: 0 !important; min-height: 46px !important; padding: 12px 14px !important; border: 2px solid rgba(79,124,255,0.25) !important; border-radius: 12px !important; font-size: 14px !important; outline: none !important; background: #fff !important; color: #1c2333 !important; }
+#bmsMatch #mField:focus { border-color: #4f7cff !important; }
+#bmsMatch #mBtn { flex: 0 0 auto !important; min-height: 46px !important; padding: 0 26px !important; border: none !important; border-radius: 12px !important; background: linear-gradient(135deg,#4f7cff,#2f56d6) !important; color: #fff !important; font-weight: 700 !important; font-size: 15px !important; cursor: pointer !important; }
+
+/* ===== Popup ===== */
+#bmsMatch .m-overlay { display: none !important; position: fixed !important; top: 0 !important; left: 0 !important; right: 0 !important; bottom: 0 !important; background: rgba(20,30,60,0.55) !important; z-index: 99999 !important; align-items: center !important; justify-content: center !important; padding: 16px !important; }
+#bmsMatch .m-overlay.open { display: flex !important; }
+#bmsMatch .m-modal { width: 100% !important; max-width: 720px !important; max-height: 85vh !important; overflow-y: auto !important; background: #fff !important; border-radius: 20px !important; padding: 24px !important; box-shadow: 0 25px 60px rgba(0,0,0,0.3) !important; position: relative !important; }
+#bmsMatch .m-close { position: absolute !important; top: 12px !important; right: 14px !important; width: 34px !important; height: 34px !important; border: none !important; border-radius: 50% !important; background: #eef2ff !important; color: #2f56d6 !important; font-size: 20px !important; line-height: 1 !important; cursor: pointer !important; padding: 0 !important; min-height: 0 !important; }
+#bmsMatch .m-head { font-size: 18px !important; font-weight: 800 !important; color: #003087 !important; margin: 0 40px 16px 0 !important; }
+#bmsMatch .m-card { display: flex !important; gap: 16px !important; padding: 16px !important; margin: 0 0 12px 0 !important; border: 1px solid #e5e9f5 !important; border-radius: 14px !important; background: #fff !important; }
+#bmsMatch .m-photo { flex: 0 0 84px !important; width: 84px !important; height: 84px !important; border-radius: 50% !important; object-fit: cover !important; background: #eef2ff !important; }
+#bmsMatch .m-avatar { flex: 0 0 84px !important; width: 84px !important; height: 84px !important; border-radius: 50% !important; background: linear-gradient(135deg,#4f7cff,#7b5bff) !important; color: #fff !important; font-size: 32px !important; font-weight: 800 !important; display: flex !important; align-items: center !important; justify-content: center !important; }
+#bmsMatch .m-body { flex: 1 !important; min-width: 0 !important; }
+#bmsMatch .m-name { font-size: 16px !important; font-weight: 700 !important; color: #003087 !important; margin: 0 0 2px 0 !important; }
+#bmsMatch .m-meta { font-size: 13px !important; color: #6b7280 !important; margin: 0 0 8px 0 !important; word-break: break-all !important; }
+#bmsMatch .m-rlabel { font-size: 12px !important; font-weight: 700 !important; color: #1c2333 !important; margin: 0 0 4px 0 !important; }
+#bmsMatch .m-tag { display: inline-block !important; font-size: 12px !important; padding: 3px 10px !important; margin: 0 6px 6px 0 !important; border-radius: 20px !important; background: #eef2ff !important; color: #2f56d6 !important; }
+#bmsMatch .m-tag.hit { background: #2f56d6 !important; color: #fff !important; }
+#bmsMatch .m-empty { text-align: center !important; color: #6b7280 !important; font-size: 14px !important; padding: 24px 8px !important; }
+
+/* Mobile: allow wrapping so the input stays usable */
+@media (max-width: 600px) {
+  #bmsMatch { padding: 16px !important; }
+  #bmsMatch .m-bar { flex-wrap: wrap !important; }
+  #bmsMatch .m-title { width: 100% !important; text-align: center !important; }
+  #bmsMatch #mField { flex: 1 1 100% !important; }
+  #bmsMatch #mBtn { width: 100% !important; }
+  #bmsMatch .m-card { flex-direction: column !important; align-items: center !important; text-align: center !important; }
+}
+</style>
+
+<div class="m-bar">
+  <h2 class="m-title">Match your advisor</h2>
+  <input type="text" id="mField" placeholder="Interesting field (Immunology, cancer, AI, etc.)" />
+  <button type="button" id="mBtn">Search</button>
+</div>
+
+<div class="m-overlay" id="mOverlay">
+  <div class="m-modal">
+    <button type="button" class="m-close" id="mClose">x</button>
+    <div class="m-head" id="mHead"></div>
+    <div id="mResult"></div>
+  </div>
+</div>
+
+<script>
+(function () {
+  // ===== EDIT ADVISOR DATA HERE =====
+  // photo: link to the advisor's photo (if empty, an initial is shown instead)
+  // research: research topics (shown on the card)
+  // keywords: related search terms
+  var advisors = [
+    // Example (placeholder data - replace with confirmed information):
+    // { name: "...", dept: "Biomedical Sciences", email: "...", photo: "https://...jpg",
+    //   research: ["Immune response to tuberculosis", "Vaccine development"],
+    //   keywords: ["immunology","immune","vaccine","tuberculosis"] },
+
+    // ===== Biomedical Sciences =====
+    { name: "Prof. Dr. Potchanapond Graidist", dept: "Biomedical Sciences", email: "gpotchan@medicine.psu.ac.th", photo: "", research: [], keywords: [] },
+    { name: "Assoc. Prof. Dr. Kanyanatt Kanokwiroon", dept: "Biomedical Sciences", email: "kanyanatt.k@psu.ac.th", photo: "", research: [], keywords: [] },
+    { name: "Assoc. Prof. Dr. Pritsana Raungrut", dept: "Biomedical Sciences", email: "rpritsana@gmail.com", photo: "", research: [], keywords: [] },
+    { name: "Assoc. Prof. Dr. Raphatphorn Navakanitworakul", dept: "Biomedical Sciences", email: "raphatphorn.n@psu.ac.th", photo: "", research: [], keywords: [] },
+    { name: "Assoc. Prof. Dr. Komwit Surachat", dept: "Biomedical Sciences", email: "Komwit.s@psu.ac.th", photo: "", research: [], keywords: [] },
+    { name: "Assoc. Prof. Dr. Nawamin Pinpathomrat, M.D.", dept: "Biomedical Sciences", email: "nawamin.p@psu.ac.th", photo: "", research: [], keywords: [] },
+    { name: "Asst. Prof. Dr. Kittinun Leetanaporn, M.D.", dept: "Biomedical Sciences", email: "kittinun.l@psu.ac.th", photo: "", research: [], keywords: [] },
+    { name: "Dr. Rassanee Bissanum", dept: "Biomedical Sciences", email: "Rassanee.b@gmail.com", photo: "", research: [], keywords: [] },
+    { name: "Dr. Pemikar Srifa", dept: "Biomedical Sciences", email: "spemikar@medicine.psu.ac.th", photo: "", research: [], keywords: [] },
+    { name: "Dr. Theerawat Dobutr", dept: "Biomedical Sciences", email: "dtheeraw@medicine.psu.ac.th", photo: "", research: [], keywords: [] },
+    { name: "Asst. Prof. Dr. Ampapan Naknaen", dept: "Biomedical Sciences", email: "ampapan.nk@gmail.com", photo: "", research: [], keywords: [] },
+    { name: "Dr. Pongsakorn Choochuen, M.D.", dept: "Biomedical Sciences", email: "pongsakorn.choochuen@gmail.com", photo: "", research: [], keywords: [] },
+    { name: "Dr. Hattaya Benya-aphikul", dept: "Biomedical Sciences", email: "bhattaya@medicine.psu.ac.th", photo: "", research: [], keywords: [] },
+    { name: "Assist. Prof. Dr. Kamonnut Singkhamanan", dept: "Biomedical Sciences", email: "skamonnu@medicine.psu.ac.th", photo: "", research: [], keywords: [] },
+    // ===== Biomedical Engineering =====
+    { name: "Prof. Jirut Meesane", dept: "Biomedical Engineering", email: "jirutmeesane999@yahoo.co.uk", photo: "", research: [], keywords: [] },
+    { name: "Dr. Somyot Chirasatitsin", dept: "Biomedical Engineering", email: "somjot.c@psu.ac.th", photo: "", research: [], keywords: [] },
+    { name: "Dr. Jermphiphut Jaruenpunyasak", dept: "Biomedical Engineering", email: "jjermphi@medicine.psu.ac.th", photo: "", research: [], keywords: [] },
+    { name: "Asst. Prof. Dr. Pasarat Khongkow", dept: "Biomedical Engineering", email: "k.pasarat@gmail.com", photo: "", research: [], keywords: [] },
+    { name: "Assoc. Prof. Dr. Krit Charupanit", dept: "Biomedical Engineering", email: "krit.ch@psu.ac.th", photo: "", research: [], keywords: [] },
+    { name: "Asst. Prof. Dr. Atichart Kwanyuang", dept: "Biomedical Engineering", email: "atichart.k@psu.ac.th", photo: "", research: [], keywords: [] },
+    { name: "Asst. Prof. Dr. Sitthichok Chaichulee", dept: "Biomedical Engineering", email: "sitthichok.c@psu.ac.th", photo: "", research: [], keywords: [] },
+    { name: "Asst. Prof. Dr. Wanwara Thuptimdang", dept: "Biomedical Engineering", email: "wanwara.t@psu.ac.th", photo: "", research: [], keywords: [] },
+    { name: "Assoc. Prof. Dr. Tonghathai Phairatana", dept: "Biomedical Engineering", email: "tonghathai.p@psu.ac.th", photo: "", research: [], keywords: [] },
+    { name: "Assoc. Prof. Dr. Surapong Chatpun", dept: "Biomedical Engineering", email: "surapong.c@psu.ac.th", photo: "", research: [], keywords: [] }
+  ];
+  // ==================================
+
+  var input = document.getElementById("mField");
+  var btn = document.getElementById("mBtn");
+  var overlay = document.getElementById("mOverlay");
+  var closeBtn = document.getElementById("mClose");
+  var head = document.getElementById("mHead");
+  var out = document.getElementById("mResult");
+
+  function el(tag, cls, text) {
+    var e = document.createElement(tag);
+    if (cls) { e.className = cls; }
+    if (text !== undefined) { e.textContent = text; }
+    return e;
+  }
+
+  function openPop() { overlay.className = "m-overlay open"; }
+  function closePop() { overlay.className = "m-overlay"; }
+
+  function score(a, words) {
+    var pool = a.keywords.concat(a.research, [a.name, a.dept]).join(" ").toLowerCase();
+    var hits = [];
+    words.forEach(function (w) {
+      if (pool.indexOf(w) !== -1) { hits.push(w); }
+    });
+    return hits;
+  }
+
+  function initial(name) {
+    var parts = name.replace(/[.,]/g, " ").split(" ").filter(function (p) { return p.length > 0; });
+    return parts[parts.length - 1].charAt(0).toUpperCase();
+  }
+
+  function buildCard(a, hits) {
+    var card = el("div", "m-card");
+    if (a.photo) {
+      var img = el("img", "m-photo");
+      img.src = a.photo;
+      img.alt = a.name;
+      img.onerror = function () {
+        var av = el("div", "m-avatar", initial(a.name));
+        card.replaceChild(av, img);
+      };
+      card.appendChild(img);
+    } else {
+      card.appendChild(el("div", "m-avatar", initial(a.name)));
+    }
+    var body = el("div", "m-body");
+    body.appendChild(el("div", "m-name", a.name));
+    body.appendChild(el("div", "m-meta", a.dept.concat(" | ", a.email)));
+    if (a.research.length) {
+      body.appendChild(el("div", "m-rlabel", "Research"));
+      a.research.forEach(function (t) {
+        var isHit = hits.some(function (h) { return t.toLowerCase().indexOf(h) !== -1; });
+        body.appendChild(el("span", isHit ? "m-tag hit" : "m-tag", t));
+      });
+    }
+    card.appendChild(body);
+    return card;
+  }
+
+  function run() {
+    var q = input.value.toLowerCase().trim();
+    if (!q) { return; }
+    var words = q.split(/[\s,]+/).filter(function (w) { return w.length > 1; });
+    var found = [];
+    advisors.forEach(function (a) {
+      var hits = score(a, words);
+      if (hits.length > 0) { found.push({ a: a, hits: hits }); }
+    });
+    found.sort(function (x, y) { return y.hits.length -
