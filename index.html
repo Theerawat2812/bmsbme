@@ -274,7 +274,7 @@ html{scroll-behavior:smooth}
     </div>
 	  <div id="bmsMatch">
 <style type="text/css">
-#bmsMatch { max-width: 960px !imp<meta name="viewport" content="width=device-width, initial-scale=1">ortant; margin: 24px auto -1px !important; padding: 12px 34px !important; background: rgba(255,255,255,0.9) !important; border: 1px solid #e5e9f5 !important; border-radius: 40px !important; box-shadow: 0 3px 20px rgba(30,60,120,0.12) !important; font-family: Arial, Helvetica, sans-serif !important; color: #1c2333 !important; box-sizing: border-box !important; }
+#bmsMatch { max-width: 960px !important; margin: 24px auto -1px !important; padding: 12px 34px !important; background: rgba(255,255,255,0.9) !important; border: 1px solid #e5e9f5 !important; border-radius: 40px !important; box-shadow: 0 3px 20px rgba(30,60,120,0.12) !important; font-family: Arial, Helvetica, sans-serif !important; color: #1c2333 !important; box-sizing: border-box !important; }
 #bmsMatch *, #bmsMatch *::before, #bmsMatch *::after { box-sizing: border-box !important; font-family: Arial, Helvetica, sans-serif !important; }
 
 /* ===== Single row bar ===== */
@@ -713,6 +713,8 @@ html{scroll-behavior:smooth}
     document.body.style.overflow = "";
   }
 
+  function esc(s) { return s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"); }
+
   // a search word matches when it starts a word in the advisor's text (so "ai" will not match "main")
   function hasWord(text, w) {
     return new RegExp("(^|[^a-z0-9])" + esc(w)).test(text);
@@ -855,6 +857,7 @@ html{scroll-behavior:smooth}
   closeBtn.addEventListener("touchend", onClose);
   overlay.addEventListener("click", function (e) { if (e.target === overlay) { closePop(); } });
   overlay.addEventListener("touchend", function (e) { if (e.target === overlay) { e.preventDefault(); closePop(); } });
+})();
 </script>
 </div>
 	  </div>
