@@ -583,6 +583,7 @@ html{scroll-behavior:smooth}
     "dept": "Biomedical Engineering",
     "email": "kantida.j@psu.ac.th",
     "photo": "images/staff/bme/kj.png",
+    "fields": ["Environmental Microbiology & Sustainable Materials", "Biomaterials & Tissue Engineering"],
     "research": [
       "Poly(butylene succinate-co-adipate)",
       "Bio-based plastics",
@@ -670,8 +671,39 @@ html{scroll-behavior:smooth}
     "Biosensors & Medical Devices": "biosensor sensor device electrochemical microfluidic",
     "AI & Medical Informatics": "ai artificial intelligence machine learning deep learning informatics data",
     "Biomechanics & Rehabilitation": "biomechanics rehabilitation orthopedic gait finite element",
-    "Cardiovascular & Hemodynamics": "cardiovascular blood flow hemodynamics heart vascular"
+    "Cardiovascular & Hemodynamics": "cardiovascular blood flow hemodynamics heart vascular",
+    "Environmental Microbiology & Sustainable Materials": "environmental soil microbiome microbial fungi bacteria biodegradable plastic bioplastic pollution sustainability"
   };
+
+  // Safety net: an advisor added later WITHOUT "fields" gets expertise tags guessed from their keywords.
+  // (Better to write "fields" by hand, as above, because a guess can be wrong.)
+  var FIELD_TERMS = {
+    "Immunology & Vaccines": ["immun","vaccin","t cell","antibod","tuberculosis","interferon","sars-cov","covid","epitope","dengue"],
+    "Cancer Biology": ["cancer","tumor","apoptosis","cytotoxic","carcinoma","chemoresist","metasta","glioma","anticancer"],
+    "Biomarkers & Diagnostics": ["biomarker","liquid biopsy","extracellular vesicle","exosome","microrna","diagnos","proteomic","prognos"],
+    "Microbiology & Antimicrobial Resistance": ["antimicrobial","resistance","phage","pathogen","virulence","biofilm","probiotic","acinetobacter"],
+    "Genomics & Bioinformatics": ["genom","sequencing","phylogen","metagenom","immunoinformatics","docking","bioinformatic"],
+    "Natural Products & Drug Discovery": ["natural product","medicinal plant","phytochemical","flavonoid","lignan","drug design"],
+    "Neuroscience & Neurology": ["neuro","epilep","eeg","brain","dementia","parkinson","hippocamp","alzheimer"],
+    "Biomaterials & Tissue Engineering": ["tissue engineering","scaffold","bone","silk","hydrogel","biomaterial","stem cell","regeneration"],
+    "Biosensors & Medical Devices": ["biosensor","electrochemical","microfluidic","electrode","point-of-care","sensor"],
+    "AI & Medical Informatics": ["artificial intelligence","deep learning","machine learning","convolutional","neural network","electronic health"],
+    "Biomechanics & Rehabilitation": ["biomechanic","finite element","gait","plantar","insole","rehabilitation","arthroplasty","fracture"],
+    "Cardiovascular & Hemodynamics": ["hemodynamic","blood flow","aneurysm","vascular","photoplethysmography","heart rate"],
+    "Environmental Microbiology & Sustainable Materials": ["soil","biodegradable","bioplastic","plastic","environmental","microbiome"]
+  };
+  function guessFields(a) {
+    var scored = [];
+    Object.keys(FIELD_TERMS).forEach(function (f) {
+      var n = 0;
+      a.research.forEach(function (t) { var tl = t.toLowerCase(); FIELD_TERMS[f].forEach(function (x) { if (tl.indexOf(x) !== -1) { n += 3; } }); });
+      a.keywords.slice(0, 40).forEach(function (k) { var kl = k.toLowerCase(); FIELD_TERMS[f].forEach(function (x) { if (kl.indexOf(x) !== -1) { n += 1; } }); });
+      if (n >= 3) { scored.push({ f: f, n: n }); }
+    });
+    scored.sort(function (x, y) { return y.n - x.n; });
+    return scored.slice(0, 2).map(function (x) { return x.f; });
+  }
+  advisors.forEach(function (a) { if (!a.fields || !a.fields.length) { a.fields = guessFields(a); } });
   // short forms people commonly type -> terms that appear in the advisors' data
   var ALIASES = {
     "ai": ["artificial intelligence", "machine learning", "deep learning"],
