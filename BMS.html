@@ -60,7 +60,8 @@ body.nav-solid{background:#46538C}
     font-size: 18px;
     font-weight: 700;
     margin-bottom: 16px;
-    color: #21326E
+    color: #21326E;
+    font-family: "Segoe UI", Helvetica, Arial, sans-serif;
 }
 .bmx h3{font-size:clamp(17px,1.2vw,22px); font-weight:700; margin-bottom:8px; color:var(--head)}
 .bmx .sec{padding:clamp(28px,2.4vw,46px) 0}
@@ -68,7 +69,9 @@ body.nav-solid{background:#46538C}
 .bmx .lead{
     max-width: 1100px;
     font-size: 16px;
-    color: var(--ink)
+    color: #3B3B3B;
+    font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    font-weight: 100;
 }
 .bmx .btn{display:inline-block; background:var(--blue-dk); color:#fff; padding:5px 35px; margin-top:10px; font-weight:600; border-radius:6px}
 .bmx .btn:hover{background:#25659d}
@@ -79,33 +82,79 @@ body.nav-solid{background:#46538C}
 .bmx .facts div{display:flex; justify-content:space-between; gap:16px; padding:14px 20px; border-top:1px solid var(--line); font-size:clamp(14px,.88vw,16px)}
 .bmx .facts div:first-child{border-top:0}
 .bmx .facts b{color:var(--head); font-weight:600}
-.bmx .facts span{color:var(--mut); text-align:right}
+.bmx .facts span{
+    color: var(--mut);
+    text-align: right;
+    font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    font-weight: 200;
+}
 
 /* Comparison table */
 .bmx .tw{margin-top:clamp(20px,1.8vw,35px); overflow-x:auto; border:1px solid var(--line); background:#fff; border-radius:6px}
 .bmx table{width:100%; border-collapse:collapse; min-width:720px; font-size:clamp(14px,.88vw,16px)}
 .bmx th,.bmx td{padding:clamp(14px,1.1vw,20px); text-align:left; vertical-align:top; border-top:1px solid var(--line)}
 /* หัวตาราง: เปลี่ยนสีที่ตัวแปร --thead ด้านบน */
-.bmx table thead th{background:var(--thead) !important; color:#fff !important; border-top:0; font-weight:600; font-size:clamp(15px,1vw,18px)}
+.bmx table thead th{
+    background: var(--thead) !important;
+    color: #fff !important;
+    border-top: 0;
+    font-weight: 400;
+    font-size: clamp(15px,1vw,18px);
+    font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+}
 .bmx tbody th{width:19%; color:var(--head); background:var(--tint); font-weight:600}
-.bmx td{width:40.5%}
-.bmx td li{padding:3px 0 3px 16px; position:relative}
+.bmx td{
+    width: 40.5%;
+    font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    font-weight: 100;
+    font-size: 15px;
+}
+.bmx td li{
+    padding: 3px 0 3px 16px;
+    position: relative;
+    font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+}
 .bmx td li::before{content:""; position:absolute; left:0; top:.8em; width:6px; height:6px; border-radius:50%; background:var(--blue)}
 .bmx td small{display:block; color:var(--mut); margin-top:4px}
-.bmx td .note{margin:10px 0 0; padding:8px 12px; background:var(--tint2); border-left:3px solid var(--blue); font-size:.93em}
+.bmx td .note{
+    margin: 10px 0 0;
+    padding: 8px 12px;
+    background: var(--tint2);
+    border-left: 3px solid var(--blue);
+    font-size: .93em;
+    font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    font-weight: 500;
+}
 
 /* Highlight cards */
 .bmx .cards{display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(14px,1.3vw,25px); margin-top:clamp(20px,1.8vw,35px)}
 .bmx .card{border:1px solid var(--line); background:#fff; padding:clamp(18px,1.4vw,26px); border-top:3px solid var(--blue); border-radius:6px}
-.bmx .card p{margin:0; font-size:clamp(14px,.88vw,16px); color:var(--mut)}
-.bmx .card .big{display:block; font-size:clamp(20px,1.4vw,28px); font-weight:700; color:var(--blue-dk); margin-bottom:6px}
+.bmx .card p{
+    margin: 0;
+    font-size: 15px;
+    color: #3B3B3B;
+    font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    font-weight: 300;
+}
+.bmx .card .big{
+    display: block;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--blue-dk);
+    margin-bottom: 6px
+}
 
 /* Split */
 .bmx .split{display:grid; grid-template-columns:1fr 1fr; gap:clamp(24px,3.1vw,60px); align-items:center}
 .bmx .ph{position:relative; width:100%; height:clamp(260px,26vw,460px); overflow:hidden; background:#dfe6ec; border-radius:6px}
 .bmx .ph img{position:absolute; top:0; left:0; width:100%!important; height:100%!important; min-height:0!important; max-width:none; object-fit:cover; object-position:center; display:block}
 .bmx .tl{margin:20px 0 0; border-left:3px solid var(--blue)}
-.bmx .tl li{padding:0 0 14px 20px}
+.bmx .tl li{
+    padding: 0 0 14px 20px;
+    font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    font-weight: 100;
+    font-size: 15px;
+}
 .bmx .tl b{display:block; color:var(--blue-dk); font-weight:600}
 
 /* CTA */
@@ -114,7 +163,9 @@ body.nav-solid{background:#46538C}
 .bmx .contact h2{color:#fff; margin-bottom:8px}
 .bmx .contact p{
     margin: 0;
-    font-weight: normal;
+    font-weight: 100;
+    font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    font-size: 15px;
 }
 .bmx .contact .btn{background:#fff; color:var(--blue-dk)}
 .bmx .contact .btn:hover{background:var(--tint2)}
@@ -272,7 +323,7 @@ body #hero .w p{
                 <li>Plan 1.1: Master’s entry, 3 years, 48 credits (Thesis only)</li>
                 <li>Plan 1.2: Bachelor’s entry, 4 years, 72 credits (Thesis only)</li>
                 <li>Plan 2.1: Master’s entry, 3 years, 48 credits (Coursework &amp; Thesis)</li>
-                <li>Plan 2.2: Bachelor’s entry, 5 years, 72 credits (Coursework &amp; Thesis)</li>
+                <li>Plan 2.2: Bachelor’s ent<span style="font-family: 'Segoe UI', Helvetica, Arial, sans-serif">ry, 5 yea</span>rs, 72 credits (Coursework &amp; Thesis)</li>
               </ul>
               <p class="note">International students can select only Plan 1.1 and Plan 1.2.</p>
             </td>
@@ -298,8 +349,8 @@ body #hero .w p{
             <td>
               <ul>
                 <li>Tuition fee reimbursement</li>
-                <li>Conference travel support: 15,000 ฿ (domestic), ฿80,000  (abroad)</li>
-                <li>Research Support Grant: 15,000 ฿ (domestic), ฿300,000 (abroad)</li>
+                <li>Conference travel support:  ฿15,000  (domestic), ฿80,000  (abroad)</li>
+                <li>Research Support Grant:  ฿15,000  (domestic), ฿300,000 (abroad)</li>
               </ul>
             </td>
           </tr>
@@ -331,9 +382,9 @@ body #hero .w p{
       <h2>Research-centred study</h2>
       <p class="lead">Your thesis is at the heart of your degree, guided by experienced academics who are actively engaged in research. Laboratory Research.</p>
       <ul class="tl">
-        <li><b>Laboratory research</b>Explore molecular biology, infectious diseases, and human health through hands-on research.</li>
-        <li><b>Clinical connections</b>Benefit from close collaborations with the Faculty of Medicine and partner hospitals.</li>
-        <li><b>Conference opportunities</b>Receive funding support to present your research at national and international academic conferences.</li>
+        <li><b>Laboratory research</b><span style="font-family: 'Segoe UI', Helvetica, Arial, sans-serif; font-weight: 100; font-size: 15px; color: #3B3B3B;">Explore molecular biology, infectious diseases, and human health through hands-on research.</span></li>
+        <li><b>Clinical connections</b><span style="font-family: 'Segoe UI', Helvetica, Arial, sans-serif; font-weight: 100; font-size: 15px;">Benefit from close collaborations with the Faculty of Medicine and partner hospitals.</span></li>
+        <li><b>Conference opportunities</b><span style="font-size: 15px; font-family: 'Segoe UI', Helvetica, Arial, sans-serif;">Receive funding support to present your research at national and international academic conferences.</span></li>
       </ul>
     </div>
   </div>

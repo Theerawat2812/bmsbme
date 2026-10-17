@@ -11,7 +11,7 @@
       '<div id="about-wrap">' +
         '<a href="#" class="item" id="about-btn">About us</a>' +
         '<div id="about-menu">' +
-          '<a href="about.html">Who we are</a>' +
+          '<a href="whoweare.html">Who we are</a>' +
           '<a href="mission.html">Our mission</a>' +
           '<a href="people.html">Our staff</a>' +
         '</div>' +
@@ -71,7 +71,7 @@
       '<div id="mobile-menu">' +
         '<a href="#" id="m-about-btn">About us</a>' +
         '<div id="m-about-sub">' +
-          '<a href="about.html">Who we are</a>' +
+          '<a href="whoweare.html">Who we are</a>' +
           '<a href="mission.html">Our mission</a>' +
           '<a href="people.html">Our staff</a>' +
         '</div>' +
@@ -235,7 +235,7 @@
   // รายชื่อหน้าที่ให้ค้นหา — เพิ่มหน้าใหม่ได้ที่นี่ (ใช้ชุดเดียวกับ search.html)
   var SEARCH_PAGES = [
     { url: "index.html",               name: "Home" },
-    { url: "about.html",               name: "Who we are" },
+    { url: "whoweare.html",               name: "Who we are" },
     { url: "mission.html",             name: "Our mission" },
     { url: "people.html",              name: "Our staff" },
     { url: "BMS.html",                 name: "Biomedical Sciences" },

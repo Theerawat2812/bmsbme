@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>About | BMS &amp; BME</title>
+<meta name="description" content="About the Department of Biomedical Sciences and Biomedical Engineering, Faculty of Medicine, Prince of Songkla University.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sarabun:wght@400;500;600;700&family=Libre+Caslon+Text:wght@400;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="header.css">
+<link rel="stylesheet" href="footer.css">
+<style>
+  :root {
+    /* ตัวแปรเดิมของเว็บ (header.css อาจใช้อยู่) ห้ามเปลี่ยน */
+    --blue: #1f5f99; --blue-2: #5a9ad2; --navy: #0f1f33; --ink: #14263a; --muted: #5b6b7b;
+    --sky: #e6eff8; --line: rgba(15,40,70,.12);
+    --font: "Segoe UI", Helvetica, Arial, sans-serif;
+    /* เฉพาะหน้านี้ */
+    --ab-blue: #2f78b8; --ab-blue-2: #3f8fd2; --ab-navy: #21326E; --ab-head: #1f3a56;
+    --ab-ink: #2b3a4a; --ab-muted: #6b7b8c;
+    --ab-sky: #e8f3fc; --ab-tint: #f4f9fd; --ab-line: #e6edf3;
+    --ab-font: Arial, Helvetica, sans-serif;
+    --ab-wrap: 1320px;
+    --ab-grad: #46538C;
+  }
+  html { scroll-behavior: smooth; }
+
+  /* ===== HERO — รูปชิดบนสุด ===== */
+  #overlay { display: none; }
+  #hero { position: relative; background: none; padding: 0; }
+
+  /* ---------- เนื้อหา ---------- */
+  .ab { font-family: var(--ab-font); color: var(--ab-ink); background: #fff; line-height: 1.7; }
+  .ab *, .ab *::before, .ab *::after { box-sizing: border-box; }
+  .ab .wrap { max-width: var(--ab-wrap); margin: 0 auto; padding: 0 25px; }
+  .ab h2, .ab p { margin: 0; }
+  .ab main { padding: clamp(36px, 4vw, 60px) 0; }
+  .ab a { color: inherit; text-decoration: none; }
+  .ab a:focus-visible { outline: 3px solid #bfe0f8; outline-offset: 3px; }
+
+  /* รูปยาวเต็มความกว้างหน้าจอ ชิดบนสุด ไม่มีขอบมน + gradient เบาๆ เฉพาะส่วนบน */
+  html, body { margin: 0; padding: 0; }
+
+#hero .banner {
+  position: relative;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background: var(--ab-sky);
+}
+#hero .banner img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+#hero .banner::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+ 
+  );
+}
+
+  /* ข้อความทั้งหมดอยู่ด้านล่างรูป */
+  .ab .mission { max-width: 800px; margin: 0 auto; padding: 0 25px; text-align: center; }
+  .ab .mission h2 {
+    font-family: 'Libre Caslon Text', 'Adobe Caslon Pro', Garamond, Georgia, serif;
+    font-weight: 400;
+    font-size: 30px;
+    line-height: 1.15;
+    color: #293463;
+  }
+  .ab .mission .body { margin-top: clamp(28px, 4vw, 48px); text-align: left; }
+
+  /* ข้อความทั้งหมด (ยกเว้นหัวเรื่อง): Arial 16px */
+  .ab .mission p {
+    font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.8;
+    text-align: justify;
+    text-justify: inter-word;
+    hyphens: auto;
+    font-weight: 300;
+    font-style: normal;
+    color: #242424;
+  }
+  .ab .mission p + p { margin-top: 1.4em; }
+  .ab .mission .fade { color: #b3b9c0; }
+
+  /* ปุ่ม: Arial 16px */
+  .ab .pill {
+    display: inline-block;
+    margin-top: clamp(24px, 3vw, 36px);
+    padding: 6px 30px;
+    border-radius: 999px;
+    background: var(--ab-blue);
+    color: #fff;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    font-weight: 200;
+    transition: background-color .2s;
+  }
+  .ab .pill:hover { background: #25659d; }
+@media (max-width: 900px) {
+    .ab .mission { padding: 0 48px; }
+    .ab .mission p { font-size: 16px; }
+	.ab .mission h2 { font-size: 24px; }
+    .ab .pill { display: block; padding: 5px 10px; }
+  }
+  @media (max-width: 600px) {
+    .ab .mission { padding: 0 48px; }
+    .ab .mission p { font-size: 15px; }
+	.ab .mission h2 { font-size: 22px; }
+    .ab .pill { display: block; padding: 5px 10px; }
+  }
+</style>
+</head>
+
+<body class="nav-solid">
+
+<!-- ===== Hero: navbar + รูปชิดบนสุด ===== -->
+<div id="hero">
+  <div id="site-nav"></div>
+  <div class="banner"><img src="images/home/WR.jpg" alt="Research in the department laboratory"></div>
+</div>
+
+<div class="ab">
+<main>
+  <div class="mission">
+    <h2>Biomedical science for the benefit of society</h2>
+
+    <div class="body">
+      <p>The department was officially founded on 25 August 1993. Since its establishment, the department has focused on scientific research in cytology and molecular biology to advance medical knowledge for more effective disease diagnosis and treatment. Our research themes are primarily centered on cancer, infectious diseases, and bioinformatics—areas that represent major national causes of mortality. In addition, our scientific scope continues to expand to related diseases and fosters collaboration with other departments within the Faculty of Medicine, as well as with external institutions both in Thailand and abroad.</p>
+
+      <p>Financial support is provided by the Faculty of Medicine Research Fund and external sources, such as the Thailand Research Fund and various international research agencies. The department has received continuous support from the Faculty of Medicine, Prince of Songkla University, particularly in terms of research infrastructure and equipment. We provide access to state-of-the-art laboratories and facilities that support a wide range of biological science research, including molecular biology, cell culture, immunology, and microbiology.</p>
+
+      <p>The department is committed to producing graduates with strong academic expertise and research ethics, capable of generating high-quality research that benefits society. Our collective efforts to advance biomedical science have significantly contributed to sustainable development and the enhancement of quality of life in our community. This purpose and determination reflect and uphold Prince of Songkla University’s motto: “Our Soul is for the benefit of mankind.”</p>
+    </div>
+
+    <a class="pill" href="mission.html">Our mission</a>
+  </div>
+</main>
+</div>
+
+<div id="site-footer"></div>
+<script src="header.js"></script>
+<script src="footer.js"></script>
+<script src="cookie.js"></script>
+</body>
+</html>

@@ -29,7 +29,7 @@
   --ink:#2b3a4a; --head:#1f3a56; --mut:#6b7b8c; --line:#e6edf3;
   --tint:#f4f9fd; --tint2:#e8f3fc; --blue:#3f8fd2; --blue-dk:#2f78b8; --sky:#bfe0f8;
   --wrap:1320px;
-  --font:'Inter','Sarabun',Helvetica,Arial,sans-serif;
+  --font:"Segoe UI", Helvetica, Arial, sans-serif;
 }
 html{scroll-behavior:smooth}
 body.nav-solid{ background:#fff; padding-top:70px; }
@@ -67,8 +67,8 @@ body.nav-solid{ background:#fff; padding-top:70px; }
   object-fit:cover; object-position:center top;
 }
 .org .role{ display:block; margin-bottom:4px; font-size:11px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--blue-dk); }
-.org .name{ display:block; font-size:14px; font-weight:700; line-height:1.35; color:var(--head); }
-.org .meta{ display:block; margin-top:4px; font-size:13px; color:var(--mut); overflow-wrap:anywhere; }
+.org .name{ display:block; font-size:14px; font-weight:00; line-height:1.35; color:var(--head); }
+.org .meta{ display:block; margin-top:4px; font-size:13px;font-weight: 400; color:var(--mut); overflow-wrap:anywhere; }
 
 /* ----- Head of Department ----- */
 .org .head{
@@ -168,6 +168,7 @@ body.nav-solid{ background:#fff; padding-top:70px; }
 @media (max-width:900px){
   .org .staff, .org .scientific{ grid-template-columns:repeat(2,minmax(0,1fr)); }
   .org .leaders{ grid-template-columns:minmax(0,1fr); }
+	  .org .label{ font-size:12px; }
 }
 @media (max-width:600px){
   .pb{ padding:40px 0 36px; }
@@ -176,10 +177,10 @@ body.nav-solid{ background:#fff; padding-top:70px; }
   .pb .intro{ font-size:15px; }
   .org{ padding-top:36px; padding-bottom:48px; }
   .org .block{ margin-bottom:40px; }
-  .org .label{ font-size:11px; }
+  .org .label{ font-size:10px; }
   .org .head{ flex-direction:column; align-items:center; text-align:center; padding:22px 18px; gap:20px; }
-  .org .head .photo{ width:50%; max-width:240px; height:210px; }
-  .org .head .name{ font-size:18px; }
+  .org .head .photo{ width:40%; max-width:120px; height:160px; }
+  .org .head .name{ font-size:16px; }
   .org .head .meta{ font-size:14px; }
   .org .team{ padding:20px 16px; }
   .org .row{ flex-direction:column; text-align:center; }
@@ -220,11 +221,11 @@ body.nav-solid{ background:#fff; padding-top:70px; }
 </div>
 
 <div>
-<span class="name">
+<span class="name" style="font-weight: 500">
 Assoc. Prof. Dr.&nbsp;Surapong Chatpun
 </span>
 
-<span class="meta">
+<span class="meta" style="font-weight: 100">
 Email:&nbsp;surapong.c@psu.ac.th
 </span>
 </div>
@@ -264,7 +265,7 @@ Assist. Prof. Dr.<br>
 Kamonnut Singkhamanan
 </span>
 
-<span class="meta">
+<span class="meta" style="font-weight: 100">
 skamonnu@medicine.psu.ac.th
 </span>
 
@@ -296,7 +297,7 @@ Assoc. Prof. Dr.<br>
 Tonghathai Phairatana
 </span>
 
-<span class="meta">
+<span class="meta" style="font-weight: 100">
 tonghathai.p@psu.ac.th
 </span>
 
@@ -344,14 +345,14 @@ tonghathai.p@psu.ac.th
 
 <div id="bms" class="programme-content active">
 
-<h3 class="programme-title" style="font-size: 20px">
+<h3 class="programme-title" style="font-size: 20px; font-style: normal; font-weight: 400;">
 Biomedical Sciences
 </h3>
 
 
 <!-- ----- Academic staff ----- -->
 
-<p class="sub-label">
+<p class="sub-label" style="font-weight: 400">
 Academic staff
 </p>
 
@@ -373,7 +374,7 @@ Prof. Dr.<br>
 Potchanapond Graidist
 </span>
 
-<span class="meta">
+<span class="meta" style="font-weight: 100">
 Email: gpotchan@medicine.psu.ac.th
 </span>
 
@@ -395,7 +396,7 @@ Assoc. Prof. Dr.<br>
 Kanyanatt Kanokwiroon
 </span>
 
-<span class="meta">
+<span class="meta" style="font-weight: 100">
 Email: kanyanatt.k@psu.ac.th
 </span>
 
@@ -417,7 +418,7 @@ Assoc. Prof. Dr.<br>
 Pritsana Raungrut
 </span>
 
-<span class="meta">
+<span class="meta" style="font-weight: 100">
 Email: rpritsana@gmail.com
 </span>
 
@@ -439,7 +440,7 @@ Assoc. Prof. Dr.<br>
 Raphatphorn Navakanitworakul
 </span>
 
-<span class="meta">
+<span class="meta" style="font-weight: 100">
 Email: raphatphorn.n@psu.ac.th
 </span>
 
@@ -461,7 +462,7 @@ Assoc. Prof. Dr.<br>
 Komwit Surachat
 </span>
 
-<span class="meta">
+<span class="meta" style="font-weight: 100">
 Email: Komwit.s@psu.ac.th
 </span>
 
@@ -483,7 +484,7 @@ Assoc. Prof. Dr.<br>
 Nawamin Pinpathomrat, M.D.
 </span>
 
-<span class="meta">
+<span class="meta" style="font-weight: 100">
 Email: nawamin.p@psu.ac.th
 </span>
 
@@ -505,7 +506,7 @@ Asst. Prof. Dr.<br>
 Kittinun Leetanaporn, M.D.
 </span>
 
-<span class="meta">
+<span class="meta" style="font-weight: 100">
 Email: kittinun.l@psu.ac.th
 </span>
 
@@ -526,7 +527,7 @@ Email: kittinun.l@psu.ac.th
 Dr. Rassanee Bissanum
 </span>
 
-<span class="meta">
+<span class="meta" style="font-weight: 100">
 Email: Rassanee.b@gmail.com
 </span>
 
@@ -547,7 +548,7 @@ Email: Rassanee.b@gmail.com
 Dr. Pemikar Srifa
 </span>
 
-<span class="meta">
+<span class="meta" style="font-weight: 100">
 Email: spemikar@medicine.psu.ac.th
 </span>
 
@@ -568,7 +569,7 @@ Email: spemikar@medicine.psu.ac.th
 Dr. Theerawat Dobutr
 </span>
 
-<span class="meta">
+<span class="meta" style="font-weight: 100">
 Email: dtheeraw@medicine.psu.ac.th
 </span>
 
@@ -590,7 +591,7 @@ Asst. Prof. Dr.<br>
 Ampapan Naknaen
 </span>
 
-<span class="meta">
+<span class="meta" style="font-weight: 100">
 Email: ampapan.nk@gmail.com
 </span>
 
@@ -611,7 +612,7 @@ Email: ampapan.nk@gmail.com
 Dr. Pongsakorn Choochuen, M.D.
 </span>
 
-<span class="meta">
+<span class="meta" style="font-weight: 100">
 Email: pongsakorn.choochuen@gmail.com
 </span>
 
@@ -632,7 +633,7 @@ Email: pongsakorn.choochuen@gmail.com
 Dr. Hattaya Benya-aphikul
 </span>
 
-<span class="meta">
+<span class="meta" style="font-weight: 100">
 Email: bhattaya@medicine.psu.ac.th
 </span>
 
@@ -643,7 +644,7 @@ Email: bhattaya@medicine.psu.ac.th
 
 <!-- ----- Scientist and Supporting Staff ----- -->
 
-<p class="sub-label">
+<p class="sub-label" style="font-weight: 400">
 Scientist and Supporting Staff
 </p>
 
@@ -668,8 +669,7 @@ Miss Phanvasri Saengsuwan
 
 <span class="meta">
 Senior Professional Level<br>
-Email: sphanvas@medicine.psu.ac.th
-</span>
+<span style="font-weight: 100">Email: sphanvas@medicine.psu.ac.th</span> </span>
 
 </div>
 
@@ -692,8 +692,7 @@ Miss Saowanee Muangchanburee
 
 <span class="meta">
 Senior Professional Level<br>
-Email: msaowane@medicine.psu.ac.th
-</span>
+<span style="font-weight: 100">Email: msaowane@medicine.psu.ac.th</span> </span>
 
 </div>
 
@@ -714,7 +713,7 @@ Supporting Staff
 Miss Mayuree Boonrach
 </span>
 
-<span class="meta">
+<span class="meta" style="font-weight: 100">
 Email: bmayuree@medicine.psu.ac.th
 </span>
 
@@ -737,7 +736,7 @@ Supporting Staff
 Miss Kanokon Khannui
 </span>
 
-<span class="meta">
+<span class="meta" style="font-weight: 100">
 Email: kkanokon@medicine.psu.ac.th
 </span>
 
@@ -761,7 +760,6 @@ Mr. Somnuek Chuayprasom
 </span>
 
 <span class="meta">
-[ Position / email ]
 </span>
 
 </div>
@@ -777,15 +775,14 @@ Mr. Somnuek Chuayprasom
 
 <div id="bme" class="programme-content">
 
-<h3 class="programme-title" style="font-size: 20
-								  px">
+<h3 class="programme-title" style="font-size: 20px; font-style: normal; font-weight: 400;">
 Biomedical Engineering
 </h3>
 
 
 <!-- ----- Academic staff ----- -->
 
-<p class="sub-label">
+<p class="sub-label" style="font-weight: 400">
 Academic staff
 </p>
 
@@ -902,7 +899,7 @@ Academic staff
 
 <!-- ----- Scientific staff ----- -->
 
-<p class="sub-label">
+<p class="sub-label" style="font-weight: 400">
 Scientific staff
 </p>
 

@@ -26,7 +26,7 @@
   --blue-dk:#2f78b8;
   --sky:#bfe0f8;
   --wrap:1320px;
-  --font:'Inter','Sarabun',Helvetica,Arial,sans-serif;
+  --font:"Segoe UI", Helvetica, Arial, sans-serif;
   --font-serif:'Libre Caslon Text','Adobe Caslon Pro',Garamond,Georgia,'Times New Roman',serif;
 }
 html{scroll-behavior:smooth}
@@ -70,7 +70,14 @@ html{scroll-behavior:smooth}
     color: #fff;
     font-style: normal;
 }
-#hero .w .sub{margin-top:18px; font-size:18px; color:#f0f7fd; max-width:520px}
+#hero .w .sub{
+    margin-top: 18px;
+    font-size: 18px;
+    color: #f0f7fd;
+    max-width: 520px;
+    font-weight: lighter;
+    font-style: normal;
+}
 #hero .w .btn{display:inline-block; margin-top:28px; padding:13px 28px; background:#EB7D31;color:#FFf; font-weight:700; border-radius:4px; text-decoration:none; transition:transform .2s, box-shadow .2s}
 #hero .w .btn:hover{transform:translateY(-2px); box-shadow:0 8px 20px rgba(0,0,0,.15)}
 
@@ -99,7 +106,15 @@ html{scroll-behavior:smooth}
 /* ข้อความ "Two programs, one shared community..." ใช้ฟอนต์ serif เดิม ห้ามเปลี่ยน */
 .about p.big{font-family:var(--font-serif); font-size:clamp(20px,2.4vw,26px); line-height:1.55; color:var(--head); max-width:780px; margin:14px auto 0}
 .pg .about p.big{font-family:var(--font-serif)}
-.about p.small{color:var(--mut); max-width:620px; margin:16px auto 0}
+.about p.small{
+    color: var(--mut);
+    max-width: 620px;
+    margin: 16px auto 0;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 16px;
+    font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+}
 
 /* ---------- Curriculum (2 คอลัมน์) ---------- */
 .cur{display:grid; grid-template-columns:1fr 1fr; gap:24px; align-items:center}
@@ -110,8 +125,17 @@ html{scroll-behavior:smooth}
 .steps li{counter-increment:s; position:relative; padding:0 0 22px 56px}
 .steps li::before{content:counter(s); position:absolute; left:0; top:0; width:38px; height:38px; border-radius:50%; background:var(--tint2); color:var(--blue-dk); font-weight:700; display:flex; align-items:center; justify-content:center}
 .steps li:last-child{padding-bottom:0}
-.steps b{display:block; color:var(--head); font-size:17px}
-.steps p{font-size:15px; color:var(--mut)}
+.steps b{
+    display: block;
+    color: var(--head);
+    font-size: 16px
+}
+.steps p{
+    font-size: 15px;
+    color: #3B3B3B;
+    font-weight: 300;
+    font-style: normal;
+}
 
 /* ---------- Life (โมเสก บนพื้นสีธีมเดียวกับ hero) ---------- */
 .life{display:grid; grid-template-columns:repeat(4,1fr); grid-auto-rows:190px; gap:14px; margin-top:32px}
@@ -133,8 +157,10 @@ html{scroll-behavior:smooth}
     font-size: 20px
 }
 .contact p{
-    color: var(--mut);
-    font-weight: normal;
+    color: #3B3B3B;
+    font-weight: 300;
+    font-size: 15px;
+    font-style: normal;
 }
 .contact .btn{display:inline-block; padding:11px 24px; background:var(--blue); color:#fff; font-weight:700; border-radius:4px; transition:background .2s}
 .contact .btn:hover{background:var(--blue-dk)}
@@ -271,7 +297,7 @@ html{scroll-behavior:smooth}
   <div class="w">
     <span class="tag">Student experience</span>
     <h2>Life in the department</h2>
-    <p class="lead">The people you meet, the places you work and the city you call home for a few years.</p>
+    <p class="lead" style="font-size: 16px">The people you meet, the places you work and the city you call home for a few years.</p>
     <div class="life">
       <a href="#"><img src="images/home/life-lab.jpg" alt="In the laboratory"><span>In the laboratory</span></a>
       <a href="#"><img src="images/home/student.jpg" alt="Study together"><span>Study together</span></a>
