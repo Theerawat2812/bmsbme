@@ -300,7 +300,7 @@ html{scroll-behavior:smooth}
 #bmsMatch .m-meta { font-size: 13px !important; color: #6b7280 !important; margin: 0 0 8px 0 !important; word-break: break-all !important; }
 #bmsMatch .m-rlabel { font-size: 12px !important; font-weight: 700 !important; color: #1c2333 !important; margin: 0 0 4px 0 !important; }
 #bmsMatch .m-tag { display: inline-block !important; font-size: 12px !important; padding: 3px 10px !important; margin: 0 6px 6px 0 !important; border-radius: 20px !important; background: #eef2ff !important; color: #2f56d6 !important; border: 1px solid transparent !important; }
-/* Highlight (soft, quieter than the Contact now button) */
+/* Highlight (soft, quieter than the Contactbutton) */
 #bmsMatch .m-tag.hit { background: #f1f5ff !important; color: #3d5fc4 !important; border: 1px solid #d3deff !important; font-weight: 600 !important; }
 #bmsMatch .m-empty { text-align: center !important; color: #6b7280 !important; font-size: 14px !important; padding: 24px 8px !important; }
 
@@ -343,7 +343,7 @@ html{scroll-behavior:smooth}
 
 <div class="m-bar">
   <h2 class="m-title">Find your advisor</h2>
-  <input type="text" id="mField" placeholder="Interesting field (Immunology, cancer, AI, etc.)" />
+  <input type="text" id="mField" placeholder="Reseach Field (Immunology, cancer, AI, etc.)" />
   <button type="button" id="mBtn">Search</button>
 </div>
 
@@ -799,13 +799,13 @@ html{scroll-behavior:smooth}
     body.appendChild(el("div", "m-name", a.name));
     body.appendChild(el("div", "m-dept", a.dept));
 
-    // email + Contact now button, side by side
+    // email + Contact button, side by side
     var row = el("div", "m-emailrow");
     row.appendChild(el("span", "m-email", a.email));
 
     var isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
 
-    var contact = el("a", "m-contact", "Contact now");
+    var contact = el("a", "m-contact", "Contact");
     if (isMobile) {
       // mobile: open the phone's mail app with only the recipient filled in
       contact.href = "mailto:" + a.email;
