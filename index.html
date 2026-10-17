@@ -78,7 +78,7 @@ html{scroll-behavior:smooth}
     font-weight: lighter;
     font-style: normal;
 }
-#hero .w .btn{display:inline-block; margin-top:28px; padding:13px 28px; background:#EB7D31;color:#FFf; font-weight:700; border-radius:4px; text-decoration:none; transition:transform .2s, box-shadow .2s}
+#hero .w .btn{display:inline-block; margin-top: 40px; padding:13px 28px; background:#EB7D31;color:#FFf; font-weight:700; border-radius:4px; text-decoration:none; transition:transform .2s, box-shadow .2s}
 #hero .w .btn:hover{transform:translateY(-2px); box-shadow:0 8px 20px rgba(0,0,0,.15)}
 
 /* ---------- Programs (การ์ดรูปเต็ม ข้อความทับรูป) ---------- */
@@ -112,7 +112,7 @@ html{scroll-behavior:smooth}
     margin: 16px auto 0;
     font-style: normal;
     font-weight: 300;
-    font-size: 16px;
+    font-size: 14px;
     font-family: "Segoe UI", Helvetica, Arial, sans-serif;
 }
 
@@ -190,19 +190,28 @@ html{scroll-behavior:smooth}
 }
 @media (max-width:600px){
   .pg{font-size:15px}
-  #hero{min-height:0; padding:96px 0 44px}
+  #hero{min-height:0; padding:120px 0 44px}
   #hero .w h1{font-size:clamp(18px, calc((100vw - 36px) / 14.5), 34px); margin-top:10px}
-  #hero .w .sub{font-size:15px; margin-top:12px}
+  #hero .w .sub{
+    font-size: 13px;
+    margin-top: 12px
+}
   #hero .w .btn{margin-top:18px; padding:9px 18px; font-size:14px}
   .tag{font-size:11px; letter-spacing:.05em; line-height:1.5}
   .sec{padding:44px 0}
   .w{padding:0 18px}
-  .pg h2{font-size:24px}
+  .pg h2{
+    font-size: 20px;
+    font-weight: 800;
+}
   .programs-head{margin-bottom:20px}
   .prog{min-height:320px}
   .prog .t{padding:22px 20px 24px}
   .prog h3{font-size:22px}
-  .prog p{font-size:10px; margin-bottom:10px}
+  .prog p{
+    font-size: 12px;
+    margin-bottom: 10px
+}
   .pg .prog .more{padding:8px 16px; font-size:13px}
   .pg .steps{margin-top:28px}
   .steps li{padding-left:50px}
@@ -234,7 +243,7 @@ html{scroll-behavior:smooth}
     <span class="tag">Faculty of Medicine &middot; Prince of Songkla University</span>
     <h1>Biomedical Sciences<br>&amp; Biomedical Engineering</h1>
     <p class="sub">Educating the scientists and engineers who will explore the science of life and create solutions for health.</p>
-    <a href="#programs" class="btn">Explore our programs</a>
+    <a href="programs" class="btn">Explore our programs</a>
   </div>
 </div>
 
@@ -281,7 +290,7 @@ html{scroll-behavior:smooth}
 
 /* ===== Single row bar ===== */
 #bmsMatch .m-bar { display: flex !important; align-items: center !important; gap: 14px !important; flex-wrap: nowrap !important; }
-#bmsMatch .m-title { flex: 0 0 auto !important; margin: 0 !important; padding: 7px !important; font-size: 22px !important; font-weight: 500 !important; white-space: nowrap !important; background: linear-gradient(90deg,#ff6b6b,#ffa94d,#4f7cff,#7b5bff,#ff4fa3) !important; -webkit-background-clip: text !important; background-clip: text !important; -webkit-text-fill-color: transparent !important; color: transparent !important; }
+#bmsMatch .m-title { flex: 0 0 auto !important; margin: 0 !important; padding: 7px !important; font-size: 2px !important; font-weight: 500 !important; white-space: nowrap !important; background: linear-gradient(90deg,#ff6b6b,#ffa94d,#4f7cff,#7b5bff,#ff4fa3) !important; -webkit-background-clip: text !important; background-clip: text !important; -webkit-text-fill-color: transparent !important; color: transparent !important; }
 #bmsMatch #mField { flex: 1 1 auto !important; min-width: 0 !important; min-height: 46px !important; padding: 12px 14px !important; border: 2px solid rgba(79,124,255,0.25) !important; border-radius: 30px !important; font-size: 14px !important; outline: none !important; background: #fff !important; color: #1c2333 !important; }
 #bmsMatch #mField:focus { border-color: #4f7cff !important; }
 #bmsMatch #mBtn { flex: 0 0 auto !important; min-height: 46px !important; padding: 0 26px !important; border: none !important; border-radius: 30px !important; background: linear-gradient(135deg,#4f7cff,#2f56d6) !important; color: #fff !important; font-weight: 300 !important; font-size: 15px !important; cursor: pointer !important; }
@@ -310,8 +319,8 @@ html{scroll-behavior:smooth}
 @media (max-width: 600px) {
   #bmsMatch { padding: 10px !important; }
   #bmsMatch .m-bar { flex-wrap: wrap !important; gap: 10px !important; }
-  #bmsMatch .m-title { width: fit-content !important; margin: 0 auto !important; text-align: center !important; font-size: 15px !important; }
-  #bmsMatch #mField { flex: 1 1 10% !important; min-height: 1px !important; min-width: 1px !important; padding: 8px 12px !important; font-size: 13px !important; border-radius: 20px !important; }
+  #bmsMatch .m-title { width: fit-content !important; margin: 0 auto !important; text-align: center !important; font-size: 16px !important; }
+  #bmsMatch #mField { flex: 1 1 10% !important; min-height: px !important; min-width: 1px !important; padding: 10px 20px !important; font-size: 13px !important; border-radius: 20px !important; }
 
   /* ปุ่ม Search เป็นวงกลม + ไอคอนแว่นขยายสีขาว */
   #bmsMatch #mBtn {
@@ -344,7 +353,7 @@ html{scroll-behavior:smooth}
 </style>
 
 <div class="m-bar">
-  <h2 class="m-title">Find your advisor</h2>
+  <h2 class="m-title"><strong>Find your advisor</strong></h2>
   <input type="text" id="mField" placeholder="Enter your research intersts (immunology, cancer, AI, etc.)" />
   <button type="button" id="mBtn">Search</button>
 </div>
