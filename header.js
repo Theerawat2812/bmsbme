@@ -13,7 +13,7 @@
         '<div id="about-menu">' +
           '<a href="whoweare.html">Who we are</a>' +
           '<a href="mission.html">Our mission</a>' +
-          '<a href="people.html">Our staff</a>' +
+          '<a href="staff.html">Our staff</a>' +
         '</div>' +
       '</div>' +
 
@@ -73,7 +73,7 @@
         '<div id="m-about-sub">' +
           '<a href="whoweare.html">Who we are</a>' +
           '<a href="mission.html">Our mission</a>' +
-          '<a href="people.html">Our staff</a>' +
+          '<a href="staff.html">Our staff</a>' +
         '</div>' +
         '<a href="#" id="m-program-btn">Our programs</a>' +
         '<div id="m-program-sub">' +
@@ -120,7 +120,7 @@
 
   // ชื่อหน้าเป็นตัวพิมพ์เล็กทั้งหมด (norm แปลงเป็นตัวเล็กแล้ว)
   var groups = {
-    "about-btn":     ["about", "mission", "people"],
+    "about-btn":     ["about", "mission", "staff"],
     "program-btn":   ["bms", "bme"],
     "academics-btn": ["overview", "course-descriptions", "bmscurriculum", "bmecurriculum",
                       "phd-programme", "phd-plos", "msc-programme", "msc-plos",
@@ -237,7 +237,7 @@
     { url: "index.html",               name: "Home" },
     { url: "whoweare.html",               name: "Who we are" },
     { url: "mission.html",             name: "Our mission" },
-    { url: "people.html",              name: "Our staff" },
+    { url: "staff.html",              name: "Our staff" },
     { url: "BMS.html",                 name: "Biomedical Sciences" },
     { url: "bme.html",                 name: "Biomedical Engineering" },
     { url: "overview.html",            name: "Academics Overview" },

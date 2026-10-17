@@ -36,6 +36,18 @@
   #bmsMatch #mBtn { width: 100% !important; }
   #bmsMatch .m-card { flex-direction: column !important; align-items: center !important; text-align: center !important; }
 }
+
+/* ===== Expertise tags ===== */
+#bmsMatch .m-tag.m-field { background: #fff !important; color: #2f56d6 !important; border: 1px solid #2f56d6 !important; font-weight: 700 !important; }
+#bmsMatch .m-tag.m-field.hit { background: #2f56d6 !important; color: #fff !important; }
+/* ===== Contact row ===== */
+#bmsMatch .m-dept { font-size: 13px !important; color: #6b7280 !important; margin: 0 0 6px 0 !important; }
+#bmsMatch .m-emailrow { display: flex !important; align-items: center !important; flex-wrap: wrap !important; gap: 10px !important; margin: 0 0 10px 0 !important; }
+#bmsMatch .m-email { font-size: 13px !important; color: #1c2333 !important; word-break: break-all !important; }
+#bmsMatch a.m-contact { display: inline-block !important; padding: 6px 16px !important; border-radius: 999px !important; background: linear-gradient(135deg,#4f7cff,#2f56d6) !important; color: #fff !important; font-size: 12px !important; font-weight: 700 !important; text-decoration: none !important; white-space: nowrap !important; }
+#bmsMatch a.m-contact:hover { filter: brightness(1.08) !important; }
+#bmsMatch .m-sub { font-size: 13px !important; color: #6b7280 !important; margin: -8px 40px 14px 0 !important; }
+@media (max-width: 600px) { #bmsMatch .m-emailrow { justify-content: center !important; } }
 </style>
 
 <div class="m-bar">
@@ -64,6 +76,10 @@
     "dept": "Biomedical Sciences",
     "email": "gpotchan@medicine.psu.ac.th",
     "photo": "",
+    "fields": [
+      "Cancer Biology",
+      "Natural Products & Drug Discovery"
+    ],
     "research": [
       "Cytotoxicity",
       "Breast cancer",
@@ -139,6 +155,11 @@
     "dept": "Biomedical Sciences",
     "email": "kanyanatt.k@psu.ac.th",
     "photo": "",
+    "fields": [
+      "Cancer Biology",
+      "Natural Products & Drug Discovery",
+      "Cardiovascular & Hemodynamics"
+    ],
     "research": [
       "Breast cancer",
       "Triple-negative breast cancer",
@@ -215,6 +236,10 @@
     "dept": "Biomedical Sciences",
     "email": "rpritsana@gmail.com",
     "photo": "",
+    "fields": [
+      "Cancer Biology",
+      "Biomarkers & Diagnostics"
+    ],
     "research": [
       "Non-small cell lung cancer",
       "Lung adenocarcinoma",
@@ -291,6 +316,10 @@
     "dept": "Biomedical Sciences",
     "email": "raphatphorn.n@psu.ac.th",
     "photo": "",
+    "fields": [
+      "Cancer Biology",
+      "Biomarkers & Diagnostics"
+    ],
     "research": [
       "Cervical cancer",
       "Extracellular vesicles",
@@ -300,6 +329,7 @@
       "Apoptosis"
     ],
     "keywords": [
+		"Bioinformatics",
       "cervical cancer",
       "extracellular vesicles",
       "siha cells",
@@ -365,6 +395,10 @@
     "dept": "Biomedical Sciences",
     "email": "Komwit.s@psu.ac.th",
     "photo": "",
+    "fields": [
+      "Microbiology & Antimicrobial Resistance",
+      "Genomics & Bioinformatics"
+    ],
     "research": [
       "Antimicrobial resistance",
       "Pan-genome",
@@ -374,6 +408,7 @@
       "Virulence factors"
     ],
     "keywords": [
+		"Bioinformatics",
       "antimicrobial resistance",
       "pan-genome",
       "virulence genes",
@@ -441,6 +476,9 @@
     "dept": "Biomedical Sciences",
     "email": "nawamin.p@psu.ac.th",
     "photo": "",
+    "fields": [
+      "Immunology & Vaccines"
+    ],
     "research": [
       "Mycobacterium tuberculosis",
       "T cell response",
@@ -506,7 +544,10 @@
       "population",
       "chadox1",
       "booster",
-      "heterologous"
+      "heterologous",
+			  "t-cell",
+      "b-cell",
+	"flow cytometry"
     ]
   },
   {
@@ -514,6 +555,10 @@
     "dept": "Biomedical Sciences",
     "email": "kittinun.l@psu.ac.th",
     "photo": "",
+    "fields": [
+      "Cancer Biology",
+      "Biomarkers & Diagnostics"
+    ],
     "research": [
       "Prognostic factors",
       "Overall survival",
@@ -523,6 +568,7 @@
       "Early-stage cervical cancer"
     ],
     "keywords": [
+		"Bioinformatics",
       "prognostic factors",
       "overall survival",
       "cervical cancer",
@@ -590,7 +636,12 @@
     "dept": "Biomedical Sciences",
     "email": "Rassanee.b@gmail.com",
     "photo": "",
+    "fields": [
+      "Cancer Biology",
+      "Biomarkers & Diagnostics"
+    ],
     "research": [
+		"Bioinformatics",
       "Triple-negative breast cancer",
       "Breast cancer",
       "Overall survival",
@@ -664,6 +715,10 @@
     "dept": "Biomedical Sciences",
     "email": "spemikar@medicine.psu.ac.th",
     "photo": "",
+    "fields": [
+      "Genomics & Bioinformatics",
+      "Immunology & Vaccines"
+    ],
     "research": [
       "Lignin depolymerization",
       "Reaction mechanism",
@@ -702,17 +757,6 @@
       "brønsted acid catalysis",
       "intramolecular substitution",
       "dft calculations",
-      "tetravalent dengue vaccine",
-      "dengue virus",
-      "ns3",
-      "ns5 protein",
-      "t cell epitopes",
-      "b-cell epitopes",
-      "envelope protein",
-      "immunoinformatics",
-      "vaccine design",
-      "tlr2",
-      "tlr4",
       "substitution",
       "hydroxyl",
       "group",
@@ -731,8 +775,7 @@
       "framework",
       "theoretical",
       "catalyzed",
-      "t-cell",
-      "epitopes"
+
     ]
   },
   {
@@ -740,6 +783,11 @@
     "dept": "Biomedical Sciences",
     "email": "dtheeraw@medicine.psu.ac.th",
     "photo": "",
+    "fields": [
+      "Immunology & Vaccines",
+      "Genomics & Bioinformatics",
+      "Natural Products & Drug Discovery"
+    ],
     "research": [
       "B-cell epitopes",
       "Vaccine design",
@@ -807,6 +855,10 @@
       "protein",
       "inhibition",
       "vivo"
+	  "t-cell",
+      "b-cell",
+	"flow cytometry",
+		"infection"
     ]
   },
   {
@@ -814,6 +866,9 @@
     "dept": "Biomedical Sciences",
     "email": "ampapan.nk@gmail.com",
     "photo": "",
+    "fields": [
+      "Microbiology & Antimicrobial Resistance"
+    ],
     "research": [
       "Phage therapy",
       "Biofilm inhibition",
@@ -890,6 +945,10 @@
     "dept": "Biomedical Sciences",
     "email": "pongsakorn.choochuen@gmail.com",
     "photo": "",
+    "fields": [
+      "Cancer Biology",
+      "Biomarkers & Diagnostics"
+    ],
     "research": [
       "Somatic mutations",
       "Prognostic factors",
@@ -963,6 +1022,10 @@
     "dept": "Biomedical Sciences",
     "email": "bhattaya@medicine.psu.ac.th",
     "photo": "",
+    "fields": [
+      "Neuroscience & Neurology",
+      "Natural Products & Drug Discovery"
+    ],
     "research": [
       "Catalase",
       "Neuroprotection",
@@ -1038,6 +1101,10 @@
     "dept": "Biomedical Sciences",
     "email": "skamonnu@medicine.psu.ac.th",
     "photo": "",
+    "fields": [
+      "Microbiology & Antimicrobial Resistance",
+      "Genomics & Bioinformatics"
+    ],
     "research": [
       "Virulence genes",
       "Antimicrobial resistance",
@@ -1114,6 +1181,9 @@
     "dept": "Biomedical Engineering",
     "email": "jirutmeesane999@yahoo.co.uk",
     "photo": "",
+    "fields": [
+      "Biomaterials & Tissue Engineering"
+    ],
     "research": [
       "Mechanical properties",
       "Bone regeneration",
@@ -1189,6 +1259,10 @@
     "dept": "Biomedical Engineering",
     "email": "somjot.c@psu.ac.th",
     "photo": "",
+    "fields": [
+      "Biomaterials & Tissue Engineering",
+      "Biosensors & Medical Devices"
+    ],
     "research": [
       "Cell adhesion",
       "Hemagglutination",
@@ -1264,6 +1338,10 @@
     "dept": "Biomedical Engineering",
     "email": "jjermphi@medicine.psu.ac.th",
     "photo": "",
+    "fields": [
+      "AI & Medical Informatics",
+      "Biomechanics & Rehabilitation"
+    ],
     "research": [
       "Histogram of oriented gradients",
       "Local binary pattern",
@@ -1340,6 +1418,10 @@
     "dept": "Biomedical Engineering",
     "email": "k.pasarat@gmail.com",
     "photo": "",
+    "fields": [
+      "Cancer Biology",
+      "Natural Products & Drug Discovery"
+    ],
     "research": [
       "Foxm1",
       "Breast cancer",
@@ -1413,6 +1495,10 @@
     "dept": "Biomedical Engineering",
     "email": "krit.ch@psu.ac.th",
     "photo": "",
+    "fields": [
+      "Neuroscience & Neurology",
+      "AI & Medical Informatics"
+    ],
     "research": [
       "High-frequency oscillations",
       "Intracranial eeg",
@@ -1489,6 +1575,10 @@
     "dept": "Biomedical Engineering",
     "email": "atichart.k@psu.ac.th",
     "photo": "",
+    "fields": [
+      "Biomechanics & Rehabilitation",
+      "Biomaterials & Tissue Engineering"
+    ],
     "research": [
       "Von mises stress",
       "Finite element model",
@@ -1565,6 +1655,9 @@
     "dept": "Biomedical Engineering",
     "email": "sitthichok.c@psu.ac.th",
     "photo": "",
+    "fields": [
+      "AI & Medical Informatics"
+    ],
     "research": [
       "Artificial intelligence",
       "Convolutional neural networks",
@@ -1641,6 +1734,9 @@
     "dept": "Biomedical Engineering",
     "email": "wanwara.t@psu.ac.th",
     "photo": "",
+    "fields": [
+      "Cardiovascular & Hemodynamics"
+    ],
     "research": [
       "Sickle cell disease",
       "Vaso-occlusive crisis",
@@ -1716,6 +1812,9 @@
     "dept": "Biomedical Engineering",
     "email": "tonghathai.p@psu.ac.th",
     "photo": "",
+    "fields": [
+      "Biosensors & Medical Devices"
+    ],
     "research": [
       "Gold nanoparticles",
       "Screen-printed electrodes",
@@ -1791,6 +1890,10 @@
     "dept": "Biomedical Engineering",
     "email": "surapong.c@psu.ac.th",
     "photo": "",
+    "fields": [
+      "Biomechanics & Rehabilitation",
+      "Cardiovascular & Hemodynamics"
+    ],
     "research": [
       "Plantar pressure",
       "Diabetic foot",
@@ -1863,9 +1966,35 @@
     ]
   }
 ];
-  ];
+
   // ==================================
 
+  var MAX_RESULTS = 10;
+  // what each expertise group also answers to when someone types a search
+  var FIELD_SYNONYMS = {
+    "Immunology & Vaccines": "immunology immune immunity vaccine vaccination infectious disease t cell antibody",
+    "Cancer Biology": "cancer oncology tumor carcinoma chemotherapy anticancer",
+    "Biomarkers & Diagnostics": "biomarker diagnosis diagnostic detection screening proteomics",
+    "Microbiology & Antimicrobial Resistance": "microbiology bacteria bacterial antibiotic resistance amr phage probiotic infection",
+    "Genomics & Bioinformatics": "genomics genome bioinformatics computational sequencing docking",
+    "Natural Products & Drug Discovery": "natural product herbal plant extract drug pharmacology medicinal chemistry",
+    "Neuroscience & Neurology": "neuroscience neurology brain eeg epilepsy dementia",
+    "Biomaterials & Tissue Engineering": "biomaterial tissue engineering scaffold bone stem cell regenerative",
+    "Biosensors & Medical Devices": "biosensor sensor device electrochemical microfluidic",
+    "AI & Medical Informatics": "ai artificial intelligence machine learning deep learning informatics data",
+    "Biomechanics & Rehabilitation": "biomechanics rehabilitation orthopedic gait finite element",
+    "Cardiovascular & Hemodynamics": "cardiovascular blood flow hemodynamics heart vascular"
+  };
+  // short forms people commonly type -> terms that appear in the advisors' data
+  var ALIASES = {
+    "ai": ["artificial intelligence", "machine learning", "deep learning"],
+    "ml": ["machine learning"],
+    "tb": ["tuberculosis"],
+    "covid": ["covid-19", "sars-cov-2"],
+    "amr": ["antimicrobial resistance"],
+    "eeg": ["eeg"],
+    "bme": ["biomedical engineering"]
+  };
   var input = document.getElementById("mField");
   var btn = document.getElementById("mBtn");
   var overlay = document.getElementById("mOverlay");
@@ -1883,13 +2012,35 @@
   function openPop() { overlay.className = "m-overlay open"; }
   function closePop() { overlay.className = "m-overlay"; }
 
+  function esc(s) { return s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"); }
+
+  // a search word matches when it starts a word in the advisor's text (so "ai" will not match "main")
+  function hasWord(text, w) {
+    return new RegExp("(^|[^a-z0-9])" + esc(w)).test(text);
+  }
+
   function score(a, words) {
-    var pool = a.keywords.concat(a.research, [a.name, a.dept]).join(" ").toLowerCase();
+    var fs = a.fields || [];
+    var syn = fs.map(function (f) { return f + " " + (FIELD_SYNONYMS[f] || ""); });
+    var pool = a.keywords.concat(a.research, fs, syn, [a.name, a.dept]).join(" | ").toLowerCase();
     var hits = [];
     words.forEach(function (w) {
-      if (pool.indexOf(w) !== -1) { hits.push(w); }
+      if (hasWord(pool, w) && hits.indexOf(w) === -1) { hits.push(w); }
     });
     return hits;
+  }
+
+  function researchHits(a, hits) {
+    var n = 0;
+    a.research.forEach(function (t) {
+      var tl = t.toLowerCase();
+      if (hits.some(function (h) { return hasWord(tl, h); })) { n++; }
+    });
+    (a.fields || []).forEach(function (f, i) {
+      var fl = (f + " " + (FIELD_SYNONYMS[f] || "")).toLowerCase();
+      if (hits.some(function (h) { return hasWord(fl, h); })) { n += (i === 0 ? 4 : 2); }   // primary field counts most
+    });
+    return n;
   }
 
   function initial(name) {
@@ -1913,13 +2064,43 @@
     }
     var body = el("div", "m-body");
     body.appendChild(el("div", "m-name", a.name));
-    body.appendChild(el("div", "m-meta", a.dept.concat(" | ", a.email)));
+    body.appendChild(el("div", "m-dept", a.dept));
+
+    // email + Contact now button, side by side
+    var row = el("div", "m-emailrow");
+    row.appendChild(el("span", "m-email", a.email));
+    var contact = el("a", "m-contact", "Contact now");
+    contact.href = "mailto:" + a.email + "?subject=" +
+      encodeURIComponent("Inquiry about M.Sc./Ph.D. in Biomedical Sciences");
+    row.appendChild(contact);
+    body.appendChild(row);
+
+    if (a.fields && a.fields.length) {
+      body.appendChild(el("div", "m-rlabel", "Expertise"));
+      a.fields.forEach(function (f) {
+        var fl = (f + " " + (FIELD_SYNONYMS[f] || "")).toLowerCase();
+        var isHit = hits.some(function (h) { return hasWord(fl, h); });
+        body.appendChild(el("span", isHit ? "m-tag m-field hit" : "m-tag m-field", f));
+      });
+    }
+
     if (a.research.length) {
       body.appendChild(el("div", "m-rlabel", "Research"));
       a.research.forEach(function (t) {
-        var isHit = hits.some(function (h) { return t.toLowerCase().indexOf(h) !== -1; });
+        var tl = t.toLowerCase();
+        var isHit = hits.some(function (h) { return hasWord(tl, h); });
         body.appendChild(el("span", isHit ? "m-tag hit" : "m-tag", t));
       });
+    }
+
+    // matched terms that are not already shown in the research tags
+    var shown = a.research.join(" | ").toLowerCase();
+    var extra = a.keywords.filter(function (k) {
+      return hits.some(function (h) { return hasWord(k, h); }) && shown.indexOf(k) === -1;
+    }).slice(0, 5);
+    if (extra.length) {
+      body.appendChild(el("div", "m-rlabel", "Also matches"));
+      extra.forEach(function (k) { body.appendChild(el("span", "m-tag hit", k)); });
     }
     card.appendChild(body);
     return card;
@@ -1927,11 +2108,41 @@
 
   function run() {
     var q = input.value.toLowerCase().trim();
-    if (!q) { return; }
+    if (!q) { input.focus(); return; }
     var words = q.split(/[\s,]+/).filter(function (w) { return w.length > 1; });
+    if (!words.length) { words = [q]; }
+    words.slice().forEach(function (w) {
+      (ALIASES[w] || []).forEach(function (x) { if (words.indexOf(x) === -1) { words.push(x); } });
+    });
     var found = [];
     advisors.forEach(function (a) {
       var hits = score(a, words);
-      if (hits.length > 0) { found.push({ a: a, hits: hits }); }
+      if (hits.length > 0) { found.push({ a: a, hits: hits, rh: researchHits(a, hits) }); }
     });
-    found.sort(function (x, y) { return y.hits.length -
+    found.sort(function (x, y) {
+      return (y.hits.length - x.hits.length) || (y.rh - x.rh) || x.a.name.localeCompare(y.a.name);
+    });
+
+    while (out.firstChild) { out.removeChild(out.firstChild); }
+    head.textContent = 'Advisors for "' + input.value.trim() + '"';
+
+    if (!found.length) {
+      out.appendChild(el("div", "m-empty", "No advisor matched this topic yet. Try a broader term such as cancer, immunology, bacteria, vaccine, or biosensor."));
+    } else {
+      var shownCount = Math.min(found.length, MAX_RESULTS);
+      out.appendChild(el("div", "m-sub", found.length + " advisor" + (found.length > 1 ? "s" : "") + " found" + (found.length > shownCount ? " (showing top " + shownCount + ")" : "")));
+      found.slice(0, MAX_RESULTS).forEach(function (f) { out.appendChild(buildCard(f.a, f.hits)); });
+    }
+    openPop();
+  }
+
+  btn.addEventListener("click", run);
+  input.addEventListener("keydown", function (e) {
+    if (e.key === "Enter") { e.preventDefault(); run(); }
+  });
+  closeBtn.addEventListener("click", closePop);
+  overlay.addEventListener("click", function (e) { if (e.target === overlay) { closePop(); } });
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape") { closePop(); } });
+})();
+</script>
+</div>
