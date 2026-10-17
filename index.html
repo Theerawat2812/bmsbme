@@ -833,6 +833,15 @@ html{scroll-behavior:smooth}
       out.appendChild(el("div", "m-sub", found.length + " advisor" + (found.length > 1 ? "s" : "") + " found" + (found.length > shownCount ? " (showing top " + shownCount + ")" : "")));
       found.slice(0, MAX_RESULTS).forEach(function (f) { out.appendChild(buildCard(f.a, f.hits)); });
     }
+	    input.blur();   // เก็บคีย์บอร์ด
+
+    // รีเซ็ตซูมกลับเป็นปกติบนมือถือ
+    var vp = document.querySelector('meta[name="viewport"]');
+    if (vp && /Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+      var orig = vp.getAttribute("content");
+      vp.setAttribute("content", orig.replace(/,?\s*maximum-scale=[^,]*/i, "") + ", maximum-scale=1");
+      setTimeout(function () { vp.setAttribute("content", orig); }, 300);
+    }
     openPop();
   }
 
