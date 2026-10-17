@@ -102,6 +102,7 @@
           '<input type="text" name="q" placeholder="Search..." autocomplete="off">' +
           '<button type="submit">&#128269; Search</button>' +
         '</form>' +
+        '<div id="m-search-results"></div>' +
       '</div>' +
     '</div>';
 
@@ -156,6 +157,10 @@
   function setMobileOpen(open) {
     if (open) { navBar.classList.add("open"); } else { navBar.classList.remove("open"); }
     burger.setAttribute("aria-expanded", open ? "true" : "false");
+    if (!open) {
+      var mb = document.getElementById("m-search-results");
+      if (mb) { mb.__tok = (mb.__tok || 0) + 1; mb.style.display = "none"; mb.innerHTML = ""; }
+    }
   }
   burger.onclick = function () {
     setMobileOpen(!navBar.classList.contains("open"));
@@ -192,7 +197,10 @@
   });
 
   document.getElementById("m-search").onsubmit = function (e) {
-    if (this.q.value.replace(/\s+/g, "") === "") { e.preventDefault(); this.q.focus(); }
+    e.preventDefault();
+    var v = this.q.value.trim();
+    if (v === "") { this.q.focus(); return; }
+    goToResults(v);                       // Enter / ปุ่ม Search -> ไปหน้าผลการค้นหา
   };
   window.addEventListener("resize", function () {
     if (window.innerWidth > 1100) setMobileOpen(false);
@@ -231,13 +239,14 @@
     if (e.key === "Escape") closeAllDropdowns();
   });
 
-  // ===== Search: ผลการค้นหาขึ้นเป็นแถบใต้ช่องค้นหา =====
+  // ===== Search: พิมพ์แล้วผลขึ้นเป็นแถบใต้ช่องค้นหาแบบเรียลไทม์ =====
+  // กด Enter / ปุ่ม Search / See all = ไปหน้า search.html?q=คำที่พิมพ์
   // รายชื่อหน้าที่ให้ค้นหา — เพิ่มหน้าใหม่ได้ที่นี่ (ใช้ชุดเดียวกับ search.html)
   var SEARCH_PAGES = [
     { url: "index.html",               name: "Home" },
-    { url: "whoweare.html",               name: "Who we are" },
+    { url: "whoweare.html",            name: "Who we are" },
     { url: "mission.html",             name: "Our mission" },
-    { url: "staff.html",              name: "Our staff" },
+    { url: "staff.html",               name: "Our staff" },
     { url: "BMS.html",                 name: "Biomedical Sciences" },
     { url: "bme.html",                 name: "Biomedical Engineering" },
     { url: "overview.html",            name: "Academics Overview" },
@@ -250,7 +259,8 @@
     { url: "alumni.html",              name: "Alumni" },
     { url: "contact us.html",          name: "Contact" }
   ];
-  var MAX_RESULTS = 6;
+  var MAX_RESULTS = 6;                 // จำนวนผลที่โชว์ในแถบ (ที่เหลือดูได้ที่ See all)
+  var SEARCH_PAGE = "search.html";
 
   var openBtn = document.getElementById("search-open");
   var searchForm = document.getElementById("search-form");
@@ -260,6 +270,9 @@
   function esc(s) { return s.replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
   function escRe(s) { return s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"); }
   function countOf(hay, needle) { return hay.split(needle).length - 1; }
+  function goToResults(value) {
+    window.location.href = SEARCH_PAGE + "?q=" + encodeURIComponent(value);
+  }
 
   // โหลดข้อความของทุกหน้าครั้งเดียว (ตอนเปิดช่องค้นหาครั้งแรก) แล้วเก็บไว้ใช้ซ้ำ
   var searchIndex = null, indexLoading = null;
@@ -288,23 +301,23 @@
     return indexLoading;
   }
 
-  var searchToken = 0;
-  function runSearch(value) {
+  // ค้นหาแล้วแสดงผลในกล่องที่ส่งมา (box = แถบเดสก์ท็อป หรือแถบในเมนู 3 ขีด)
+  function runSearch(value, box) {
     value = value.replace(/^\s+|\s+$/g, "");
-    var token = ++searchToken;
-    if (value === "") { resultsBox.style.display = "none"; resultsBox.innerHTML = ""; return; }
+    var token = box.__tok = (box.__tok || 0) + 1;
+    if (value === "") { box.style.display = "none"; box.innerHTML = ""; return; }
     var terms = value.toLowerCase().split(/\s+/).filter(Boolean);
     var re = new RegExp("(" + terms.map(escRe).join("|") + ")", "gi");
     function hl(text) {
       return text.split(re).map(function (part, i) { return i % 2 ? "<mark>" + esc(part) + "</mark>" : esc(part); }).join("");
     }
-    resultsBox.style.display = "block";
-    if (!searchIndex) resultsBox.innerHTML = '<div class="sr-msg">Searching...</div>';
+    box.style.display = "block";
+    if (!searchIndex) box.innerHTML = '<div class="sr-msg">Searching...</div>';
 
     loadIndex().then(function (pages) {
-      if (token !== searchToken) return;           // มีการพิมพ์ใหม่แล้ว ทิ้งผลเก่า
+      if (token !== box.__tok) return;             // มีการพิมพ์ใหม่แล้ว ทิ้งผลเก่า
       if (!pages.length) {
-        resultsBox.innerHTML = '<div class="sr-msg">Cannot load pages for searching. Please open the site through a web server.</div>';
+        box.innerHTML = '<div class="sr-msg">Cannot load pages for searching. Please open the site through a web server.</div>';
         return;
       }
       var hits = [];
@@ -324,21 +337,21 @@
       });
       hits.sort(function (a, b) { return b.score - a.score; });
 
-      if (!hits.length) { resultsBox.innerHTML = '<div class="sr-msg">No results for "' + esc(value) + '"</div>'; return; }
+      if (!hits.length) { box.innerHTML = '<div class="sr-msg">No results for "' + esc(value) + '"</div>'; return; }
       var html = hits.slice(0, MAX_RESULTS).map(function (h) {
         return '<a class="sr-item" href="' + esc(encodeURI(h.pg.url)) + '">' +
           '<span class="sr-title">' + hl(h.pg.title) + '</span>' +
           '<span class="sr-snip">' + hl(h.snippet) + '</span></a>';
       }).join("");
-      if (hits.length > MAX_RESULTS) {
-        html += '<a class="sr-all" href="search.html?q=' + encodeURIComponent(value) + '">See all ' + hits.length + ' results</a>';
-      }
-      resultsBox.innerHTML = html;
+      // See all: แสดงทุกครั้งที่ค้นเจอ กดแล้วไปหน้าผลค้นหาทั้งหมด
+      html += '<a class="sr-all" href="' + SEARCH_PAGE + '?q=' + encodeURIComponent(value) + '">See all ' +
+        hits.length + (hits.length === 1 ? ' result' : ' results') + '</a>';
+      box.innerHTML = html;
     });
   }
 
   function closeSearch() {
-    searchToken++;
+    resultsBox.__tok = (resultsBox.__tok || 0) + 1;
     searchForm.style.display = "none";
     resultsBox.style.display = "none";
     resultsBox.innerHTML = "";
@@ -360,17 +373,32 @@
   });
   document.getElementById("search-close").onclick = closeSearch;
 
-  // พิมพ์แล้วค้นหาทันที (หน่วงเล็กน้อย) / กด Enter หรือปุ่ม Search ก็ค้นหาเลย
+  // พิมพ์ = ผลขึ้นทันที (หน่วงเล็กน้อย)
   var typingTimer = null;
   searchInput.oninput = function () {
     clearTimeout(typingTimer);
-    typingTimer = setTimeout(function () { runSearch(searchInput.value); }, 200);
+    typingTimer = setTimeout(function () { runSearch(searchInput.value, resultsBox); }, 200);
   };
+  // กด Enter หรือปุ่ม Search = ไปหน้าผลการค้นหา
   searchForm.onsubmit = function (e) {
     e.preventDefault();
     clearTimeout(typingTimer);
-    if (searchInput.value.replace(/\s+/g, "") === "") { searchInput.focus(); return; }
-    runSearch(searchInput.value);
+    var v = searchInput.value.trim();
+    if (v === "") { searchInput.focus(); return; }
+    goToResults(v);
   };
   searchInput.onkeydown = function (e) { if (e.key === "Escape") closeSearch(); };
+
+  // ===== Search ในเมนู 3 ขีด (มือถือ/จอย่อ): พิมพ์แล้วผลขึ้นทันทีเหมือนเดสก์ท็อป =====
+  var mInput = document.querySelector("#m-search input");
+  var mBox = document.getElementById("m-search-results");
+  var mTimer = null;
+  mInput.oninput = function () {
+    clearTimeout(mTimer);
+    mTimer = setTimeout(function () { runSearch(mInput.value, mBox); }, 200);
+  };
+  mInput.onfocus = function () { loadIndex(); };   // โหลดข้อมูลล่วงหน้า
+
+  // ให้หน้า search.html ใช้รายชื่อหน้าและข้อมูลชุดเดียวกัน (แก้ที่เดียวพอ)
+  window.SITE_SEARCH = { pages: SEARCH_PAGES, loadIndex: loadIndex };
 })();

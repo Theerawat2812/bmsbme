@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Search results</title>
+
+<link rel="stylesheet" href="header.css">
+<link rel="stylesheet" href="footer.css">
+<style>
+  /* Arial only, including the menu from header.css */
+  body, body * { font-family: Arial, sans-serif; }
+
+  .search-page { max-width: 860px; margin: 0 auto; padding: 48px 20px 80px; color: #14263a; }
+  .search-page h1 {
+    margin: 0 0 20px;
+    font-size: 20px;
+    font-weight: 600;
+    color: #21326E;
+}
+
+  .sp-form { display: flex; gap: 8px; margin-bottom: 14px; }
+  .sp-form input { flex: 1; min-width: 0; padding: 13px 20px; font: inherit; font-size: 16px; color: #222; background: #fff; border: 1px solid #cfd6e4; border-radius: 24px; outline: none; }
+  .sp-form input:focus { border-color: #1f5f99; box-shadow: 0 0 0 3px rgba(31,95,153,.15); }
+  .sp-form button { padding: 13px 26px; font: inherit; font-size: 15px; font-weight: bold; color: #fff; background: #1f5f99; border: 0; border-radius: 24px; cursor: pointer; transition: background-color .2s; }
+  .sp-form button:hover, .sp-form button:focus-visible { background: #3a50a3; outline: none; }
+
+  .sp-count { margin: 0 0 20px; font-size: 14px; color: #555; }
+
+  .sp-list { list-style: none; margin: 0; padding: 0; }
+  .sp-list li { border-top: 1px solid #e6ecf5; }
+  .sp-list li:last-child { border-bottom: 1px solid #e6ecf5; }
+  .sp-list a { display: block; padding: 18px 12px; transition: background-color .2s; }
+  .sp-list a:hover, .sp-list a:focus-visible { background: linear-gradient(90deg, rgba(31,95,153,.10), rgba(31,95,153,.02)); outline: none; }
+  .sp-title { display: block; font-size: 18px; font-weight: 600; color: #1f5f99; }
+  .sp-url { display: block; margin-top: 2px; font-size: 13px; color: #7a8599; }
+  .sp-snip { display: block; margin-top: 6px; font-size: 15px; line-height: 1.6; color: #444; }
+  .sp-list mark { background: #ffe58a; color: inherit; padding: 0 2px; border-radius: 3px; }
+
+  .sp-empty { padding: 28px 0; font-size: 15px; line-height: 1.7; color: #444; }
+  .sp-empty strong { color: #21326E; }
+</style>
+</head>
+<body class="nav-solid">
+
+<!-- Menu: header.js builds it inside this div -->
+<div id="site-nav"></div>
+
+<main class="search-page">
+  <h1>Search results</h1>
+
+  <form class="sp-form" id="sp-form" role="search">
+    <input id="sp-input" type="search" name="q" placeholder="Search this site" aria-label="Search" autocomplete="off">
+    <button type="submit">Search</button>
+  </form>
+
+  <p class="sp-count" id="sp-count" aria-live="polite"></p>
+  <ul class="sp-list" id="sp-list"></ul>
+  <div class="sp-empty" id="sp-empty" hidden></div>
+</main>
+
+<!-- Footer: use the same placeholder your other pages use for footer.js -->
+<div id="site-footer"></div>
+
+<script src="header.js"></script>
+<script src="footer.js"></script>
+<script>
+/* The page list and index come from header.js (window.SITE_SEARCH): edit SEARCH_PAGES there only. */
+(function () {
+  var input = document.getElementById("sp-input");
+  var list = document.getElementById("sp-list");
+  var count = document.getElementById("sp-count");
+  var empty = document.getElementById("sp-empty");
+  var q = (new URLSearchParams(location.search).get("q") || "").trim();
+  input.value = q;
+
+  function esc(s) { return String(s).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); }
+  function escRe(s) { return s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"); }
+  function countOf(hay, needle) { return hay.split(needle).length - 1; }
+
+  function loadIndex() { return window.SITE_SEARCH ? window.SITE_SEARCH.loadIndex() : Promise.resolve([]); }
+
+  function msg(html) { empty.hidden = false; empty.innerHTML = html; }
+
+  function render(pages) {
+    list.innerHTML = ""; empty.hidden = true; count.textContent = "";
+    document.title = q ? "Search results: " + q : "Search results";
+
+    if (!pages.length) return msg("Cannot load pages for searching. Please open the site through a web server.");
+    if (!q) return msg("Type a word in the box above, then select <strong>Search</strong>.");
+
+    var terms = q.toLowerCase().split(/\s+/).filter(Boolean);
+    var re = new RegExp("(" + terms.map(escRe).join("|") + ")", "gi");
+    function hl(text) {
+      return text.split(re).map(function (part, i) { return i % 2 ? "<mark>" + esc(part) + "</mark>" : esc(part); }).join("");
+    }
+
+    var hits = [];
+    pages.forEach(function (pg) {
+      var lower = pg.text.toLowerCase(), tl = pg.title.toLowerCase(), score = 0, first = -1;
+      for (var i = 0; i < terms.length; i++) {
+        var inText = countOf(lower, terms[i]), inTitle = countOf(tl, terms[i]);
+        if (!inText && !inTitle) return;
+        score += inText + inTitle * 10;
+        var idx = lower.indexOf(terms[i]);
+        if (idx !== -1 && (first === -1 || idx < first)) first = idx;
+      }
+      var start = first > 60 ? first - 60 : 0;
+      var snippet = (start > 0 ? "\u2026 " : "") + pg.text.substr(start, 160) + (start + 160 < pg.text.length ? " \u2026" : "");
+      hits.push({ pg: pg, score: score, snippet: snippet });
+    });
+    hits.sort(function (a, b) { return b.score - a.score; });
+
+    if (!hits.length) return msg("No results found for <strong>" + esc(q) + "</strong>.<br>Check the spelling, try a shorter phrase, or use different words.");
+
+    count.textContent = hits.length + (hits.length === 1 ? " result" : " results") + " for \u201C" + q + "\u201D";
+    list.innerHTML = hits.map(function (h) {
+      return '<li><a href="' + esc(encodeURI(h.pg.url)) + '">' +
+        '<span class="sp-title">' + hl(h.pg.title) + '</span>' +
+        '<span class="sp-url">' + esc(h.pg.url) + '</span>' +
+        '<span class="sp-snip">' + hl(h.snippet) + '</span></a></li>';
+    }).join("");
+  }
+
+  function run() {
+    count.textContent = q ? "Searching the site\u2026" : "";
+    loadIndex().then(render);
+  }
+
+  document.getElementById("sp-form").addEventListener("submit", function (e) {
+    e.preventDefault();
+    q = input.value.trim();
+    history.replaceState(null, "", q ? "?q=" + encodeURIComponent(q) : location.pathname);
+    run();
+  });
+
+  run();
+})();
+</script>
+<script src="cookie.js"></script>
+</body></html>
