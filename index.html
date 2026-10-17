@@ -411,7 +411,7 @@ html{scroll-behavior:smooth}
     "photo": "images/staff/bms/NP.png",
     "fields": ["Immunology & Vaccines"],
     "research": ["Mycobacterium tuberculosis", "T cell response", "Interferon-gamma", "Sars-cov-2", "Immunogenicity", "Cd4+ t cells"],
-    "keywords": ["mycobacterium tuberculosis","t cell response","interferon-gamma","sars-cov-2","immunogenicity","cd4+ t cells","chadox1 ncov-19 vaccine","intradermal vaccination","tuberculosis vaccine","booster vaccination","mrna vaccines","cd8+ t cells","neutralizing antibodies","humoral immune response","vaccine safety","coronavac","delta variant","latent tuberculosis infection","tuberculosis","peripheral blood mononuclear cells","heterologous prime-boost","anti-rbd igg","vaccine immunogenicity","covid-19 vaccines","inactivated sars-cov-2 vaccine","covid-19 vaccination","irta","tnf-α","mycobacterial growth inhibition","inactivated vaccine","cell-mediated immunity","regulatory t cells","non-inferiority","immune response","comorbidities","ag85a","covid-19 pandemic","active tuberculosis","pd-1","southern thailand","vaccine","immune","responses","vaccination","mrna","intradermal","infection","covid-19","ncov-19","systemic","against","humoral","healthy","population","chadox1","booster","heterologous","t-cell","b-cell","flow cytometry"]
+    "keywords": ["mycobacterium tuberculosis","t cell response","interferon-gamma","sars-cov-2","immunogenicity","cd4+ t cells","chadox1 ncov-19 vaccine","intradermal vaccination","tuberculosis vaccine","booster vaccination","mrna vaccines","cd8+ t cells","neutralizing antibodies","humoral immune response","vaccine safety","coronavac","delta variant","latent tuberculosis infection","tuberculosis","peripheral blood mononuclear cells","heterologous prime-boost","anti-rbd igg","vaccine immunogenicity","covid-19 vaccines","inactivated sars-cov-2 vaccine","covid-19 vaccination","irta","tnf-α","mycobacterial growth inhibition","inactivated vaccine","cell-mediated immunity","regulatory t cells","non-inferiority","immune response","comorbidities","ag85a","covid-19 pandemic","active tuberculosis","pd-1","southern thailand","vaccine","immune","responses","vaccination","mrna","intradermal","infection","covid-19","ncov-19","systemic","against","humoral","healthy","population","chadox1","booster","heterologous","t-cell","b-cell","flow cytometry","immuno","immune"]
   },
   {
     "name": "Asst. Prof. Dr. Kittinun Leetanaporn, M.D.",
@@ -447,7 +447,7 @@ html{scroll-behavior:smooth}
     "photo": "images/staff/bms/TD.png",
     "fields": ["Immunology & Vaccines", "Genomics & Bioinformatics", "Natural Products & Drug Discovery"],
     "research": ["B-cell epitopes", "Vaccine design", "Tlr2", "Molecular docking", "Mrna vaccines", "Mycobacterium tuberculosis"],
-    "keywords": ["b-cell epitopes","vaccine design","tlr2","molecular docking","mrna vaccines","mycobacterium tuberculosis","irta","immunogenicity","tetravalent dengue vaccine","dengue virus","immunoinformatics","antioxidant activity","tlr4/md-2 complex","epitope prediction","immunomodulation","aqueous plant extract","medicinal plants","t cell proliferation","peyer's patches","edible bird's nest","ns3","ns5 protein","t cell epitopes","envelope protein","tlr4","md-2","protein structure modeling","molecular dynamics","domain arrangement","apigenin","luteolin","dengue virus type 2","ns2b-ns3 protease","allosteric inhibition","flavonoids","c-type lectin receptors","viral entry","pharmacokinetic prediction","toxicity prediction","egg white hydrolysate","vaccine","dengue","domain","arrangement","driven","computationally","designed","mrna","targeting","ppe68","mycobacterium","tuberculosis","tetravalent","epitopes","proteins","protein","inhibition","vivo","t-cell","b-cell","flow cytometry","infection"]
+    "keywords": ["b-cell epitopes","vaccine design","tlr2","molecular docking","mrna vaccines","mycobacterium tuberculosis","irta","immunogenicity","tetravalent dengue vaccine","dengue virus","immunoinformatics","antioxidant activity","tlr4/md-2 complex","epitope prediction","immunomodulation","aqueous plant extract","medicinal plants","t cell proliferation","peyer's patches","edible bird's nest","ns3","ns5 protein","t cell epitopes","envelope protein","tlr4","md-2","protein structure modeling","molecular dynamics","domain arrangement","apigenin","luteolin","dengue virus type 2","ns2b-ns3 protease","allosteric inhibition","flavonoids","c-type lectin receptors","viral entry","pharmacokinetic prediction","toxicity prediction","egg white hydrolysate","vaccine","dengue","domain","arrangement","driven","computationally","designed","mrna","targeting","ppe68","mycobacterium","tuberculosis","tetravalent","epitopes","proteins","protein","inhibition","vivo","t-cell","b-cell","flow cytometry","infection","immuno","immune"]
   },
   {
     "name": "Asst. Prof. Dr. Ampapan Naknaen",
@@ -698,8 +698,10 @@ html{scroll-behavior:smooth}
     return e;
   }
 
-  function openPop() { overlay.className = "m-overlay open"; }
-  function closePop() { overlay.className = "m-overlay"; }
+  function openPop() {
+  overlay.className = "m-overlay open";
+  overlay.querySelector(".m-modal").scrollTop = 0;
+}
 
   function esc(s) { return s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"); }
 
