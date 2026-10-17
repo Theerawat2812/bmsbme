@@ -260,7 +260,10 @@ a { text-decoration: none; color: inherit; }
 }
 
 /* หน้าที่ไม่มีรูป hero */
-body.nav-solid { padding-top: 60px; }
+body.nav-solid {
+    padding-top: 60px;
+    font-size: 1px;
+}
 @media (max-width: 480px) { body.nav-solid { padding-top: 70px; } }
 
 /* =====================================================================
