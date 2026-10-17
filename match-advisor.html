@@ -1,7 +1,7 @@
 <div id="bmsMatch">
 <style type="text/css">
 #bmsMatch { max-width: 960px !important; margin: 24px auto !important; padding: 20px 24px !important; background: rgba(255,255,255,0.9) !important; border: 1px solid #e5e9f5 !important; border-radius: 20px !important; box-shadow: 0 15px 40px rgba(30,60,120,0.12) !important; font-family: Arial, Helvetica, sans-serif !important; color: #1c2333 !important; box-sizing: border-box !important; }
-#bmsMatch *, #bmsMatch *::before, #bmsMatch *::after { box-sizing: border-box !important; }
+#bmsMatch *, #bmsMatch *::before, #bmsMatch *::after { box-sizing: border-box !important; font-family: Arial, Helvetica, sans-serif !important; }
 
 /* ===== Single row bar ===== */
 #bmsMatch .m-bar { display: flex !important; align-items: center !important; gap: 14px !important; flex-wrap: nowrap !important; }
@@ -33,10 +33,10 @@
 /* Mobile: allow wrapping so the input stays usable */
 @media (max-width: 600px) {
   #bmsMatch { padding: 16px !important; }
-  #bmsMatch .m-bar { flex-wrap: wrap !important; }
-  #bmsMatch .m-title { width: 100% !important; text-align: center !important; }
-  #bmsMatch #mField { flex: 1 1 100% !important; }
-  #bmsMatch #mBtn { width: 100% !important; }
+  #bmsMatch .m-bar { flex-wrap: wrap !important; gap: 10px !important; }
+  #bmsMatch .m-title { width: 100% !important; text-align: center !important; font-size: 20px !important; }
+  #bmsMatch #mField { flex: 1 1 100% !important; min-height: 38px !important; padding: 8px 12px !important; font-size: 13px !important; border-radius: 10px !important; }
+  #bmsMatch #mBtn { width: 40% !important; min-height: 36px !important; padding: 0 16px !important; font-size: 13px !important; border-radius: 10px !important; margin: 0 auto !important; display: block !important; }
   #bmsMatch .m-card { flex-direction: column !important; align-items: center !important; text-align: center !important; }
 }
 
@@ -289,82 +289,7 @@
     "fields": ["Biomechanics & Rehabilitation", "Cardiovascular & Hemodynamics"],
     "research": ["Plantar pressure", "Diabetic foot", "Thermoplastic polyurethane", "Abdominal aortic aneurysm", "Hemodynamics", "Infill density"],
     "keywords": ["plantar pressure","diabetic foot","thermoplastic polyurethane","abdominal aortic aneurysm","hemodynamics","infill density","3d-printed insoles","diabetic neuropathy","wall shear stress","infill pattern","gait asymmetry","gait rehabilitation","stroke","offloading","foot ulcer","custom-made insoles","healthy aging","plantar pressure distribution","pressure redistribution","pulsatile blood flow","stroke rehabilitation","support vector machine","diabetic foot ulcer","compressive loading","energy absorption","inertial measurement unit","gait analysis","turbulent flow","resting-state eeg","multilayer perceptron","insole materials","patient-specific modeling","aneurysm rupture risk","mean arterial pressure","remote patient monitoring","random forest","3d printing","fused deposition modeling","polylactic acid","gait cycle","foot","pressure","diabetic","gait","insole","plantar","computational","insoles","design","finite","element","materials","neuropathy","abdominal","aortic","walking","neck","aneurysm","evaluation","d-printed"]
-  },
-  {
-    "name": "Asst. Prof. Dr. Kantida Juncheed",
-    "dept": "Biomedical Engineering",
-    "email": "kantida.j@psu.ac.th",
-    "photo": "",
-    "research": [
-      "Poly(butylene succinate-co-adipate)",
-      "Bio-based plastics",
-      "Biodegradable plastics",
-      "Silk fibroin",
-      "Fusarium solani",
-      "Soil fungi"
-    ],
-    "keywords": [
-      "poly(butylene succinate-co-adipate)",
-      "bio-based plastics",
-      "biodegradable plastics",
-      "silk fibroin",
-      "fusarium solani",
-      "soil fungi",
-      "archaea",
-      "hepatocellular carcinoma",
-      "glucose uptake",
-      "cancer metabolism",
-      "polyvinyl alcohol",
-      "mechanical properties",
-      "plant pathogens",
-      "opportunistic human pathogens",
-      "pathogen survival",
-      "enterococcus faecium",
-      "human health risk",
-      "plant health risk",
-      "mulching film",
-      "mungbean",
-      "nitrogen fertilization",
-      "ammonium sulfate",
-      "soil-borne plant pathogens",
-      "plant disease incidence",
-      "plant biomass",
-      "soil amendment",
-      "soil microbiome",
-      "soil microbial diversity",
-      "soil bacteria",
-      "plant pathogenic fungi",
-      "plant growth-promoting microorganisms",
-      "microbial biocontrol agents",
-      "human pathogens",
-      "plastic waste pollution",
-      "soil microbial communities",
-      "bacteria",
-      "fungi",
-      "amplicon sequence variants",
-      "relative abundance",
-      "plastic pollution",
-      "plastic",
-      "poly",
-      "butylene",
-      "succinate-co-adipate",
-      "high",
-      "load",
-      "bio-based",
-      "biodegradable",
-      "assessment",
-      "under",
-      "microbial",
-      "populations",
-      "soil",
-      "systems",
-      "exposure",
-      "high-resolution",
-      "molecular",
-      "technique",
-      "properties",
-      "type"
-    ]
+  }
   ];
 
   // ==================================
@@ -475,18 +400,15 @@
     var row = el("div", "m-emailrow");
     row.appendChild(el("span", "m-email", a.email));
 
-    var subject = "Inquiry about M.Sc./Ph.D. in Biomedical Sciences";
-    var bodyText = "Dear " + a.name + ",\n\nI am interested in your research and would like to inquire about studying under your supervision.\n\nBest regards,";
     var isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
 
     var contact = el("a", "m-contact", "Contact now");
     if (isMobile) {
-      // mobile: open the phone's mail app
-      contact.href = "mailto:" + a.email + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(bodyText);
+      // mobile: open the phone's mail app with only the recipient filled in
+      contact.href = "mailto:" + a.email;
     } else {
-      // desktop: open Gmail compose in a new tab with recipient, subject and body filled in
-      contact.href = "https://mail.google.com/mail/?view=cm&fs=1&to=" + encodeURIComponent(a.email) +
-        "&su=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(bodyText);
+      // desktop: open a blank Gmail compose window (recipient only) in a new tab
+      contact.href = "https://mail.google.com/mail/?view=cm&fs=1&to=" + encodeURIComponent(a.email);
       contact.target = "_blank";
       contact.rel = "noopener";
     }
