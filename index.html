@@ -322,6 +322,9 @@ html{scroll-behavior:smooth}
       url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2.5' stroke-linecap='round'%3E%3Ccircle cx='11' cy='11' r='7'/%3E%3Cpath d='M20 20l-4-4'/%3E%3C/svg%3E") center / 16px 16px no-repeat,
       linear-gradient(135deg,#4f7cff,#2f56d6) !important;
   }
+	#bmsMatch .m-overlay { cursor: pointer !important; -webkit-tap-highlight-color: transparent !important; height: 100vh !important; height: 100dvh !important; }
+#bmsMatch .m-modal { cursor: auto !important; overscroll-behavior: contain !important; -webkit-overflow-scrolling: touch !important; }
+#bmsMatch .m-close { touch-action: manipulation !important; }
 
   #bmsMatch .m-card { flex-direction: column !important; align-items: center !important; text-align: center !important; }
 }
@@ -699,11 +702,16 @@ html{scroll-behavior:smooth}
   }
 
   function openPop() {
-  overlay.className = "m-overlay open";
-  overlay.querySelector(".m-modal").scrollTop = 0;
-}
-
-  function esc(s) { return s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"); }
+    overlay.className = "m-overlay open";
+    document.documentElement.style.overflow = "hidden";
+    document.body.style.overflow = "hidden";
+    overlay.querySelector(".m-modal").scrollTop = 0;
+  }
+  function closePop() {
+    overlay.className = "m-overlay";
+    document.documentElement.style.overflow = "";
+    document.body.style.overflow = "";
+  }
 
   // a search word matches when it starts a word in the advisor's text (so "ai" will not match "main")
   function hasWord(text, w) {
@@ -842,10 +850,11 @@ html{scroll-behavior:smooth}
   input.addEventListener("keydown", function (e) {
     if (e.key === "Enter") { e.preventDefault(); run(); }
   });
-  closeBtn.addEventListener("click", closePop);
+    function onClose(e) { e.preventDefault(); e.stopPropagation(); closePop(); }
+  closeBtn.addEventListener("click", onClose);
+  closeBtn.addEventListener("touchend", onClose);
   overlay.addEventListener("click", function (e) { if (e.target === overlay) { closePop(); } });
-  document.addEventListener("keydown", function (e) { if (e.key === "Escape") { closePop(); } });
-})();
+  overlay.addEventListener("touchend", function (e) { if (e.target === overlay) { e.preventDefault(); closePop(); } });
 </script>
 </div>
 	  </div>
