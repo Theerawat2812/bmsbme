@@ -37,19 +37,19 @@
 .site-foot summary::-webkit-details-marker { display: none; }
 /* ===== 900px ลงไป: พับย่อหัวข้อได้ ===== */
 @media (max-width: 900px) {
-  .site-foot { padding: 28px 0 18px; }
+  .site-foot { padding: 20px 0 1px; }
   .site-foot .c { padding: 0 18px; }
   .site-foot .g { grid-template-columns: 1fr; gap: 0; }
 
   .site-foot summary {
     position: relative; display: block;
-    margin: 0; padding: 14px 28px 14px 0;
+    margin: 0; padding: 2px 28px 12px 0;
     font-size: 16px; cursor: pointer; pointer-events: auto;
     outline: none; -webkit-tap-highlight-color: transparent;
   }
   .site-foot summary::after {
     content: ""; position: absolute; right: 6px; top: 50%;
-    width: 5px; height: 5px; margin-top: -6px;
+    width: 5px; height: 5px; margin-top: -8px;
     border-right: 2px solid #1D4C6E; border-bottom: 2px solid #1D4C6E;
     transform: rotate(45deg);      /* ปิด: ชี้ลง */
   }
@@ -61,7 +61,7 @@
   .site-foot li { margin-bottom: 6px; }
   .site-foot li,
   .site-foot li a { font-size: 14px; }
-  .site-foot .fb { font-size: 13px; margin-top: 20px; padding-top: 16px; }
+  .site-foot .fb { font-size: 13px; margin-top: 10px; padding-top: 18px; }
 }
 
 /* ===== 600px ลงไป: ลดตัวหนังสืออีกนิด ===== */
