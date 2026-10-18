@@ -45,26 +45,30 @@ a { text-decoration: none; color: inherit; }
 /* เมนูมือถือ */
 #mobile-menu a.active { color: #1f5f99; font-weight: 100; }
 
-/* ===== Dropdown (About us / Our programs / Academics): แถบเหลี่ยมใต้ navbar ===== */
-#about-wrap, #program-wrap, #academics-wrap {
+/* ===== Dropdown (About us / Our programs / Academics / Services): แถบเหลี่ยมใต้ navbar ===== */
+#about-wrap, #program-wrap, #academics-wrap, #services-wrap {
   display: inline-flex; align-items: center; align-self: stretch; position: static; flex-shrink: 0;
 }
-#about-wrap, #program-wrap { position: relative; }
+#about-wrap, #program-wrap, #services-wrap { position: relative; }
 
 /* เมาส์ชี้ที่ปุ่ม = เปิดเมนูทันที, เมาส์ออก = ปิด (ทับ inline style จาก JS ด้วย !important) */
 #about-wrap:hover #about-menu,
-#program-wrap:hover #program-menu { display: block !important; }
+#program-wrap:hover #program-menu,
+#services-wrap:hover #services-menu { display: block !important; }
 #academics-wrap:hover #academics-menu { display: grid !important; }
 #about-wrap:not(:hover) #about-menu,
 #program-wrap:not(:hover) #program-menu,
+#services-wrap:not(:hover) #services-menu,
 #academics-wrap:not(:hover) #academics-menu { display: none !important; }
 #about-wrap:hover > .item::after,
 #program-wrap:hover > .item::after,
+#services-wrap:hover > .item::after,
 #academics-wrap:hover > .item::after { transform: rotate(225deg); margin-top: 3px; }
 
 /* ลูกศร ▾ ข้างปุ่ม หมุนเมื่อเปิดเมนู */
 #about-wrap > .item::after,
 #program-wrap > .item::after,
+#services-wrap > .item::after,
 #academics-wrap > .item::after {
   content: ""; width: 7px; height: 7px; margin: -3px 0 0 9px;
   border-right: 1px solid currentColor; border-bottom: 1px solid currentColor;
@@ -72,6 +76,7 @@ a { text-decoration: none; color: inherit; }
 }
 #about-wrap:has(#about-menu[style*="block"]) > .item::after,
 #program-wrap:has(#program-menu[style*="block"]) > .item::after,
+#services-wrap:has(#services-menu[style*="block"]) > .item::after,
 #academics-wrap:has(#academics-menu[style*="grid"]) > .item::after {
   transform: rotate(225deg); margin-top: 3px;
 }
@@ -82,7 +87,7 @@ a { text-decoration: none; color: inherit; }
 }
 
 /* แถบดรอปดาวน์: ติดใต้ navbar เต็มความกว้าง สีเดียวกับ navbar ไม่มีขอบมน */
-#about-menu, #program-menu, #academics-menu {
+#about-menu, #program-menu, #services-menu, #academics-menu {
   display: none; position: absolute; top: 100%; left: 0; right: 0;
   margin: 0; padding: 14px var(--nav-pad) 22px;
   background: #46538C; /*dropdown*/
@@ -90,8 +95,8 @@ a { text-decoration: none; color: inherit; }
   line-height: normal; white-space: normal;
   animation: dropIn .2s ease;
 }
-/* About us / Our programs: กล่องเหลี่ยมอยู่กึ่งกลางใต้ปุ่ม รายการเรียงแนวตั้ง */
-#about-menu, #program-menu {
+/* About us / Our programs / Services: กล่องเหลี่ยมอยู่กึ่งกลางใต้ปุ่ม รายการเรียงแนวตั้ง */
+#about-menu, #program-menu, #services-menu {
   left: 50%; right: auto; width: max-content; min-width: 220px;
   padding: 8px; transform: translateX(-50%);
   animation: dropInCenter .2s ease;
@@ -100,13 +105,13 @@ a { text-decoration: none; color: inherit; }
   from { opacity: 0; transform: translate(-50%, -8px); }
   to   { opacity: 1; transform: translate(-50%, 0); }
 }
-#about-menu > a, #program-menu > a { display: flex; justify-content: flex-start; text-align: left; margin: 0; white-space: nowrap; }
+#about-menu > a, #program-menu > a, #services-menu > a { display: flex; justify-content: flex-start; text-align: left; margin: 0; white-space: nowrap; }
 
-/* Academics: 4 คอลัมน์ */
-#academics-menu { grid-template-columns: repeat(4, 1fr); column-gap: 24px; }
+/* Academics: 2 คอลัมน์ (Study Information / Scholarship) */
+#academics-menu { grid-template-columns: repeat(2, 320px); column-gap: 48px; }
 
 /* ลิงก์ในดรอปดาวน์: ฟอนต์เท่าปุ่มเมนู */
-#about-menu a, #program-menu a, #academics-menu .col a {
+#about-menu a, #program-menu a, #services-menu a, #academics-menu .col a {
   align-items: center;
   padding: 12px 16px; border-radius: 0;
   color: rgba(255,255,255,.8);
@@ -115,6 +120,7 @@ a { text-decoration: none; color: inherit; }
 }
 #about-menu a:hover, #about-menu a:focus-visible,
 #program-menu a:hover, #program-menu a:focus-visible,
+#services-menu a:hover, #services-menu a:focus-visible,
 #academics-menu .col a:hover, #academics-menu .col a:focus-visible {
   background: #21326E; outline: none;
 }
@@ -127,17 +133,20 @@ a { text-decoration: none; color: inherit; }
   border-bottom: 1px solid rgba(255,255,255,.3);
 }
 
-/* เมนูมือถือ: Academics */
-#m-academics-sub { display: none; padding-left: 16px; }
-#m-academics-sub a { font-size: 16px; font-weight: 200; color: #444; }
+/* เมนูมือถือ: เมนูย่อย */
+#m-academics-sub, #m-services-sub { display: none; padding-left: 16px; }
+#m-academics-sub a, #m-services-sub a { font-size: 16px; font-weight: 200; color: #444; }
 #m-academics-sub .m-head { padding: 12px 0 4px; font-size: 14px; font-weight: 300; color: #1f5f99; border-bottom: 1px solid #eee; }
 
 @media (max-width: 1280px) {
-  #about-menu a, #program-menu a, #academics-menu .col a, #academics-menu .col h4 { font-size: 15px; }
+  #about-menu a, #program-menu a, #services-menu a, #academics-menu .col a, #academics-menu .col h4 { font-size: 15px; }
 }
 
+/* เมนูมี 7 รายการ: ลดช่องว่างระหว่างเมนูให้ไม่ล้นก่อนสลับเป็น 3 ขีด */
+@media (min-width: 1101px) { #nav { gap: 30px; } }
+
 @media (prefers-reduced-motion: reduce) {
-  #about-menu, #program-menu, #search-form, #search-results, #academics-menu { animation: none; }
+  #about-menu, #program-menu, #services-menu, #search-form, #search-results, #academics-menu { animation: none; }
 }
 
 /* ===== ปุ่ม Search: สี่เหลี่ยมจัตุรัส สีอ่อนกว่าแถบนิดเดียว + ไอคอนแว่นขยายตรงกลาง (ไม่มีตัวหนังสือ) ===== */
@@ -228,19 +237,21 @@ a { text-decoration: none; color: inherit; }
 #m-search button:hover { background-color: #3a50a3; }
 
 /* เมนูย่อยในเมนูมือถือ: ฟอนต์ขนาดเท่ากันทั้งหมด (16px) */
-#mobile-menu #m-about-sub a, #mobile-menu #m-program-sub a, #mobile-menu #m-academics-sub a { font-size: 16px; font-weight: 200; color: #444; }
-#mobile-menu #m-about-sub a:hover, #mobile-menu #m-program-sub a:hover, #mobile-menu #m-academics-sub a:hover,
-#mobile-menu #m-about-sub a.active, #mobile-menu #m-program-sub a.active, #mobile-menu #m-academics-sub a.active { color: #1f5f99; }
+#mobile-menu #m-about-sub a, #mobile-menu #m-program-sub a, #mobile-menu #m-academics-sub a, #mobile-menu #m-services-sub a { font-size: 16px; font-weight: 200; color: #444; }
+#mobile-menu #m-about-sub a:hover, #mobile-menu #m-program-sub a:hover, #mobile-menu #m-academics-sub a:hover, #mobile-menu #m-services-sub a:hover,
+#mobile-menu #m-about-sub a.active, #mobile-menu #m-program-sub a.active, #mobile-menu #m-academics-sub a.active, #mobile-menu #m-services-sub a.active { color: #1f5f99; }
 #mobile-menu #m-academics-sub .m-head { padding: 12px 0 4px; font-size: 16px; font-weight: 300; color: #1f5f99; border-bottom: 1px solid #eee; }
 
-/* เมาส์ชี้ที่ปุ่ม About us / Our programs / Academics ในเมนู 3 ขีด = เปิดเมนูย่อยเอง (เฉพาะอุปกรณ์ที่มีเมาส์) */
+/* เมาส์ชี้ที่ปุ่มในเมนู 3 ขีด = เปิดเมนูย่อยเอง (เฉพาะอุปกรณ์ที่มีเมาส์) */
 @media (hover: hover) {
   #m-about-btn:hover + #m-about-sub, #m-about-sub:hover,
   #m-program-btn:hover + #m-program-sub, #m-program-sub:hover,
-  #m-academics-btn:hover + #m-academics-sub, #m-academics-sub:hover { display: block !important; }
+  #m-academics-btn:hover + #m-academics-sub, #m-academics-sub:hover,
+  #m-services-btn:hover + #m-services-sub, #m-services-sub:hover { display: block !important; }
   #m-about-btn:not(:hover) + #m-about-sub:not(:hover),
   #m-program-btn:not(:hover) + #m-program-sub:not(:hover),
-  #m-academics-btn:not(:hover) + #m-academics-sub:not(:hover) { display: none !important; }
+  #m-academics-btn:not(:hover) + #m-academics-sub:not(:hover),
+  #m-services-btn:not(:hover) + #m-services-sub:not(:hover) { display: none !important; }
 }
 
 @media (max-width: 1280px) {
@@ -250,7 +261,7 @@ a { text-decoration: none; color: inherit; }
 /* สลับเป็นเมนู 3 ขีดที่ 1100px */
 @media (max-width: 1100px) {
   #nav { padding: 0 20px; gap: 0; }
-  #about-wrap, #program-wrap, #academics-wrap, #nav .nav-link, #nav .right { display: none; }
+  #about-wrap, #program-wrap, #academics-wrap, #services-wrap, #nav .nav-link, #nav .right { display: none; }
   #burger { display: block; }
 }
 
@@ -267,22 +278,24 @@ body.nav-solid {
 @media (max-width: 480px) { body.nav-solid { padding-top: 70px; } }
 
 /* =====================================================================
-   เพิ่มต่อท้ายไฟล์ header.css (ท้ายสุดของไฟล์)
    1) ลูกศรสามเหลี่ยม (chevron) ในเมนู 3 ขีด หมุน 90° เมื่อเปิดเมนูย่อย
-   2) จัดกลุ่มเมนูย่อย Academics ให้อ่านง่าย (ไม่เปลี่ยนฟอนต์/ขนาดตัวอักษร)
+   2) จัดกลุ่มเมนูย่อย Academics ให้อ่านง่าย
+   3) ผลการค้นหาในเมนู 3 ขีด
    ===================================================================== */
 
-/* ---------- 1) ลูกศรข้างปุ่ม About us / Our programs / Academics ---------- */
+/* ---------- 1) ลูกศรข้างปุ่ม About us / Our programs / Academics / Services ---------- */
 #mobile-menu #m-about-btn,
 #mobile-menu #m-program-btn,
-#mobile-menu #m-academics-btn {
+#mobile-menu #m-academics-btn,
+#mobile-menu #m-services-btn {
   display: flex; align-items: center; justify-content: space-between;
   cursor: pointer;
 }
 /* ปิดอยู่: ลูกศรชี้ขวา */
 #mobile-menu #m-about-btn::after,
 #mobile-menu #m-program-btn::after,
-#mobile-menu #m-academics-btn::after {
+#mobile-menu #m-academics-btn::after,
+#mobile-menu #m-services-btn::after {
   content: ""; flex-shrink: 0; width: 6px; height: 6px; margin-left: 12px;
   border-right: 1.25px solid currentColor; border-bottom: 1.25px solid currentColor;
   transform: rotate(-45deg);
@@ -291,12 +304,14 @@ body.nav-solid {
 /* เปิดอยู่ (JS ตั้ง display:block ให้เมนูย่อย): หมุน 90° ชี้ลง + เปลี่ยนสีปุ่ม */
 #mobile-menu #m-about-btn:has(+ #m-about-sub[style*="block"]),
 #mobile-menu #m-program-btn:has(+ #m-program-sub[style*="block"]),
-#mobile-menu #m-academics-btn:has(+ #m-academics-sub[style*="block"]) {
+#mobile-menu #m-academics-btn:has(+ #m-academics-sub[style*="block"]),
+#mobile-menu #m-services-btn:has(+ #m-services-sub[style*="block"]) {
   color: #1f5f99;
 }
 #mobile-menu #m-about-btn:has(+ #m-about-sub[style*="block"])::after,
 #mobile-menu #m-program-btn:has(+ #m-program-sub[style*="block"])::after,
-#mobile-menu #m-academics-btn:has(+ #m-academics-sub[style*="block"])::after {
+#mobile-menu #m-academics-btn:has(+ #m-academics-sub[style*="block"])::after,
+#mobile-menu #m-services-btn:has(+ #m-services-sub[style*="block"])::after {
   transform: rotate(45deg);
 }
 /* อุปกรณ์ที่มีเมาส์: เมนูย่อยเปิดตอนเมาส์ชี้ ลูกศรก็หมุนตาม */
@@ -306,80 +321,17 @@ body.nav-solid {
   #mobile-menu #m-program-btn:hover::after,
   #mobile-menu #m-program-btn:has(+ #m-program-sub:hover)::after,
   #mobile-menu #m-academics-btn:hover::after,
-  #mobile-menu #m-academics-btn:has(+ #m-academics-sub:hover)::after {
+  #mobile-menu #m-academics-btn:has(+ #m-academics-sub:hover)::after,
+  #mobile-menu #m-services-btn:hover::after,
+  #mobile-menu #m-services-btn:has(+ #m-services-sub:hover)::after {
     transform: rotate(45deg);
   }
 }
 @media (prefers-reduced-motion: reduce) {
   #mobile-menu #m-about-btn::after,
   #mobile-menu #m-program-btn::after,
-  #mobile-menu #m-academics-btn::after { transition: none; }
-}
-
-/* ---------- 2) Academics: หัวข้อเป็นแถบ + ลิงก์เยื้องเข้าไปมีเส้นนำสายตา ---------- */
-#mobile-menu #m-academics-sub {
-  padding-left: 0; margin: 2px 0 10px;
-}
-/* หัวข้อกลุ่ม: แถบพื้นฟ้าอ่อน + เส้นสีด้านซ้าย (สี/ขนาดฟอนต์เดิม) */
-#mobile-menu #m-academics-sub .m-head {
-  margin-top: 14px; padding: 10px 14px;
-  background: #eef3fa; border-bottom: 0; border-left: 3px solid #1f5f99;
-}
-#mobile-menu #m-academics-sub .m-head:first-child { margin-top: 4px; }
-/* ลิงก์ใต้หัวข้อ: เยื้องเข้า มีเส้นจางด้านซ้าย ตัดเส้นคั่นรายลิงก์ออกให้โล่ง */
-#mobile-menu #m-academics-sub a {
-  margin-left: 12px; padding: 12px 0 12px 22px;
-  border-bottom: 0; border-left: 1px solid #d3deec;
-}
-
-/* =====================================================================
-   เพิ่มต่อท้ายไฟล์ header.css (ท้ายสุดของไฟล์)
-   1) ลูกศรสามเหลี่ยม (chevron) ในเมนู 3 ขีด หมุน 90° เมื่อเปิดเมนูย่อย
-   2) จัดกลุ่มเมนูย่อย Academics ให้อ่านง่าย (ไม่เปลี่ยนฟอนต์/ขนาดตัวอักษร)
-   ===================================================================== */
-
-/* ---------- 1) ลูกศรข้างปุ่ม About us / Our programs / Academics ---------- */
-#mobile-menu #m-about-btn,
-#mobile-menu #m-program-btn,
-#mobile-menu #m-academics-btn {
-  display: flex; align-items: center; justify-content: space-between;
-  cursor: pointer;
-}
-/* ปิดอยู่: ลูกศรชี้ขวา */
-#mobile-menu #m-about-btn::after,
-#mobile-menu #m-program-btn::after,
-#mobile-menu #m-academics-btn::after {
-  content: ""; flex-shrink: 0; width: 6px; height: 6px; margin-left: 12px;
-  border-right: 1.25px solid currentColor; border-bottom: 1.25px solid currentColor;
-  transform: rotate(-45deg);
-  transition: transform .25s cubic-bezier(.2,.8,.2,1);
-}
-/* เปิดอยู่ (JS ตั้ง display:block ให้เมนูย่อย): หมุน 90° ชี้ลง + เปลี่ยนสีปุ่ม */
-#mobile-menu #m-about-btn:has(+ #m-about-sub[style*="block"]),
-#mobile-menu #m-program-btn:has(+ #m-program-sub[style*="block"]),
-#mobile-menu #m-academics-btn:has(+ #m-academics-sub[style*="block"]) {
-  color: #1f5f99;
-}
-#mobile-menu #m-about-btn:has(+ #m-about-sub[style*="block"])::after,
-#mobile-menu #m-program-btn:has(+ #m-program-sub[style*="block"])::after,
-#mobile-menu #m-academics-btn:has(+ #m-academics-sub[style*="block"])::after {
-  transform: rotate(45deg);
-}
-/* อุปกรณ์ที่มีเมาส์: เมนูย่อยเปิดตอนเมาส์ชี้ ลูกศรก็หมุนตาม */
-@media (hover: hover) {
-  #mobile-menu #m-about-btn:hover::after,
-  #mobile-menu #m-about-btn:has(+ #m-about-sub:hover)::after,
-  #mobile-menu #m-program-btn:hover::after,
-  #mobile-menu #m-program-btn:has(+ #m-program-sub:hover)::after,
-  #mobile-menu #m-academics-btn:hover::after,
-  #mobile-menu #m-academics-btn:has(+ #m-academics-sub:hover)::after {
-    transform: rotate(45deg);
-  }
-}
-@media (prefers-reduced-motion: reduce) {
-  #mobile-menu #m-about-btn::after,
-  #mobile-menu #m-program-btn::after,
-  #mobile-menu #m-academics-btn::after { transition: none; }
+  #mobile-menu #m-academics-btn::after,
+  #mobile-menu #m-services-btn::after { transition: none; }
 }
 
 /* ---------- 2) Academics: หัวข้อเป็นแถบ + ลิงก์เยื้องเข้าไปมีเส้นนำสายตา ---------- */
@@ -426,4 +378,16 @@ body.nav-solid {
 #nav .item:active,
 #nav .item:hover {
   font-weight: 100;
+}
+/* Academics: เปลี่ยนจากแถบเต็มจอ เป็นกล่องกึ่งกลางใต้ปุ่ม */
+#academics-wrap { position: relative; }
+
+#academics-menu {
+  left: 50%; right: auto;
+  width: max-content;
+  padding: 10px 30px 16px;
+  transform: translateX(-50%);
+  animation: dropInCenter .2s ease;
+  grid-template-columns: repeat(2, 280px);
+  column-gap: 30px;
 }

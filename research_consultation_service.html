@@ -66,7 +66,7 @@
       border-bottom: 1px solid var(--line);
     }
     .brand { margin-left: auto; text-align: right; font-weight: 700; color: var(--primary); }  /* ชื่อบริการอยู่ขวา */
-    .logo { order: -1; height: 40px; width: auto; }                                           /* โลโก้อยู่ซ้าย */
+    .logo { order: -1; height: 40px; width: auto; cursor: pointer; }                          /* โลโก้อยู่ซ้าย กดกลับหน้า Home */
 
     /* โครงหน้า: เมนูซ้าย (แนวตั้ง) + เนื้อหาขวา */
     body { display: flex; flex-direction: column; min-height: 100vh; }
@@ -94,6 +94,7 @@
     nav button {
       width: 100%;
       text-align: left;
+      display: flex; align-items: center; gap: 10px;     /* ไอคอน + ข้อความ */
       padding: 10px 16px;
       border: 0;
       border-left: 3px solid transparent;
@@ -102,6 +103,7 @@
       color: var(--ink);
       margin-left: -1px;
     }
+    nav .nav-ico { width: 18px; height: 18px; flex: none; }   /* สีตาม currentColor = สีตัวอักษรเมนู */
     nav button:hover { background: var(--primary-soft); }
     nav button.active {
       background: var(--primary-soft);
@@ -263,6 +265,9 @@
     .task-card { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; justify-content: space-between; cursor: pointer; }
     .status.sent { background: #e0e7ff; color: #3730a3; }
     .status.review { background: #fce7f3; color: #9d174d; }
+    .status.accepted { background: #cffafe; color: #155e75; }
+    .check-line { display: inline-flex; gap: 8px; align-items: center; margin: 0; font-weight: 400; cursor: pointer; }
+    .check-line input { margin: 0; accent-color: var(--primary); width: 18px; height: 18px; }
     .notice { background: var(--primary-soft); border: 1px solid var(--primary); border-radius: 12px; padding: 12px 16px; margin-bottom: 16px; overflow-wrap: anywhere; }
     .notice ul { margin: 6px 0 0; padding-left: 20px; }
     .mail-ok  { color: var(--ok); }
@@ -311,9 +316,12 @@
     .dots-row {
       background: radial-gradient(circle at 1.5px 4.5px, #111 .9px, transparent 1.2px) left bottom / 6px 6px repeat-x;
     }
-    .doc .summary {      /* ข้อมูลโดยสรุป: เส้นจุดไข่ปลาทุกบรรทัด */
+    .doc .summary {      /* ข้อมูลโดยสรุป: เส้นจุดไข่ปลาทุกบรรทัด ข้อความตัดขึ้นบรรทัดใหม่ตามเส้นจุด */
       min-height: calc(160px * var(--vs, 1)); line-height: 32px;
       background: radial-gradient(circle at 1.5px 29.5px, #111 .9px, transparent 1.2px) left top / 6px 32px repeat;
+      white-space: normal;
+      overflow-wrap: anywhere;      /* ตัดบรรทัดแม้เป็นข้อความยาวไม่มีเว้นวรรค */
+      word-break: break-word;
     }
 
     /* ส่วนล่าง: QR ซ้าย / ลายเซ็นขวา */
@@ -439,8 +447,9 @@
 <body>
   <header>
     <div class="brand">&nbsp;</div>
-    <!-- โลโก้: ถ้าโหลดไม่ได้ (เช่น ในหน้าตัวอย่าง) จะแสดงกล่องแทน -->
-    <img class="logo" alt="BMS&amp;BME" height="44"
+    <!-- โลโก้: กดแล้วกลับหน้า Home / ถ้าโหลดไม่ได้ (เช่น ในหน้าตัวอย่าง) จะแสดงกล่องแทน -->
+    <img class="logo" alt="BMS&amp;BME" height="44" title="Home"
+         style="cursor:pointer" onclick="showView('home')"
          src="images/RCS/logo.png"
          onerror="this.onerror=null;this.src='data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%27120%27 height=%2744%27%3E%3Crect width=%27120%27 height=%2744%27 rx=%2710%27 fill=%27%2346538C%27/%3E%3Ctext x=%2760%27 y=%2727%27 font-size=%2713%27 fill=%27white%27 text-anchor=%27middle%27 font-family=%27Arial%27%3EBMS %26amp; BME%3C/text%3E%3C/svg%3E'">
   </header>
@@ -632,6 +641,7 @@ const PURPOSES = ["KPI standard", "Working Hour/LU"];
 const DAY_MS = 24 * 60 * 60 * 1000;
 const RETENTION_DAYS = 30;   // ลบข้อมูลอัตโนมัติหลังจากกี่วัน
 const MAX_ADVISORS = 1;      // เลือกอาจารย์ได้กี่ท่าน (ตอนนี้ 1 ท่าน)
+const SUMMARY_MAX = 500;     // จำนวนตัวอักษรสูงสุดของ "ข้อมูลโดยสรุปของการให้คำปรึกษา" (ให้พอดี A4 หน้าเดียว)
 
 /* =====================================================================
    2) STATE  (ข้อมูลที่เปลี่ยนไปตามการใช้งาน)
@@ -666,8 +676,9 @@ let tasks = [{
   advisor: 3,
   files: ["sample_report.pdf"],
   created: Date.now() - 3 * DAY_MS,
-  status: "new",          // new (อาจารย์กำลังให้คำปรึกษา) | sent (รอผู้ขอกรอก) | review (รออาจารย์เซ็น) | done (เสร็จสมบูรณ์)
-  purpose: PURPOSES[0],
+  status: "new",          // new (รออาจารย์รับเรื่อง) | accepted (รับเรื่องแล้ว/กำลังให้คำปรึกษา) | sent (รอผู้ขอกรอก) | review (รออาจารย์เซ็น) | done (เสร็จสมบูรณ์)
+  consultDone: false,     // อาจารย์ติ๊ก "The consultation has been completed" แล้วหรือยัง
+  purpose: null,          // อาจารย์เลือกตอนลงลายเซ็น (ขั้นสุดท้าย)
   advisorSig: null,       // ลายเซ็นอาจารย์ (ลงเป็นคนสุดท้าย ตอนกด Complete)
   result: null
 }];
@@ -676,7 +687,7 @@ let currentAdvisor = 3;      // อาจารย์ที่ "login" อยู
 let openTaskId = null;       // งานที่กำลังเปิดดู
 let fillTaskId = null;       // ฟอร์มที่ผู้ขอคำปรึกษากำลังกรอก
 let notice = "";             // ข้อความแจ้งผลหลังทำรายการ
-let showQr = false;          // แสดง popup QR แบบประเมินหรือไม่
+let showQr = false;          // แสดง popup QR แบบประเมินหรือไม่ (เปิดตอนผู้ขอรับคำปรึกษากด Submit)
 
 // ลายเซ็น 2 ชุด: ผู้ขอคำปรึกษา (ลงตอน Submit) และอาจารย์ (ลงเป็นคนสุดท้ายตอน Complete)
 const newSig = () => ({ mode: "upload", image: null, typed: "", options: [] });
@@ -687,6 +698,14 @@ const SURVEY_QR = "images/RCS/QR.png";  // QR แบบประเมินค�
 // ฟอนต์ลายมือสำหรับสร้างลายเซ็น: ตัวเลือก 1 และ 3 เป็นฟอนต์ใหม่ ตัวเลือก 2 เหมือนเดิม (Sriracha)
 // (ถ้าหาไฟล์ฟอนต์ไม่เจอ จะใช้ Sriracha แทนชั่วคราว)
 const SIGN_FONTS = ["Kart-Satapat", "Sriracha", "Torsilp YaLuemChan"];
+
+// ไอคอนเวกเตอร์หน้าเมนูซ้าย (ใช้ currentColor = สีเดียวกับตัวอักษรเมนู)
+const NAV_ICONS = {
+  home:    '<path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/>',
+  request: '<path d="M6 3h9l4 4v14H6z"/><path d="M12 11v6M9 14h6"/>',
+  fill:    '<circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/>',
+  tasks:   '<rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4h6v3H9zM9 14l2 2 4-4"/>'
+};
 
 /* =====================================================================
    3) HELPERS
@@ -769,10 +788,13 @@ function render() {
   purgeExpired();
   const keepY = window.scrollY;         // จำตำแหน่งที่เลื่อนอยู่ก่อนวาดใหม่
 
-  // แท็บเมนู: Advisor Tasks อยู่ฝั่งขวาแยกจากปุ่มอื่น
+  // แท็บเมนู (มีไอคอนเวกเตอร์สีเดียวกับตัวอักษร)
   const tabs = [["home", "Home"], ["request", "New Request"], ["fill", "For Requester"], ["tasks", "Advisor Tasks"]];
   $("nav").innerHTML = tabs.map(([key, label]) =>
-    `<button class="${[state.view === key ? "active" : "", key === "tasks" ? "push" : ""].join(" ").trim()}" onclick="showView('${key}')">${label}</button>`
+    `<button class="${state.view === key ? "active" : ""}" onclick="showView('${key}')">
+       <svg class="nav-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${NAV_ICONS[key]}</svg>${label}
+     </button>`
   ).join("");
 
   // เนื้อหาหลัก
@@ -802,13 +824,13 @@ function renderHome() {
     ["Review and submit", "Requester",
       "ตรวจสอบข้อมูลอีกครั้ง แล้วกด Submit ระบบจะส่งอีเมลถึงอาจารย์ที่คุณเลือกทันที"],
     ["Advisor receives the task", "Advisor",
-      "อาจารย์เปิดหน้า Task เห็นเรื่อง รายละเอียด และไฟล์แนบ จากนั้นติดต่อนัดหมายวันให้คำปรึกษา"],
+      "อาจารย์เปิดหน้า Task เห็นเรื่อง รายละเอียด และไฟล์แนบ แล้วกด Accept requirement เพื่อรับเรื่อง จากนั้นติดต่อนัดหมายวันให้คำปรึกษา"],
     ["Advisor sends the form", "Advisor + System",
-      "เมื่อให้คำปรึกษาเสร็จ อาจารย์เลือกวัตถุประสงค์ (KPI / Working Hour) แล้วกด Send form to requester ระบบส่งแบบฟอร์ม AS-001 ให้ผู้ขอทางอีเมล"],
+      "เมื่อให้คำปรึกษาเสร็จ อาจารย์ติ๊ก The consultation has been completed แล้วกด Send form to requester ระบบส่งแบบฟอร์ม AS-001 ให้ผู้ขอทางอีเมล"],
     ["Requester fills and signs", "Requester + System",
-      "ผู้ขอกรอกสรุป วันที่ ระยะเวลา ลงลายเซ็น แล้วกด Submit ระบบแจ้งอาจารย์ทางอีเมล"],
+      "ผู้ขอกรอกสรุป วันที่ ระยะเวลา ลงลายเซ็น แล้วกด Complete ระบบแจ้งอาจารย์ทางอีเมล"],
     ["Advisor signs and completes", "Advisor + System",
-      "อาจารย์ตรวจสอบเอกสาร ลงลายเซ็นเป็นคนสุดท้าย แล้วกด Complete ระบบส่งสำเนาถึงอาจารย์และผู้ขอทางอีเมล"]
+      "อาจารย์ตรวจสอบเอกสาร เลือกวัตถุประสงค์ (KPI / Working Hour) ลงลายเซ็นเป็นคนสุดท้าย แล้วกด Complete ระบบส่งสำเนาถึงอาจารย์และผู้ขอทางอีเมล"]
   ];
 
   return `
@@ -1167,7 +1189,8 @@ async function submitRequest() {
       files: [...state.files],
       created: Date.now(),
       status: "new",
-      purpose: PURPOSES[0],
+      consultDone: false,
+      purpose: null,          // อาจารย์เลือกตอนลงลายเซ็น (ขั้นสุดท้าย)
       advisorSig: null,
       result: null
     });
@@ -1240,7 +1263,7 @@ function renderSubmitted() {
    7) ADVISOR TASKS  (อาจารย์: รับงาน -> ให้คำปรึกษา -> ส่งฟอร์มให้ผู้ขอ -> [ผู้ขอกรอก+เซ็น] -> อาจารย์เซ็นสุดท้าย -> Complete)
    ===================================================================== */
 
-const STATUS_LABEL = { new: "New", sent: "Waiting for requester", review: "Waiting for advisor signature", done: "Completed" };
+const STATUS_LABEL = { new: "New", accepted: "In consultation", sent: "Waiting for requester", review: "Waiting for advisor signature", done: "Completed" };
 
 function renderTasks() {
   const myTasks = tasks.filter(t => t.advisor === currentAdvisor);
@@ -1265,7 +1288,7 @@ function renderTasks() {
         <span class="status ${t.status}">${STATUS_LABEL[t.status]}</span> <b>${esc(t.topic)}</b>
         <div class="small muted">${t.id} · ${esc(t.requester.name)} · ${t.needs.join(", ")} · ลบอัตโนมัติใน ${daysLeft(t)} วัน</div>
       </div>
-      ${t.status === "new" ? `<button class="primary">Consultation completed</button>` : ""}
+      ${t.status === "new" ? `<button class="primary" onclick="event.stopPropagation(); acceptTask('${t.id}')">Accept requirement</button>` : ""}
       ${t.status === "review" ? `<button class="primary">Sign &amp; complete</button>` : ""}
     </div>`).join("");
 
@@ -1293,33 +1316,47 @@ function renderTaskDetail(task) {
 
   let actionPanel = "";
   if (task.status === "new") {
-    // ขั้นที่ 1: เลือกวัตถุประสงค์ แล้วส่งให้ผู้ขอกรอกก่อน (ยังไม่ต้องเซ็น)
+    // ขั้นที่ 1: อาจารย์รับเรื่อง
     actionPanel = `
       <div class="card">
-        <h2>Consultation completed</h2>
-        <div class="muted small">(เลือกวัตถุประสงค์ แล้วส่งแบบฟอร์มให้ผู้ขอรับคำปรึกษากรอกและลงลายเซ็นก่อน)</div>
+        <h2>Accept requirement</h2>
+        <div class="muted small">ตรวจสอบคำขอด้านบน แล้วกดรับเรื่อง จากนั้นติดต่อผู้ขอเพื่อนัดหมายวันให้คำปรึกษา</div>
+        <div class="bar" style="justify-content:flex-start"><button class="primary" onclick="acceptTask('${task.id}')">Accept requirement</button></div>
+      </div>`;
+  } else if (task.status === "accepted") {
+    actionPanel = `
+      <div class="card">
+        <h2>Consultation in progress</h2>
+        <div class="muted small">รับเรื่องแล้ว เมื่อให้คำปรึกษาเสร็จ ให้ติ๊กยืนยันที่ด้านล่าง แล้วส่งแบบฟอร์มให้ผู้ขอรับคำปรึกษากรอกและลงลายเซ็น</div>
+      </div>`;
+  } else if (task.status === "review") {
+    // ขั้นสุดท้าย: ผู้ขอกรอกแล้ว อาจารย์เลือกวัตถุประสงค์ ตรวจ และเซ็นปิดงาน
+    actionPanel = `
+      <div class="card">
+        <h2>Sign &amp; complete</h2>
+        <div class="muted small">ผู้ขอกรอกและลงลายเซ็นแล้ว ตรวจสอบเอกสารด้านล่าง เลือกวัตถุประสงค์ แล้วลงลายเซ็นผู้ให้คำปรึกษาเพื่อปิดงาน</div>
         <label>Purpose <small>(วัตถุประสงค์)</small></label>
         <div class="plain-options">
           ${PURPOSES.map(p => `
             <label><input type="radio" name="purpose-${task.id}" value="${p}" ${task.purpose === p ? "checked" : ""}
                           onchange="setPurpose('${task.id}', this.value)"> ${p}</label>`).join("")}
         </div>
-      </div>`;
-  } else if (task.status === "review") {
-    // ขั้นสุดท้าย: ผู้ขอกรอกแล้ว อาจารย์ตรวจและเซ็นปิดงาน
-    actionPanel = `
-      <div class="card">
-        <h2>Sign &amp; complete</h2>
-        <div class="muted small">ผู้ขอกรอกและลงลายเซ็นแล้ว ตรวจสอบเอกสารด้านล่าง แล้วลงลายเซ็นผู้ให้คำปรึกษาเพื่อปิดงาน</div>
         <label>Signature <small>(ลายเซ็นผู้ให้คำปรึกษา)</small></label>
         ${sigPickerHtml("advisor", stripTitle(ADVISORS[task.advisor].name))}
       </div>`;
   }
 
   const sendBar =
-    task.status === "new" ? `
-      <div class="error" id="closeError" style="text-align:center"></div>
-      <div class="bar" style="justify-content:center"><button class="primary" onclick="sendForm('${task.id}')">Send form to requester</button></div>`
+    task.status === "accepted" ? `
+      <div style="text-align:center;margin-top:18px">
+        <label class="check-line">
+          <input type="checkbox" ${task.consultDone ? "checked" : ""} onchange="toggleConsultDone('${task.id}', this.checked)">
+          The consultation has been completed
+        </label>
+      </div>
+      <div class="bar" style="justify-content:center;margin-top:12px">
+        <button class="primary" id="sendFormBtn" ${task.consultDone ? "" : "disabled"} onclick="sendForm('${task.id}')">Send form to requester</button>
+      </div>`
     : task.status === "review" ? `
       <div class="error" id="closeError" style="text-align:center"></div>
       <div class="bar" style="justify-content:center"><button class="primary" onclick="completeByAdvisor('${task.id}')">Complete</button></div>`
@@ -1345,8 +1382,25 @@ function setPurpose(id, value) {
 }
 
 // อาจารย์กด "Send form to requester" (ไม่ต้องเซ็น) -> ส่งอีเมลให้ผู้ขอกรอก
+// อาจารย์กด "Accept requirement" -> รับเรื่อง
+function acceptTask(id) {
+  const task = tasks.find(t => t.id === id);
+  task.status = "accepted";
+  openTaskId = id;
+  sigs.advisor = newSig();
+  render();
+}
+
+// ติ๊ก "The consultation has been completed" -> ปลดล็อกปุ่มส่งฟอร์ม
+function toggleConsultDone(id, checked) {
+  tasks.find(t => t.id === id).consultDone = checked;
+  const btn = $("sendFormBtn");
+  if (btn) btn.disabled = !checked;
+}
+
 async function sendForm(id) {
   const task = tasks.find(t => t.id === id);
+  if (!task.consultDone) return;          // ต้องติ๊กยืนยันก่อนจึงจะส่งได้
   const advisor = ADVISORS[task.advisor];
   task.status = "sent";
 
@@ -1354,7 +1408,6 @@ async function sendForm(id) {
 `เรียน ${task.requester.name}
 
 อาจารย์ ${advisor.name} ให้คำปรึกษาเรื่อง "${task.topic}" เสร็จสิ้นแล้ว (Ref: ${task.id})
-วัตถุประสงค์: ${task.purpose}
 
 กรุณากรอกแบบฟอร์ม AS-001 (สรุปการให้คำปรึกษา วันที่ ระยะเวลา และลายเซ็น) แล้วกด Submit ที่ลิงก์นี้
 ${APP_URL()}#fill=${task.id}
@@ -1368,9 +1421,13 @@ Research Consultation Service`]]);
   render();
 }
 
-// อาจารย์เซ็นเป็นคนสุดท้าย -> งานเสร็จสมบูรณ์ ส่งอีเมลถึงทั้งสองฝ่าย + popup QR
+// อาจารย์เซ็นเป็นคนสุดท้าย -> งานเสร็จสมบูรณ์ ส่งอีเมลถึงทั้งสองฝ่าย (popup QR ย้ายไปแสดงตอนผู้ขอกด Submit แล้ว)
 async function completeByAdvisor(id) {
   const task = tasks.find(t => t.id === id);
+  if (!task.purpose) {
+    $("closeError").textContent = "กรุณาเลือกวัตถุประสงค์ (KPI standard / Working Hour/LU) ก่อนกด Complete";
+    return;
+  }
   if (!sigs.advisor.image) {
     $("closeError").textContent = "กรุณาลงลายเซ็นก่อนกด Complete (อัปโหลดไฟล์ หรือพิมพ์ชื่อแล้วเลือกลายเซ็น)";
     return;
@@ -1401,7 +1458,6 @@ Research Consultation Service`;
     [task.requester.email, `[Research Consultation] สำเนาบันทึกการให้คำปรึกษา (${task.id})`, body(task.requester.name)]
   ]);
   notice = `ปิดงาน ${esc(task.id)} เรียบร้อย ${mailResultHtml(results)}`;
-  showQr = true;
   resetScroll = true;
   render();
 }
@@ -1442,6 +1498,8 @@ function rerenderKeeping() {
   const scrollY = window.scrollY;
   render();
   KEEP_IDS.forEach((id, i) => { if (keep[i] !== null && $(id)) $(id).value = keep[i]; });
+  const sc = $("sumCount"), sm = $("summary");        // อัปเดตตัวนับตัวอักษรหลังคืนค่า
+  if (sc && sm) sc.textContent = sm.value.length;
   window.scrollTo(0, scrollY);
 }
 
@@ -1541,8 +1599,10 @@ function renderFillBody() {
       <h2>Complete your consultation form</h2>
       <div class="muted small">${esc(task.topic)} · ผู้ให้คำปรึกษา ${esc(ADVISORS[task.advisor].name)}</div>
 
-      <label>Summary <small>ข้อมูลโดยสรุปของการให้คำปรึกษา</small></label>
-      <textarea id="summary"></textarea>
+      <label>Summary <small>ข้อมูลโดยสรุปของการให้คำปรึกษา (ไม่เกิน ${SUMMARY_MAX} ตัวอักษร)</small></label>
+      <textarea id="summary" maxlength="${SUMMARY_MAX}"
+                oninput="$('sumCount').textContent = this.value.length"></textarea>
+      <div class="small muted" style="text-align:right"><span id="sumCount">0</span> / ${SUMMARY_MAX}</div>
 
       <div class="two">
         <div><label>Date <small>วันที่ให้คำปรึกษา</small></label><input type="date" id="date" value="${isoDate(Date.now())}"></div>
@@ -1557,14 +1617,15 @@ function renderFillBody() {
       <h2>Preview — AS-001</h2>
       ${consultDocHtml(task)}
       <div class="error" id="fillError" style="text-align:center"></div>
-      <div class="bar" style="justify-content:center"><button class="primary" id="completeBtn" onclick="submitFill('${task.id}')">Submit to advisor</button></div>
+      <div class="bar" style="justify-content:center"><button class="primary" id="completeBtn" onclick="submitFill('${task.id}')">Complete</button></div>
     </div>`;
 }
 
 // ผู้ขอกด Submit: บันทึก -> สถานะ review -> ส่งอีเมลแจ้งอาจารย์ให้ลงลายเซ็นปิดงาน (ยังไม่ complete)
+// และเด้ง popup QR แบบประเมินความพึงพอใจให้ผู้ขอรับคำปรึกษา
 async function submitFill(id) {
   const task = tasks.find(t => t.id === id);
-  const summary = $("summary").value.trim();
+  const summary = $("summary").value.trim().slice(0, SUMMARY_MAX);
   if (!summary || !Number($("hours").value) || !sigs.requester.image) {
     $("fillError").textContent = "กรุณากรอกสรุป ระยะเวลา และเลือกลายเซ็นก่อน";
     return;
@@ -1573,6 +1634,11 @@ async function submitFill(id) {
   task.result = { summary, date: $("date").value, hours: $("hours").value, signature: sigs.requester.image };
   task.status = "review";
   sigs.requester = newSig();
+
+  // เด้ง QR ทันทีที่ผู้ขอลงลายเซ็นและกด Submit เสร็จ (ไม่ต้องรออีเมลส่งเสร็จ)
+  showQr = true;
+  resetScroll = true;
+  render();
 
   const advisor = ADVISORS[task.advisor];
   const results = await sendAll([[advisor.email, `[Research Consultation] ผู้ขอกรอกแบบฟอร์มแล้ว กรุณาลงลายเซ็น (${task.id})`,
@@ -1585,8 +1651,7 @@ ${APP_URL()}
 Research Consultation Service`]]);
 
   notice = `ส่งแบบฟอร์ม ${esc(task.id)} ให้อาจารย์ลงลายเซ็นแล้ว ${mailResultHtml(results)}`;
-  resetScroll = true;
-  render();
+  render();                               // แสดงผลการส่งอีเมล (popup QR ยังคงอยู่จนกว่าจะกดปิด)
 }
 
 function qrModalHtml() {
