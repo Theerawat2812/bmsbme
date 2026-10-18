@@ -66,7 +66,7 @@
       border-bottom: 1px solid var(--line);
     }
     .brand { margin-left: auto; text-align: right; font-weight: 700; color: var(--primary); }  /* ชื่อบริการอยู่ขวา */
-    .logo { order: -1; height: 35px; width: auto; }                                           /* โลโก้อยู่ซ้าย */
+    .logo { order: -1; height: 40px; width: auto; }                                           /* โลโก้อยู่ซ้าย */
 
     /* โครงหน้า: เมนูซ้าย (แนวตั้ง) + เนื้อหาขวา */
     body { display: flex; flex-direction: column; min-height: 100vh; }
@@ -274,7 +274,7 @@
     .modal { position: fixed; inset: 0; z-index: 50; display: grid; place-items: center; padding: 16px; background: rgba(20, 33, 61, .55); }
     .modal-box { max-width: 360px; padding: 24px; text-align: center; background: #fff; border-radius: 16px; }
     .modal-box img { width: 200px; height: 200px; }
-    .signature { display: block; max-height: 56px; }
+    .signature { display: block; max-height: 100px; }
 
     /* ===== เอกสาร AS-001: A4 (210 x 297 mm) ใช้ TH Sarabun New ทั้งฉบับ ===== */
     .doc-wrap { overflow: hidden; padding: 12px; border-radius: 8px; background: #e5e5e5; }   /* ย่อให้พอดีจอด้วย fitDocs() */
@@ -320,7 +320,7 @@
     .doc .qr { width: 190px; text-align: center; }
     .doc .qr img { width: 130px; height: 130px; display: block; margin: 0 auto 8px; }
     .doc .sign-col { width: 270px; text-align: center; }
-    .doc .sign-box { height: calc(62px * var(--vs, 1)); display: flex; align-items: flex-end; justify-content: center; }
+    .doc .sign-box { height: calc(90px * var(--vs, 1)); display: flex; align-items: flex-end; justify-content: center; }
     .doc .sign-box img { max-height: 100%; max-width: 100%; object-fit: contain; }
     .doc .sign-line { height: 6px; margin: 0 10px 2px; }
     .doc .sign-col > div + div { margin-top: calc(22px * var(--vs, 1)); }
@@ -437,7 +437,7 @@
 
 <body>
   <header>
-    <div class="brand">Research Consultation Service</div>
+    <div class="brand">&nbsp;</div>
     <!-- โลโก้: ถ้าโหลดไม่ได้ (เช่น ในหน้าตัวอย่าง) จะแสดงกล่องแทน -->
     <img class="logo" alt="BMS&amp;BME" height="44"
          src="images/RCS/logo.png"
@@ -1361,7 +1361,7 @@ Research Consultation Service`]]);
 
 function downloadBar(task) {
   if (task.status !== "done") return "";
-  return `<div class="bar"><span class="small muted">ดาวน์โหลดเป็น PDF หน้าตาตรงกับตัวอย่างที่เห็น (A4)</span>
+  return `<div class="bar"><span class="small muted">ดาวน์โหลดเป็นไฟล์ PDF</span>
           <button class="primary" onclick="downloadPdf('${task.id}')">Download PDF</button></div>`;
 }
 
@@ -1381,7 +1381,7 @@ function sigPickerHtml(who, defaultName) {
       ? `<input type="file" accept="image/png,image/jpeg" onchange="readSignature('${who}', this)">`
       : `<div class="two">
            <input id="sigName-${who}" placeholder="พิมพ์ชื่อของคุณ" value="${esc(s.typed || defaultName)}">
-           <div class="sig-gen"><button onclick="generateSignatures('${who}')">Generate 3 styles</button></div>
+           <div class="sig-gen"><button onclick="generateSignatures('${who}')">Generate</button></div>
          </div>
          <div class="sig-tiles">${s.options.map((img, i) => `
            <div class="sig-tile ${s.image === img ? "selected" : ""}" onclick="pickSignature('${who}', ${i})"><img src="${img}"></div>`).join("")}</div>`}
@@ -1418,7 +1418,7 @@ async function generateSignatures(who) {
   for (const font of SIGN_FONTS) {
     try { await document.fonts.load(`normal 400 54px "${font}"`, name); } catch (e) { /* ไม่มีไฟล์ฟอนต์ -> ใช้ฟอนต์สำรอง */ }
     const canvas = document.createElement("canvas");
-    canvas.width = 420; canvas.height = 120;
+    canvas.width = 420; canvas.height =110;
     const g = canvas.getContext("2d");
     g.fillStyle = "#1b2a6b";
     g.font = `normal 400 54px "${font}", "Sriracha", sans-serif`;
