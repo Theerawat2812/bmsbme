@@ -64,7 +64,7 @@ body.nav-solid{background:#46538C}
     font-family: "Segoe UI", Helvetica, Arial, sans-serif;
 }
 .bmx h3{font-size:clamp(17px,1.2vw,22px); font-weight:700; margin-bottom:8px; color:var(--head)}
-.bmx .sec{padding:clamp(28px,2.4vw,46px) 0}
+.bmx .sec{padding:clamp(28px,2.4vw,5px) 0}
 .bmx .soft{background:var(--tint)}
 .bmx .lead{
     max-width: 1100px;
@@ -81,12 +81,17 @@ body.nav-solid{background:#46538C}
 .bmx .facts{border:1px solid var(--line); background:#fff; border-radius:6px; overflow:hidden}
 .bmx .facts div{display:flex; justify-content:space-between; gap:16px; padding:14px 20px; border-top:1px solid var(--line); font-size:clamp(14px,.88vw,16px)}
 .bmx .facts div:first-child{border-top:0}
-.bmx .facts b{color:var(--head); font-weight:600}
+.bmx .facts b{
+    color: var(--head);
+    font-weight: 600;
+    font-size: 15px;
+}
 .bmx .facts span{
     color: var(--mut);
     text-align: right;
     font-family: "Segoe UI", Helvetica, Arial, sans-serif;
     font-weight: 200;
+    font-size: 15px;
 }
 
 /* Comparison table */
@@ -95,19 +100,29 @@ body.nav-solid{background:#46538C}
 .bmx th,.bmx td{padding:clamp(14px,1.1vw,20px); text-align:left; vertical-align:top; border-top:1px solid var(--line)}
 /* หัวตาราง: เปลี่ยนสีที่ตัวแปร --thead ด้านบน */
 .bmx table thead th{
-    background: var(--thead) !important;
+    background: #343A58 !important;
     color: #fff !important;
     border-top: 0;
     font-weight: 400;
-    font-size: clamp(15px,1vw,18px);
+    font-size: 16px;
+    padding: 10px 20px;      /* ลดความสูง; ถ้าอยากให้สูงขึ้นให้เพิ่ม เช่น 18px 20px */
+    line-height: 1.3;
     font-family: "Segoe UI", Helvetica, Arial, sans-serif;
 }
-.bmx tbody th{width:19%; color:var(--head); background:var(--tint); font-weight:600}
+.bmx tbody th{
+    width: 19%;
+    color: var(--head);
+    background: var(--tint);
+    font-weight: 600;
+    font-size: 15px;
+	  padding: 10px 20px;   
+}
 .bmx td{
     width: 40.5%;
     font-family: "Segoe UI", Helvetica, Arial, sans-serif;
     font-weight: 100;
     font-size: 15px;
+	  padding: 10px 20px;   
 }
 .bmx td li{
     padding: 3px 0 3px 16px;
@@ -125,6 +140,61 @@ body.nav-solid{background:#46538C}
     font-family: "Segoe UI", Helvetica, Arial, sans-serif;
     font-weight: 500;
 }
+
+/* ===== Program Lecturer (ย้ายมาจากหน้า curriculum: กะทัดรัด พับไว้ คลิกเพื่อดูรายชื่อ) ===== */
+.bmx #faculty{padding:0 0 clamp(28px,2.4vw,46px)}
+.bmx .fac-wrap{border-radius:6px; background:none; border:1px solid var(--line)}
+.bmx .fac-top{
+  display:flex; align-items:center; justify-content:space-between; gap:16px;
+  padding:12px 18px; cursor:pointer; list-style:none; border-radius:6px;
+  transition:background .2s;
+}
+.bmx .fac-top::-webkit-details-marker{display:none}
+.bmx .fac-top:hover{background:var(--tint)}
+.bmx .fac-top:focus-visible{outline:3px solid var(--sky); outline-offset:3px}
+.bmx .fac-top h2{
+  margin:0;
+  font-family:var(--font);
+  font-size:16px;
+  font-weight:600;
+  line-height:1.25;
+  color:var(--head);
+}
+.bmx .fac-top .right{display:flex; align-items:center; gap:12px}
+.bmx .count{color:var(--mut); font-size:13px !important}
+.bmx .chev{
+  flex:none; width:26px; height:26px; border-radius:50%; background:var(--blue-dk); position:relative;
+  transition:transform .25s ease;
+}
+.bmx .chev::before{
+  content:""; position:absolute; left:50%; top:50%; width:7px; height:7px; margin:-5.5px 0 0 -4px;
+  border-right:2px solid #fff; border-bottom:2px solid #fff; transform:rotate(45deg);
+}
+.bmx .fac-wrap[open] .chev{transform:rotate(180deg)}
+.bmx .fac-wrap[open] .fac-top{border-bottom-left-radius:0; border-bottom-right-radius:0; border-bottom:1px solid var(--line)}
+
+/* อาจารย์แต่ละคน: ไม่มีกรอบ ไม่มี BG ใช้เส้นบางสีน้ำเงินแนวตั้งหน้าโปรไฟล์ */
+.bmx .fac{
+  list-style:none; margin:0;
+  display:grid; grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:22px 32px; align-content:start;
+  padding:22px 18px 26px;
+}
+.bmx .fac li{
+  min-width:0;
+  padding:1px 0 1px 14px;
+  border-left:2px solid var(--blue); background:none; border-radius:0;
+}
+.bmx .fac .nm{display:block; font-size:15.5px !important; font-weight:600; line-height:1.35; color:var(--head)}
+.bmx .fac .rank{display:block; font-size:12.5px !important; line-height:1.4; color:var(--mut)}
+.bmx .fac .em{display:block; margin-top:3px; font-size:13.5px !important; line-height:1.4; color:var(--blue-dk); overflow-wrap:anywhere}
+.bmx .fac a.em:hover{text-decoration:underline}
+.bmx .fac .none{color:#9aa9b8}
+.bmx .fac .rank:empty::before{content:"\00a0"}
+
+/* Program Lecturer: ใช้ฟอนต์ Arial เท่านั้น (หัวข้อ ชื่อ ตำแหน่ง อีเมล จำนวน) */
+.bmx #faculty,
+.bmx #faculty *{font-family:Arial,sans-serif}
 
 /* Highlight cards */
 .bmx .cards{display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(14px,1.3vw,25px); margin-top:clamp(20px,1.8vw,35px)}
@@ -170,6 +240,9 @@ body.nav-solid{background:#46538C}
 .bmx .contact .btn{background:#fff; color:var(--blue-dk)}
 .bmx .contact .btn:hover{background:var(--tint2)}
 
+@media(max-width:1000px){
+  .bmx .fac{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
 @media(max-width:900px){
   .bmx .ov,.bmx .split,.bmx .contact .c{grid-template-columns:1fr}
   .bmx .cards{grid-template-columns:1fr}
@@ -187,6 +260,15 @@ body.nav-solid{background:#46538C}
 @media(max-width:700px){
   #hero{padding-top:20px}
   #hero .w p{margin-top:10px; font-size:15px; line-height:1.55}
+
+  /* Program Lecturer บนมือถือ */
+  .bmx .fac-top{padding:11px 14px}
+  .bmx .fac-top h2{font-size:16px}
+  .bmx .count{font-size:12.5px !important}
+  .bmx .fac{grid-template-columns:minmax(0,1fr); padding:16px 14px 20px; gap:16px}
+  .bmx .fac .nm{font-size:15px !important}
+  .bmx .fac .rank{font-size:12.5px !important}
+  .bmx .fac .em{font-size:13px !important}
 }
 @media(max-width:600px){
   #hero .w,.bmx .c{padding:30px 18px}
@@ -200,7 +282,7 @@ body.nav-solid{background:#46538C}
   .bmx .card .big{font-size:18px}
   .bmx .btn{width:100%; text-align:center}
 }
-@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.bmx .chev{transition:none}}
 
 /* ===== "Ready to apply?" ตอนย่อจอ: ลดขนาด/ระยะให้สมส่วน (ต้องอยู่หลัง media query ด้านบน) ===== */
 @media(max-width:900px){
@@ -234,10 +316,12 @@ body.nav-solid{background:#46538C}
 /* ===== ลดระยะห่างระหว่างหัวข้อตอนย่อจอ ===== */
 @media(max-width:900px){
   .bmx .sec{padding:40px 0}
+  .bmx #faculty{padding:0 0 40px}
 }
 @media(max-width:600px){
   .bmx .c{padding:0 18px}          /* ตัด padding บน-ล่าง 30px ที่ติดมาจากกฎ hero */
   .bmx .sec{padding:32px 0}
+  .bmx #faculty{padding:0 0 32px}
 }
 
 /* กันไม่ให้ header.css ทับขนาดหัวข้อ */
@@ -301,7 +385,8 @@ body #hero .w p{
     <div class="tw">
       <table>
         <thead>
-          <tr><th>Criteria</th><th>Master of Science (M.Sc.)</th><th>Doctor of Philosophy (Ph.D.)</th></tr>
+          <tr>
+            <th>Criteria</th><th>Master of Science (M.Sc.)</th><th>Doctor of Philosophy (Ph.D.)</th></tr>
         </thead>
         <tbody>
           <tr>
@@ -359,9 +444,56 @@ body #hero .w p{
     </div>
   </div>
 </section>
-	
-	
-	
+
+<!-- ===== Program Lecturer (คลิกเพื่อเปิด/พับรายชื่อ) ===== -->
+<section id="faculty">
+  <div class="c">
+    <details class="fac-wrap">
+      <summary class="fac-top">
+        <h2>Program Lecturer</h2>
+        <span class="right">
+          <span class="count"><span id="fac-count">32</span> members</span>
+          <span class="chev" aria-hidden="true"></span>
+        </span>
+      </summary>
+
+      <ol class="fac" id="fac-list">
+        <li><span class="rank">Assoc. Prof. Dr.</span><span class="nm">Pritsana Ruangrat</span><a class="em" href="mailto:rpritsan@medicine.psu.ac.th">rpritsan@medicine.psu.ac.th</a></li>
+        <li><span class="rank">Prof. Dr.</span><span class="nm">Sarunyou Chusri</span><a class="em" href="mailto:Sarunyouchusri@hotmail.com">Sarunyouchusri@hotmail.com</a></li>
+        <li><span class="rank">Assoc. Prof. Dr.</span><span class="nm">Raphatphorn Navakanitworakul</span><a class="em" href="mailto:nraphatp@medicine.psu.ac.th">nraphatp@medicine.psu.ac.th</a></li>
+        <li><span class="rank">Asst. Prof. Dr.</span><span class="nm">Kanoot Jaruthamsophon</span><a class="em" href="mailto:jkanoot@medicine.psu.ac.th">jkanoot@medicine.psu.ac.th</a></li>
+        <li><span class="rank">Asst. Prof. Dr.</span><span class="nm">Kanthida Chulchit</span><span class="em none">Email not listed</span></li>
+        <li><span class="rank">Asst. Prof. Dr.</span><span class="nm">Tansit Saengkaew, M.D.</span><span class="em none">Email not listed</span></li>
+        <li><span class="rank">Asst. Prof. Dr.</span><span class="nm">Kamonnut Singkhamanan</span><a class="em" href="mailto:skamonnu@medicine.psu.ac.th">skamonnu@medicine.psu.ac.th</a></li>
+        <li><span class="rank">Asst. Prof. Dr.</span><span class="nm">Somnorapat Surasombatpattana</span><span class="em none">Email not listed</span></li>
+        <li><span class="rank">Assoc. Prof. Dr.</span><span class="nm">Lakkhana Kanhayuwa Wingfield</span><a class="em" href="mailto:lakkhana.k@psu.ac.th">lakkhana.k@psu.ac.th</a></li>
+        <li><span class="rank">Assoc. Prof. Dr.</span><span class="nm">Kanitta Srinuan</span><a class="em" href="mailto:kanitta.s@psu.ac.th">kanitta.s@psu.ac.th</a></li>
+        <li><span class="rank">Dr.</span><span class="nm">Pemikar Srifah</span><a class="em" href="mailto:pemikar.s@gmail.com">pemikar.s@gmail.com</a></li>
+        <li><span class="rank">Dr.</span><span class="nm">Ratsanee Bisnum</span><span class="em none">Email not listed</span></li>
+        <li><span class="rank">Asst. Prof. Dr.</span><span class="nm">Ampapan Naknaen</span><span class="em none">Email not listed</span></li>
+        <li><span class="rank">Prof. Dr.</span><span class="nm">Potchanapond Graidist</span><a class="em" href="mailto:gpotchan@medicine.psu.ac.th">gpotchan@medicine.psu.ac.th</a></li>
+        <li><span class="rank">Assoc. Prof. Dr.</span><span class="nm">Chariyawan Charalsawadi</span><a class="em" href="mailto:chari.sawadi@gmail.com">chari.sawadi@gmail.com</a></li>
+        <li><span class="rank">Assoc. Prof. Dr.</span><span class="nm">Tipparat Penglong Kongkaew</span><a class="em" href="mailto:p_tipparat@hotmail.com">p_tipparat@hotmail.com</a></li>
+        <li><span class="rank">Assoc. Prof. Dr.</span><span class="nm">Dennapa Sotthibandhu</span><a class="em" href="mailto:dennapa.sa@psu.ac.th">dennapa.sa@psu.ac.th</a></li>
+        <li><span class="rank">Assoc. Prof. Dr.</span><span class="nm">Nawamin Pinpathomrat</span><a class="em" href="mailto:nawamin.p@psu.ac.th">nawamin.p@psu.ac.th</a></li>
+        <li><span class="rank">Assoc. Prof. Dr.</span><span class="nm">Jakrawadee Julamanee, M.D.</span><a class="em" href="mailto:jjakrawadee@gmail.com">jjakrawadee@gmail.com</a></li>
+        <li><span class="rank">Assoc. Prof. Dr.</span><span class="nm">Komwit Surachat</span><a class="em" href="mailto:komwit.s@psu.ac.th">komwit.s@psu.ac.th</a></li>
+        <li><span class="rank">Assoc. Prof. Dr.</span><span class="nm">Kanyanat Kanokwiroon</span><a class="em" href="mailto:kkanyana@medicine.psu.ac.th">kkanyana@medicine.psu.ac.th</a></li>
+        <li><span class="rank">Assoc. Prof. Dr.</span><span class="nm">Woramyalin Thipmanee</span><span class="em none">Email not listed</span></li>
+        <li><span class="rank">Asst. Prof. Dr.</span><span class="nm">Pasarat Khongkhaw</span><a class="em" href="mailto:k.pasarat@gmail.com">k.pasarat@gmail.com</a></li>
+        <li><span class="rank">Asst. Prof. Dr.</span><span class="nm">Mingkwan Yingkajorn</span><a class="em" href="mailto:ymingkwa@medicine.psu.ac.th">ymingkwa@medicine.psu.ac.th</a></li>
+        <li><span class="rank">Asst. Prof. Dr.</span><span class="nm">Kittinun Leetanaporn</span><span class="em none">Email not listed</span></li>
+        <li><span class="rank">Asst. Prof. Dr.</span><span class="nm">Yaowapa Sukporma</span><a class="em" href="mailto:yaowapa.suk@psu.ac.th">yaowapa.suk@psu.ac.th</a></li>
+        <li><span class="rank">Dr.</span><span class="nm">Teerawat Dobut</span><a class="em" href="mailto:dtheeraw@medicine.ac.th">dtheeraw@medicine.ac.th</a></li>
+        <li><span class="rank">Assoc. Prof. Dr.</span><span class="nm">Areerat Nunuan</span><span class="em none">Email not listed</span></li>
+        <li><span class="rank">Asst. Prof. Dr.</span><span class="nm">Rattanaruji Pumwiset</span><a class="em" href="mailto:rattanaruji.p@psu.ac.th">rattanaruji.p@psu.ac.th</a></li>
+        <li><span class="rank">Prof. Dr.</span><span class="nm">Teerachit Chotsampancharoen, M.D.</span><a class="em" href="mailto:teerachit@yahoo.com">teerachit@yahoo.com</a></li>
+        <li><span class="rank">Prof.</span><span class="nm">Paramee Thongsuksai, M.D.</span><a class="em" href="mailto:paramee.t@psu.ac.th">paramee.t@psu.ac.th</a></li>
+        <li><span class="rank">Prof. Dr.</span><span class="nm">Pornprot Limprasert, M.D.</span><a class="em" href="mailto:lpornpro@medicine.psu.ac.th">lpornpro@medicine.psu.ac.th</a></li>
+      </ol>
+    </details>
+  </div>
+</section>
 
 <section class="sec">
   <div class="c">
@@ -403,6 +535,14 @@ body #hero .w p{
 
 </div>
 <div id="site-footer"></div>
+
+<!-- นับจำนวนอาจารย์อัตโนมัติ -->
+<script>
+(function(){
+  var list=document.getElementById('fac-list'), c=document.getElementById('fac-count');
+  if(list&&c) c.textContent=list.children.length;
+})();
+</script>
 
 <script src="header.js"></script>
 <script src="footer.js"></script>

@@ -67,7 +67,7 @@
       border-bottom: 1px solid var(--line);
     }
     .brand { margin-left: auto; text-align: right; font-weight: 700; color: var(--primary); }  /* ชื่อบริการอยู่ขวา */
-    .logo { order: -1; height: 40px; width: auto; cursor: pointer; }                          /* โลโก้อยู่ซ้าย กดกลับหน้า Home */
+    .logo { order: -1; height: 50px; width: auto; cursor: pointer; }                          /* โลโก้อยู่ซ้าย กดกลับหน้า Home */
 
     /* โครงหน้า: เมนูซ้าย (แนวตั้ง) + เนื้อหาขวา */
     body { display: flex; flex-direction: column; min-height: 100vh; }
@@ -301,11 +301,12 @@
     .notice ul { margin: 6px 0 0; padding-left: 20px; }
     .mail-ok  { color: var(--ok); }
     .mail-bad { color: var(--bad); }
-    .sig-gen button { height: 44px; }                 /* สูงเท่าช่องกรอกชื่อ อยู่ระนาบเดียวกัน */
-    .sig-tiles { display: grid; gap: 10px; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); margin-top: 10px; }
-    .sig-tile { padding: 8px; background: #fff; border: 2px solid var(--line); border-radius: 12px; cursor: pointer; }
-    .sig-tile.selected { border-color: var(--primary); }
-    .sig-tile img { width: 100%; display: block; }
+    /* กรอบเซ็นชื่อ */
+    .sig-pad-wrap { position: relative; background: #fff; border: 2px dashed var(--line); border-radius: 12px; overflow: hidden; }
+    .sig-pad-wrap::before { content: ""; position: absolute; left: 6%; right: 6%; bottom: 28%; border-bottom: 1px dotted #aab3c5; pointer-events: none; }
+    .sig-pad { display: block; width: 100%; height: auto; aspect-ratio: 3 / 1; touch-action: none; cursor: crosshair; }
+    .sig-hint { position: absolute; left: 0; right: 0; bottom: 8px; text-align: center; font-size: 13px; color: #aab3c5; pointer-events: none; }
+    .sig-pad-wrap.has .sig-hint { display: none; }
     .modal { position: fixed; inset: 0; z-index: 50; display: grid; place-items: center; padding: 16px; background: rgba(20, 33, 61, .55); }
     .modal-box { max-width: 360px; padding: 24px; text-align: center; background: #fff; border-radius: 16px; }
     .modal-box img { width: 200px; height: 200px; }
@@ -438,7 +439,6 @@
       h2 { font-size: 18px; }
 
       .two { grid-template-columns: 1fr; }
-      .sig-gen { margin-top: 8px; }
       .grid { grid-template-columns: 1fr; }
       input, select, textarea { font-size: 16px; }   /* กัน iPhone ซูมหน้าเองตอนแตะช่องกรอก */
 
@@ -737,14 +737,10 @@ let notice = "";             // ข้อความแจ้งผลหลั
 let showQr = false;          // แสดง popup QR แบบประเมินหรือไม่ (เปิดตอนผู้ขอรับคำปรึกษากด Submit)
 
 // ลายเซ็น 2 ชุด: ผู้ขอคำปรึกษา (ลงตอน Submit) และอาจารย์ (ลงเป็นคนสุดท้ายตอน Complete)
-const newSig = () => ({ mode: "upload", image: null, typed: "", options: [] });
+const newSig = () => ({ mode: "draw", image: null, raw: null });
 const sigs = { advisor: newSig(), requester: newSig() };
 
 const SURVEY_QR = "images/RCS/QR.png";  // QR แบบประเมินความพึงพอใจ
-
-// ฟอนต์ลายมือสำหรับสร้างลายเซ็น: ตัวเลือก 1 และ 3 เป็นฟอนต์ใหม่ ตัวเลือก 2 เหมือนเดิม (Sriracha)
-// (ถ้าหาไฟล์ฟอนต์ไม่เจอ จะใช้ Sriracha แทนชั่วคราว)
-const SIGN_FONTS = ["Kart-Satapat", "Sriracha", "Torsilp YaLuemChan"];
 
 // ไอคอนเวกเตอร์หน้าเมนูซ้าย (ใช้ currentColor = สีเดียวกับตัวอักษรเมนู)
 const NAV_ICONS = {
@@ -893,6 +889,7 @@ function render() {
   if (showQr) $("app").insertAdjacentHTML("beforeend", qrModalHtml());
 
   fitDocs();
+  initSigPads();
   window.scrollTo(0, resetScroll ? 0 : keepY);
   resetScroll = false;
 }
@@ -1030,7 +1027,7 @@ function stepContact() {
         <input type="email" value="${esc(f.email)}" oninput="state.form.email = this.value">
       </div>
       <div>
-        <label>Telephone number</label>
+        <label>Phone number</label>
         <input value="${esc(f.tel)}" oninput="state.form.tel = this.value">
       </div>
     </div>`;
@@ -1518,7 +1515,7 @@ async function completeByAdvisor(id) {
     return;
   }
   if (!sigs.advisor.image) {
-    $("closeError").textContent = "กรุณาลงลายเซ็นก่อนกด Complete (อัปโหลดไฟล์ หรือพิมพ์ชื่อแล้วเลือกลายเซ็น)";
+    $("closeError").textContent = "กรุณาลงลายเซ็นก่อนกด Complete (เซ็นในกรอบ หรืออัปโหลดไฟล์)";
     return;
   }
   task.advisorSig = sigs.advisor.image;
@@ -1558,30 +1555,85 @@ function downloadBar(task) {
 }
 
 /* =====================================================================
-   8) SIGNATURE  (ใช้ร่วมกันทั้งอาจารย์และผู้ขอ: 1) อัปโหลดไฟล์  2) พิมพ์ชื่อแล้วสร้างลายเซ็น 3 แบบ)
+   8) SIGNATURE  (ใช้ร่วมกันทั้งอาจารย์และผู้ขอ: 1) เซ็นลงในกรอบ  2) อัปโหลดไฟล์)
    ===================================================================== */
 
-function sigPickerHtml(who, defaultName) {
+function sigPickerHtml(who) {
   const s = sigs[who];
-  const up = s.mode === "upload";
+  const draw = s.mode === "draw";
   return `
     <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px">
-      <button class="${up ? "primary" : ""}" onclick="setSigMode('${who}','upload')">1. Upload file</button>
-      <button class="${up ? "" : "primary"}" onclick="setSigMode('${who}','type')">2. Type your name</button>
+      <button class="${draw ? "primary" : ""}" onclick="setSigMode('${who}','draw')">1. Draw signature</button>
+      <button class="${draw ? "" : "primary"}" onclick="setSigMode('${who}','upload')">2. Upload file</button>
     </div>
-    ${up
-      ? `<input type="file" accept="image/png,image/jpeg" onchange="readSignature('${who}', this)">`
-      : `<div class="two">
-           <input id="sigName-${who}" placeholder="พิมพ์ชื่อของคุณ" value="${esc(s.typed || defaultName)}">
-           <div class="sig-gen"><button onclick="generateSignatures('${who}')">Generate</button></div>
+    ${draw
+      ? `<div class="sig-pad-wrap ${s.image ? "has" : ""}">
+           <canvas class="sig-pad" data-who="${who}" width="900" height="300"></canvas>
+           <div class="sig-hint">เซ็นชื่อในกรอบนี้ (ใช้นิ้วหรือเมาส์)</div>
          </div>
-         <div class="sig-tiles">${s.options.map((img, i) => `
-           <div class="sig-tile ${s.image === img ? "selected" : ""}" onclick="pickSignature('${who}', ${i})"><img src="${img}"></div>`).join("")}</div>`}
-    ${s.image && up ? `<img class="signature" src="${s.image}" style="background:#fff;padding:4px;margin-top:8px">` : ""}`;
+         <div style="margin-top:8px"><button onclick="clearSig('${who}')">Clear</button></div>`
+      : `<input type="file" accept="image/png,image/jpeg" onchange="readSignature('${who}', this)">`}
+    ${s.image && !draw ? `<img class="signature" src="${s.image}" style="background:#fff;padding:4px;margin-top:8px">` : ""}`;
+}
+
+// กรอบเซ็นชื่อ: วาดด้วยนิ้ว/เมาส์ลง canvas ได้เลย (PNG พื้นโปร่งใส) ปล่อยมือแล้วลายเซ็นถูกบันทึกและแสดงในตัวอย่างเอกสารทันที
+function initSigPads() {
+  document.querySelectorAll("canvas.sig-pad").forEach(cv => {
+    const who = cv.dataset.who, g = cv.getContext("2d");
+    g.lineWidth = 5; g.lineCap = "round"; g.lineJoin = "round";
+    g.strokeStyle = g.fillStyle = "#1b2a6b";
+    if (sigs[who].raw) {                           // วาดลายเซ็นเดิมกลับลงกรอบ (หลัง render ใหม่)
+      const im = new Image();
+      im.onload = () => g.drawImage(im, 0, 0, cv.width, cv.height);
+      im.src = sigs[who].raw;
+    }
+    let drawing = false, last = null;
+    const pos = e => {
+      const r = cv.getBoundingClientRect();
+      return [(e.clientX - r.left) * cv.width / r.width, (e.clientY - r.top) * cv.height / r.height];
+    };
+    cv.addEventListener("pointerdown", e => {
+      drawing = true; cv.setPointerCapture(e.pointerId); last = pos(e);
+      g.beginPath(); g.arc(last[0], last[1], 2.5, 0, Math.PI * 2); g.fill();
+      e.preventDefault();
+    });
+    cv.addEventListener("pointermove", e => {
+      if (!drawing) return;
+      const p = pos(e);
+      g.beginPath(); g.moveTo(last[0], last[1]); g.lineTo(p[0], p[1]); g.stroke();
+      last = p;
+    });
+    const end = () => {
+      if (!drawing) return;
+      drawing = false;
+      sigs[who].raw = cv.toDataURL("image/png");   // ทั้งกรอบ (ไว้วาดกลับ)
+      sigs[who].image = cropSig(cv);                // ตัดเฉพาะส่วนที่เซ็น (ไว้ใส่ในเอกสาร)
+      rerenderKeeping();
+    };
+    cv.addEventListener("pointerup", end);
+    cv.addEventListener("pointercancel", end);
+  });
+}
+function clearSig(who) { sigs[who].image = null; sigs[who].raw = null; rerenderKeeping(); }
+
+// ตัดขอบว่างรอบลายเซ็นออก ให้ลายเซ็นเต็มช่องในเอกสาร
+function cropSig(cv) {
+  const w = cv.width, h = cv.height, d = cv.getContext("2d").getImageData(0, 0, w, h).data;
+  let x0 = w, y0 = h, x1 = -1, y1 = -1;
+  for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) {
+    if (d[(y * w + x) * 4 + 3] > 10) { if (x < x0) x0 = x; if (x > x1) x1 = x; if (y < y0) y0 = y; if (y > y1) y1 = y; }
+  }
+  if (x1 < 0) return null;
+  const pad = 8;
+  x0 = Math.max(0, x0 - pad); y0 = Math.max(0, y0 - pad); x1 = Math.min(w - 1, x1 + pad); y1 = Math.min(h - 1, y1 + pad);
+  const out = document.createElement("canvas");
+  out.width = x1 - x0 + 1; out.height = y1 - y0 + 1;
+  out.getContext("2d").drawImage(cv, x0, y0, out.width, out.height, 0, 0, out.width, out.height);
+  return out.toDataURL("image/png");
 }
 
 // render ใหม่โดยไม่ให้ข้อความที่กรอกไว้หาย
-const KEEP_IDS = ["summary", "date", "hours", "sigName-advisor", "sigName-requester"];
+const KEEP_IDS = ["summary", "date", "hours"];
 function rerenderKeeping() {
   const keep = KEEP_IDS.map(id => $(id) ? $(id).value : null);
   const scrollY = window.scrollY;
@@ -1592,7 +1644,7 @@ function rerenderKeeping() {
   window.scrollTo(0, scrollY);
 }
 
-function setSigMode(who, mode) { sigs[who].mode = mode; sigs[who].image = null; rerenderKeeping(); }
+function setSigMode(who, mode) { sigs[who].mode = mode; sigs[who].image = null; sigs[who].raw = null; rerenderKeeping(); }
 
 function readSignature(who, input) {
   const file = input.files[0];
@@ -1602,27 +1654,6 @@ function readSignature(who, input) {
   reader.readAsDataURL(file);
 }
 
-// สร้างลายเซ็น 3 แบบจากชื่อที่พิมพ์ (วาดลง canvas เป็น PNG โปร่งใส) ตัวอักษรปกติ ไม่หนา ไม่เอียง
-async function generateSignatures(who) {
-  const s = sigs[who];
-  const name = $("sigName-" + who).value.trim();
-  if (!name) return;
-  s.typed = name; s.image = null; s.options = [];
-
-  for (const font of SIGN_FONTS) {
-    try { await document.fonts.load(`normal 400 54px "${font}"`, name); } catch (e) { /* ไม่มีไฟล์ฟอนต์ -> ใช้ฟอนต์สำรอง */ }
-    const canvas = document.createElement("canvas");
-    canvas.width = 420; canvas.height =110;
-    const g = canvas.getContext("2d");
-    g.fillStyle = "#1b2a6b";
-    g.font = `normal 400 54px "${font}", "Sriracha", sans-serif`;
-    g.textAlign = "center"; g.textBaseline = "middle";
-    g.fillText(name, 210, 60, 390);       // ไม่หมุน ไม่เอียง
-    s.options.push(canvas.toDataURL("image/png"));
-  }
-  rerenderKeeping();
-}
-function pickSignature(who, i) { sigs[who].image = sigs[who].options[i]; rerenderKeeping(); }
 
 /* =====================================================================
    9) REQUESTER FORM  (ผู้ขอคำปรึกษา: กรอกสรุป + เซ็นชื่อ -> Submit ให้อาจารย์เซ็นต่อ)
@@ -1717,7 +1748,7 @@ async function submitFill(id) {
   const task = tasks.find(t => t.id === id);
   const summary = $("summary").value.trim().slice(0, SUMMARY_MAX);
   if (!summary || !Number($("hours").value) || !sigs.requester.image) {
-    $("fillError").textContent = "กรุณากรอกสรุป ระยะเวลา และเลือกลายเซ็นก่อน";
+    $("fillError").textContent = "กรุณากรอกสรุป ระยะเวลา และลงลายเซ็นก่อน";
     return;
   }
   $("completeBtn").disabled = true;

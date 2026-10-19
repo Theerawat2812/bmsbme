@@ -42,6 +42,9 @@
         '</div>' +
       '</div>' +
 
+      '<a href="admission.html" class="item nav-link">Admission</a>' +
+      '<a href="alumni.html" class="item nav-link">Alumni</a>' +
+
       /* ===== Services ===== */
       '<div id="services-wrap">' +
         '<a href="#" class="item" id="services-btn">Services</a>' +
@@ -51,8 +54,6 @@
         '</div>' +
       '</div>' +
 
-      '<a href="admission.html" class="item nav-link">Admission</a>' +
-      '<a href="alumni.html" class="item nav-link">Alumni</a>' +
       '<a href="contact us.html" class="item nav-link">Contact</a>' +
 
       '<div class="right">' +
@@ -88,13 +89,13 @@
           '<a href="Scholarship.html">PSU Graduate School Scholarships</a>' +
           '<a href="ScholarshipPSU.html">Faculty of Medicine Scholarships</a>' +
         '</div>' +
+        '<a href="admission.html">Admission</a>' +
+        '<a href="alumni.html">Alumni</a>' +
         '<a href="#" id="m-services-btn">Services</a>' +
         '<div id="m-services-sub">' +
           '<a href="research_consultation_service.html">Research Consulting Service - RCS</a>' +
           '<a href="bioact.html">Biological Activity Testing Center - BioAct</a>' +
         '</div>' +
-        '<a href="admission.html">Admission</a>' +
-        '<a href="alumni.html">Alumni</a>' +
         '<a href="contact us.html">Contact</a>' +
         '<form id="m-search" action="search.html" method="get">' +
           '<input type="text" name="q" placeholder="Search..." autocomplete="off">' +

@@ -90,7 +90,7 @@ a { text-decoration: none; color: inherit; }
 #about-menu, #program-menu, #services-menu, #academics-menu {
   display: none; position: absolute; top: 100%; left: 0; right: 0;
   margin: 0; padding: 14px var(--nav-pad) 22px;
-  background: #46538C; /*dropdown*/
+  background: #C5D3EB; /*dropdown*/
   border: 0; border-top: 1px solid rgba(255,255,255,.18); border-radius: 0;
   line-height: normal; white-space: normal;
   animation: dropIn .2s ease;
@@ -390,4 +390,28 @@ body.nav-solid {
   animation: dropInCenter .2s ease;
   grid-template-columns: repeat(2, 280px);
   column-gap: 30px;
+}
+
+/* ===== Dropdown: พื้นหลังขาว + ตัวอักษร #132A54 (อยู่ท้ายไฟล์เพื่อทับค่าก่อนหน้า) ===== */
+#about-menu, #program-menu, #services-menu, #academics-menu {
+  background: #FFFFFF;
+}
+
+#about-menu a, #program-menu a, #services-menu a, #academics-menu .col a {
+  color: #132A54;
+}
+
+/* hover: เดิมพื้นกรมท่า+ตัวอักษรขาวมองไม่เห็นบนพื้นขาว เลยใช้พื้นฟ้าอ่อนแทน */
+#about-menu a:hover, #about-menu a:focus-visible,
+#program-menu a:hover, #program-menu a:focus-visible,
+#services-menu a:hover, #services-menu a:focus-visible,
+#academics-menu .col a:hover, #academics-menu .col a:focus-visible {
+  background: #E8EEF8;
+  color: #132A54;
+}
+
+/* หัวข้อคอลัมน์ใน Academics (Study Information / Scholarship) */
+#academics-menu .col h4 {
+  color: #132A54;
+  border-bottom-color: rgba(19, 42, 84, .2);
 }
