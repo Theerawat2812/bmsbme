@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Research Consultation Service</title>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;500;700&family=Sriracha&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;500;700&family=Sarabun:wght@400;500;600;700&family=Sriracha&display=swap" rel="stylesheet">
 
   <style>
     /* =====================================================================
@@ -45,7 +45,8 @@
       padding-top: env(safe-area-inset-top, 0px);
       padding-bottom: env(safe-area-inset-bottom, 0px);
     }
-    html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+    html { scroll-padding-top: env(safe-area-inset-top, 0px);
+      -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }   /* กันมือถือขยายตัวอักษรเอง (ทำให้เอกสารเพี้ยน) */
     * { box-sizing: border-box; }
 
     /* ฟอนต์: อังกฤษ = Arial, ไทย = Noto Sans Thai */
@@ -203,6 +204,34 @@
       border-radius: 50%; background: var(--primary); color: #fff; font-weight: 700;
     }
 
+    /* ===== แถบแสดงความคืบหน้าของงาน (ทั้งฝั่งผู้ขอและอาจารย์) ===== */
+    .process { padding: 16px 18px; }
+    .process .p-title { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 4px 12px; margin-bottom: 12px; font-size: 13px; color: var(--muted); }
+    .process .p-title b { color: var(--primary); }
+    .process .steps { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
+    .process .st .line { height: 4px; border-radius: 4px; background: var(--line); margin-bottom: 8px; }
+    .process .st .name { font-size: 12px; line-height: 1.3; color: var(--muted); }
+    .process .st .name small { display: block; font-size: 11px; opacity: .85; }
+    .process .st.passed .line { background: var(--ok); }
+    .process .st.passed .name { color: var(--ok); }
+    .process .st.current .line { background: var(--primary); }
+    .process .st.current .name { color: var(--primary); font-weight: 700; }
+    .process.compact { padding: 0; margin: 8px 0 0; border: 0; background: none; border-radius: 0; }
+    .process.compact .steps { gap: 4px; max-width: 260px; }
+    .process.compact .st .line { margin: 0; height: 5px; }
+
+    /* ===== Hamburger (มือถือ) ===== */
+    #burger { display: none; flex: none; position: relative; width: 44px; height: 44px; padding: 0; border: 1px solid var(--line); border-radius: 10px; background: var(--card); }
+    #burger span { position: absolute; left: 11px; right: 11px; height: 2px; border-radius: 2px; background: var(--primary); transition: transform .25s, opacity .2s, top .25s; }
+    #burger span:nth-child(1) { top: 14px; }
+    #burger span:nth-child(2) { top: 21px; }
+    #burger span:nth-child(3) { top: 28px; }
+    body.menu-open #burger span:nth-child(1) { top: 21px; transform: rotate(45deg); }
+    body.menu-open #burger span:nth-child(2) { opacity: 0; }
+    body.menu-open #burger span:nth-child(3) { top: 21px; transform: rotate(-45deg); }
+    #menu-backdrop { display: none; }
+    @keyframes menuDrop { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: none; } }
+
     /* ===== Wizard: stepper ===== */
     .stepper { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 18px; }
     .stepper .num  { font-size: 22px; font-weight: 700; color: var(--muted); }
@@ -288,14 +317,15 @@
       width: 210mm; min-height: 297mm; margin: 0 auto; padding: calc(14mm * var(--vs, 1)) 18mm;
       display: flex; flex-direction: column;
       background: #fff; color: #111; border: 1px solid #bbb;
-      font-family: 'TH Sarabun New';
+      font-family: 'TH Sarabun New', 'Sarabun', sans-serif;
       font-size: 22px; line-height: 1.3;
     }
     .doc-head { display: flex; justify-content: space-between; font-size: 20px; padding-bottom: 6px; border-bottom: 2px solid #1f6f9f; }
     .doc h3 { margin: calc(36px * var(--vs, 1)) 0 calc(14px * var(--vs, 1)); text-align: center; font-size: 20px; font-weight: 700; }
     .doc h4 { margin: calc(18px * var(--vs, 1)) 0 4px; font-size: 20px; font-weight: 700; }
     .doc .row { display: flex; gap: 8px; align-items: flex-end; margin: calc(7px * var(--vs, 1)) 0; white-space: nowrap; }
-    .doc .spread { gap: 34px; align-items: center; }
+    .doc .spread { gap: 18px; align-items: center; }
+    .doc .spread > span { white-space: nowrap; }
     .doc .bullet { display: inline-block; width: 6px; height: 6px; margin-right: 8px; border-radius: 50%; background: #111; vertical-align: middle; }
 
     /* กล่องติ๊กถูก: วาดด้วย CSS ล้วน (ไม่ใช้รูป/ฟอนต์ เพื่อให้สร้าง PDF ได้) */
@@ -339,7 +369,7 @@
 
     /* ===== ฟอนต์: ใช้ TH Sarabun New ทั้งฟอร์ม (ตั้งที่เดียว) ===== */
     .doc, .doc *, .doc *::before, .doc *::after {
-      font-family: 'TH Sarabun New' !important;
+      font-family: 'TH Sarabun New', 'Sarabun', sans-serif !important;
     }
 
     /* ===== ขนาดตัวอักษรแยกแต่ละส่วน (แก้เลขได้เลย) ===== */
@@ -396,14 +426,10 @@
       .logo  { height: 30px; }
 
       .layout { flex-direction: column; gap: 14px; padding: 14px 16px 30px; }
-      nav {                                        /* มือถือ: เมนูเรียงแนวนอน เลื่อนซ้าย-ขวาได้ */
-        flex-direction: row; width: 100%; position: static;
-        overflow-x: auto; border-left: 0; border-bottom: 1px solid var(--line);
-      }
-      nav button { width: auto; flex: none; white-space: nowrap; padding: 9px 14px; font-size: 14px;
-        border-left: 0; border-bottom: 3px solid transparent; border-radius: 8px 8px 0 0; margin-left: 0; }
-      nav button.active { border-bottom-color: var(--primary); }
       main { width: 100%; }
+      .process { padding: 14px; }
+      .process .st .name { font-size: 10.5px; }
+      .process .st .name small { display: none; }
       footer { padding: 14px 16px; font-size: 12px; }
       .card { padding: 16px; border-radius: 14px; }
       .hero { padding: 24px 18px; }
@@ -438,6 +464,22 @@
       .modal-box img { width: 160px; height: 160px; }
       .doc-wrap { padding: 6px; }
     }
+
+    /* ===== มือถือ/แท็บเล็ตเล็ก: เมนูเป็นแฮมเบอร์เกอร์ กดแล้วเลื่อนลงมาใต้ header ===== */
+    @media (max-width: 760px) {
+      header { position: sticky; top: 0; z-index: 45; }
+      #burger { display: block; }
+      .layout { flex-direction: column; gap: 14px; padding: 14px 16px 30px; }
+      nav {
+        display: none; position: fixed; left: 0; right: 0; top: var(--hdr-h, 64px); z-index: 44;
+        width: auto; flex-direction: column; gap: 2px; padding: 8px 16px 14px;
+        background: var(--card); border: 0; border-bottom: 1px solid var(--line);
+        box-shadow: 0 14px 24px -14px rgba(20, 33, 61, .45);
+      }
+      body.menu-open nav { display: flex; animation: menuDrop .2s ease; }
+      nav button { padding: 14px 12px; font-size: 16px; margin-left: 0; border-left: 3px solid transparent; border-radius: 0 8px 8px 0; }
+      body.menu-open #menu-backdrop { display: block; position: fixed; inset: 0; z-index: 43; background: rgba(20, 33, 61, .35); }
+    }
   </style>
   <!-- ใช้สร้างไฟล์ PDF จากตัวอย่างเอกสาร (ให้ตรงกับที่เห็นบนจอ) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html-to-image/1.11.11/html-to-image.min.js"></script>
@@ -447,12 +489,17 @@
 <body>
   <header>
     <div class="brand">&nbsp;</div>
+    <!-- ปุ่มแฮมเบอร์เกอร์ (แสดงเฉพาะมือถือ) -->
+    <button id="burger" type="button" aria-label="Menu" aria-expanded="false" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </button>
     <!-- โลโก้: กดแล้วกลับหน้า Home / ถ้าโหลดไม่ได้ (เช่น ในหน้าตัวอย่าง) จะแสดงกล่องแทน -->
     <img class="logo" alt="BMS&amp;BME" height="44" title="Home"
          style="cursor:pointer" onclick="showView('home')"
          src="images/RCS/logo.png"
          onerror="this.onerror=null;this.src='data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%27120%27 height=%2744%27%3E%3Crect width=%27120%27 height=%2744%27 rx=%2710%27 fill=%27%2346538C%27/%3E%3Ctext x=%2760%27 y=%2727%27 font-size=%2713%27 fill=%27white%27 text-anchor=%27middle%27 font-family=%27Arial%27%3EBMS %26amp; BME%3C/text%3E%3C/svg%3E'">
   </header>
+  <div id="menu-backdrop" onclick="toggleMenu(false)"></div>
   <div class="layout">
     <nav id="nav"></nav>
     <main id="app"></main>
@@ -781,7 +828,47 @@ let resetScroll = false;   // true = เปลี่ยนหน้า/ขั้
 function showView(view) {
   state.view = view;
   resetScroll = true;
+  toggleMenu(false);
   render();
+}
+
+// เมนูแฮมเบอร์เกอร์ (มือถือ)
+function toggleMenu(force) {
+  const open = force === undefined ? !document.body.classList.contains("menu-open") : force;
+  document.body.classList.toggle("menu-open", open);
+  $("burger").setAttribute("aria-expanded", String(open));
+  if (open) document.documentElement.style.setProperty("--hdr-h", document.querySelector("header").offsetHeight + "px");
+}
+window.addEventListener("resize", () => { if (window.innerWidth > 760) toggleMenu(false); });
+
+// ความคืบหน้าของงาน: ใช้ทั้งฝั่งผู้ขอและฝั่งอาจารย์
+const PROCESS = [
+  ["Request sent", "ส่งคำขอ"],
+  ["Advisor accepts", "อาจารย์รับเรื่อง"],
+  ["Consultation", "ให้คำปรึกษา"],
+  ["Requester signs", "ผู้ขอกรอก/เซ็น"],
+  ["Advisor signs", "อาจารย์เซ็นปิดงาน"]
+];
+const PROCESS_CUR = { new: 1, accepted: 2, sent: 3, review: 4, done: 5 };   // ขั้นที่กำลังดำเนินอยู่ (5 = เสร็จทั้งหมด)
+const PROCESS_WAIT = {
+  new: "รอ: อาจารย์รับเรื่อง",
+  accepted: "รอ: อาจารย์ให้คำปรึกษาและส่งฟอร์ม",
+  sent: "รอ: ผู้ขอรับคำปรึกษากรอกฟอร์มและลงลายเซ็น",
+  review: "รอ: อาจารย์ลงลายเซ็นและปิดงาน",
+  done: "เสร็จสมบูรณ์"
+};
+function processHtml(task, compact) {
+  const cur = PROCESS_CUR[task.status];
+  const steps = PROCESS.map(([en, th], i) => `
+    <div class="st ${i < cur ? "passed" : i === cur ? "current" : ""}">
+      <div class="line"></div>
+      ${compact ? "" : `<div class="name">${i + 1}. ${en}<small>${th}</small></div>`}
+    </div>`).join("");
+  return `
+    <div class="card process ${compact ? "compact" : ""}">
+      ${compact ? "" : `<div class="p-title"><span>${esc(task.id)}</span><b>${PROCESS_WAIT[task.status]}</b></div>`}
+      <div class="steps">${steps}</div>
+    </div>`;
 }
 
 function render() {
@@ -1246,7 +1333,7 @@ Research Consultation Service`]);
 
 function renderSubmitted() {
   const s = state.submitted;
-  return `
+  return processHtml({ id: s.ids.join(", "), status: "new" }) + `
     <div class="card" style="text-align:center;padding:40px 20px">
       <div style="font-size:44px">${s.results ? "✅" : "⏳"}</div>
       <h2>${s.results ? "Request submitted" : "Sending emails…"}</h2>
@@ -1268,7 +1355,8 @@ const STATUS_LABEL = { new: "New", accepted: "In consultation", sent: "Waiting f
 function renderTasks() {
   const myTasks = tasks.filter(t => t.advisor === currentAdvisor);
 
-  let html = takeNotice();
+  const openTaskNow = myTasks.find(t => t.id === openTaskId);
+  let html = (openTaskNow ? processHtml(openTaskNow) : "") + takeNotice();   // แถบความคืบหน้าอยู่บนสุด
 
   html += `
     <div class="card">
@@ -1284,9 +1372,10 @@ function renderTasks() {
   html += myTasks.map(t => `
     <div class="card task-card" style="${openTaskId === t.id ? "border-color:var(--primary)" : ""}"
          onclick="openTask('${t.id}')">
-      <div>
+      <div style="flex:1;min-width:220px">
         <span class="status ${t.status}">${STATUS_LABEL[t.status]}</span> <b>${esc(t.topic)}</b>
         <div class="small muted">${t.id} · ${esc(t.requester.name)} · ${t.needs.join(", ")} · ลบอัตโนมัติใน ${daysLeft(t)} วัน</div>
+        ${processHtml(t, true)}
       </div>
       ${t.status === "new" ? `<button class="primary" onclick="event.stopPropagation(); acceptTask('${t.id}')">Accept requirement</button>` : ""}
       ${t.status === "review" ? `<button class="primary">Sign &amp; complete</button>` : ""}
@@ -1546,7 +1635,8 @@ function openFill(id) {
 }
 
 function renderFill() {
-  return takeNotice() + renderFillBody();
+  const t = fillTaskId && tasks.find(x => x.id === fillTaskId);
+  return (t ? processHtml(t) : "") + takeNotice() + renderFillBody();   // แถบความคืบหน้าอยู่บนสุด
 }
 
 function renderFillBody() {
