@@ -1377,7 +1377,7 @@ function renderTasks() {
         <div class="small muted">${t.id} · ${esc(t.requester.name)} · ${t.needs.join(", ")} · ลบอัตโนมัติใน ${daysLeft(t)} วัน</div>
         ${processHtml(t, true)}
       </div>
-      ${t.status === "new" ? `<button class="primary" onclick="event.stopPropagation(); acceptTask('${t.id}')">Accept requirement</button>` : ""}
+      ${t.status === "new" ? `<button class="primary">View</button>` : ""}
       ${t.status === "review" ? `<button class="primary">Sign &amp; complete</button>` : ""}
     </div>`).join("");
 
