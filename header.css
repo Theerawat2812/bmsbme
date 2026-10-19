@@ -20,7 +20,7 @@ a { text-decoration: none; color: inherit; }
 }
 #nav .item {
   display: inline-flex; align-items: center; flex-shrink: 0;
-  padding: 5px 0; border: 0; border-bottom: 1.5px solid transparent;
+  padding: 5px 10px; border: 0; border-bottom: 1.5px solid transparent;
   font-size: clamp(15px, 1.2vw, 15px); line-height: 1; font-weight: 100;
   color: #FFFFFF; cursor: pointer; transition: opacity 0.2s, color 0.3s;
 }
