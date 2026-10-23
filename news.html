@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>News &amp; Announcements | Biomedical Sciences &amp; Biomedical Engineering, PSU</title>
+<meta name="description" content="News, events and announcements from the Department of Biomedical Sciences and Biomedical Engineering, Faculty of Medicine, Prince of Songkla University.">
+<link rel="stylesheet" href="header.css">
+<link rel="stylesheet" href="footer.css">
+<link rel="stylesheet" href="news.css">
+</head>
+<body class="nav-solid">
+<div id="site-nav"></div>
+
+<header class="np np-hero">
+  <div class="np-wrap">
+    <h1>News &amp; announcements</h1>
+    <p class="np-sub">Stories, events and announcements from the Department of Biomedical Sciences and Biomedical Engineering.</p>
+  </div>
+</header>
+
+<main class="np np-list">
+  <div class="np-wrap">
+    <div class="np-bar">
+      <label>Sort by<select id="fSort"><option value="new">Newest first</option><option value="old">Oldest first</option></select></label>
+      <label>Category<select id="fCat"><option value="">All categories</option></select></label>
+      <label>Year<select id="fY"><option value="">All years</option></select></label>
+      <label>Month<select id="fM"><option value="">All months</option></select></label>
+      <label>Day<select id="fD"><option value="">All days</option></select></label>
+      <button type="button" id="fReset">Reset</button>
+      <span class="np-count" id="count" aria-live="polite"></span>
+    </div>
+    <div class="np-grid" id="grid"></div>
+    <nav class="np-pg" id="pg" aria-label="Pagination"></nav>
+  </div>
+</main>
+
+<div id="site-footer"></div>
+
+<script>
+(function(){var nav=document.getElementById('site-nav');function u(){if(nav)nav.classList.toggle('scrolled',window.scrollY>40);}window.addEventListener('scroll',u,{passive:true});u();})();
+</script>
+<script src="header.js"></script>
+<script src="footer.js"></script>
+<script src="cookie.js"></script>
+<script src="news.js"></script>
+<script>
+(function(){
+  var U=NewsUI, PER=20, all=[], S={sort:'new',cat:'',y:'',m:'',d:'',page:1};
+  var MON=['January','February','March','April','May','June','July','August','September','October','November','December'];
+  var $=function(id){return document.getElementById(id);};
+  var grid=$('grid'), pg=$('pg'), count=$('count');
+  var F={sort:$('fSort'),cat:$('fCat'),y:$('fY'),m:$('fM'),d:$('fD')};
+  function opt(sel,v,l){var o=document.createElement('option'); o.value=v; o.textContent=l; sel.appendChild(o);}
+  function pad(n){return (n<10?'0':'')+n;}
+
+  function readURL(){var q=new URLSearchParams(location.search);
+    S.sort=q.get('sort')==='old'?'old':'new'; S.cat=q.get('cat')||''; S.y=q.get('y')||''; S.m=q.get('m')||''; S.d=q.get('d')||'';
+    S.page=Math.max(1,parseInt(q.get('page'),10)||1);}
+  function writeURL(){var q=new URLSearchParams();
+    if(S.sort==='old')q.set('sort','old'); ['cat','y','m','d'].forEach(function(k){if(S[k])q.set(k,S[k]);}); if(S.page>1)q.set('page',S.page);
+    var s=q.toString(); history.replaceState(null,'',location.pathname+(s?'?'+s:''));}
+
+  function filtered(){
+    var l=all.filter(function(n){return (!S.cat||n.category===S.cat)&&(!S.y||n.date.slice(0,4)===S.y)&&(!S.m||n.date.slice(5,7)===S.m)&&(!S.d||n.date.slice(8,10)===S.d);});
+    l.sort(function(a,b){return S.sort==='old'?a.date.localeCompare(b.date):b.date.localeCompare(a.date);});
+    return l;}
+  function pages(cur,tot){var s=[],last=0; for(var i=1;i<=tot;i++){if(i===1||i===tot||Math.abs(i-cur)<=1){if(i-last>1)s.push('…'); s.push(i); last=i;}} return s;}
+  function go(p){S.page=p; render(); window.scrollTo({top:grid.getBoundingClientRect().top+window.scrollY-170,behavior:'smooth'});}
+
+  function render(){
+    var l=filtered(), tot=Math.max(1,Math.ceil(l.length/PER)); if(S.page>tot)S.page=tot;
+    count.textContent=l.length+(l.length===1?' story':' stories');
+    grid.textContent='';
+    if(!l.length){grid.appendChild(U.mk('p','np-empty',all.length?'No stories match these filters.':'No stories yet.'));}
+    else l.slice((S.page-1)*PER,S.page*PER).forEach(function(n){grid.appendChild(U.card(n));});
+    pg.textContent='';
+    if(tot>1){
+      var prev=U.mk('button','','Previous'); prev.type='button'; prev.disabled=S.page===1; prev.onclick=function(){go(S.page-1);}; pg.appendChild(prev);
+      pages(S.page,tot).forEach(function(p){
+        if(p==='…'){pg.appendChild(U.mk('span','','…')); return;}
+        var b=U.mk('button','',String(p)); b.type='button'; if(p===S.page)b.setAttribute('aria-current','page'); b.onclick=function(){go(p);}; pg.appendChild(b);});
+      var next=U.mk('button','','Next'); next.type='button'; next.disabled=S.page===tot; next.onclick=function(){go(S.page+1);}; pg.appendChild(next);
+    }
+    writeURL();
+  }
+
+  function init(items){
+    all=items; readURL();
+    var cats=[],years=[]; all.forEach(function(n){if(cats.indexOf(n.category)<0)cats.push(n.category); var y=n.date.slice(0,4); if(years.indexOf(y)<0)years.push(y);});
+    cats.sort().forEach(function(c){opt(F.cat,c,c);}); years.sort().reverse().forEach(function(y){opt(F.y,y,y);});
+    MON.forEach(function(m,i){opt(F.m,pad(i+1),m);}); for(var d=1;d<=31;d++)opt(F.d,pad(d),String(d));
+    Object.keys(F).forEach(function(k){F[k].value=S[k]; F[k].addEventListener('change',function(){S[k]=F[k].value; S.page=1; render();});});
+    $('fReset').addEventListener('click',function(){S={sort:'new',cat:'',y:'',m:'',d:'',page:1}; Object.keys(F).forEach(function(k){F[k].value=S[k];}); render();});
+    render();
+  }
+
+  U.api('limit=1000').then(init).catch(function(){grid.appendChild(U.mk('p','np-empty','News could not be loaded. Please try again later.'));});
+})();
+</script>
+</body>
+</html>

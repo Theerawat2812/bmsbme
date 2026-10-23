@@ -1,0 +1,91 @@
+/* สไตล์หน้าข่าว (หน้าข่าวรวม + หน้าข่าวแต่ละข่าว) ใช้สี/ฟอนต์เดียวกับหน้าแรก */
+:root{--ink:#2b3a4a;--head:#1f3a56;--mut:#6b7b8c;--line:#e6edf3;--tint:#f4f9fd;--tint2:#e8f3fc;--blue:#3f8fd2;--blue-dk:#2f78b8;--sky:#bfe0f8;--font:"Segoe UI",Helvetica,Arial,sans-serif}
+html{scroll-behavior:smooth}
+body{margin:0}
+#site-nav{position:fixed;top:0;left:0;right:0;z-index:1000;transition:background .3s ease}
+#site-nav.scrolled{background:rgba(47,120,184,.96)}
+.np,.np *{box-sizing:border-box}
+.np{font-family:var(--font);color:var(--ink);font-size:16px;line-height:1.7}
+.np *{font-family:inherit}
+.np a{color:inherit;text-decoration:none}
+.np h1,.np h2,.np h3,.np p{margin:0}
+.np :focus-visible{outline:3px solid var(--sky);outline-offset:3px}
+.np-wrap{max-width:1320px;margin:0 auto;padding:0 25px}
+
+/* banner หัวหน้า */
+.np-hero{background:linear-gradient(100deg,#1f5fa0 0%,#3f8fd2 60%,#7fbdf0 100%);color:#fff;min-height:260px;display:flex;align-items:center;padding:70px 0 38px}
+.np-hero .np-wrap{width:100%}
+.np-hero .np-wrap>h1:first-child{margin-top:0}
+.np-eyebrow{display:inline-block;font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#fff;opacity:.9}
+.np a.np-eyebrow:hover{opacity:1;text-decoration:underline}
+.np-hero h1{margin-top:12px;font-size:44px;line-height:1.18;font-weight:600;max-width:980px;color:#fff}
+.np-sub{margin-top:14px;max-width:640px;font-size:17px;color:#f0f7fd;font-weight:300}
+.np-meta{display:flex;align-items:center;gap:10px;font-size:13px}
+.np-hero .np-meta{margin-top:18px}
+.np-cat{display:inline-block;padding:2px 11px;border-radius:999px;background:var(--tint2);color:var(--blue-dk);font-weight:700;font-size:12px}
+.np-hero .np-cat{background:#fff}
+.np-meta time{color:var(--mut)}
+.np-hero .np-meta time{color:#e2effb;font-size:14px}
+
+/* หน้าข่าวเดี่ยว */
+.np-article{max-width:860px;margin:0 auto;padding:40px 25px 56px}
+.np-cover{margin:0 0 34px;border-radius:6px;overflow:hidden;background:var(--tint2);box-shadow:0 10px 30px rgba(31,58,86,.14)}
+.np-cover img{display:block;width:100%;max-height:480px;object-fit:cover}
+.np-body p{font-size:17px;line-height:1.85;color:#33414f;margin-bottom:18px}
+/* รูปในข่าว + แกลเลอรี + ขยายดูภาพ */
+.np-photo{margin:28px 0}
+.np-photo img{display:block;width:100%;border-radius:6px;cursor:zoom-in}
+.np-gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px;margin-top:30px}
+.np-gallery .np-photo{margin:0}
+.np-gallery .np-photo img{aspect-ratio:4/3;object-fit:cover;transition:opacity .2s}
+.np-gallery .np-photo img:hover{opacity:.9}
+.np-lb{position:fixed;inset:0;z-index:3000;background:rgba(10,20,40,.88);display:flex;align-items:center;justify-content:center;padding:20px;cursor:zoom-out}
+.np-lb img{max-width:100%;max-height:100%;border-radius:6px}
+.np-actions{margin-top:30px}
+.np a.np-btn{display:inline-block;padding:8px 18px;font-size:14px;background:var(--blue);color:#fff;font-weight:700;border-radius:4px;transition:background .2s}
+.np a.np-btn:hover{background:var(--blue-dk)}
+.np-more{background:var(--tint);padding:46px 0 56px;margin-top:0}
+.np-morehead{display:flex;justify-content:space-between;align-items:baseline;gap:16px;margin-bottom:22px}
+.np-morehead h2{font-size:25px;font-weight:700;color:var(--head)}
+
+/* หน้าข่าวรวม */
+.np-list{padding:34px 0 64px}
+.np-bar{display:flex;flex-wrap:wrap;align-items:flex-end;gap:14px;background:var(--tint);border:1px solid var(--line);border-radius:6px;padding:16px 18px;margin-bottom:28px}
+.np-bar label{display:flex;flex-direction:column;gap:4px;font-size:12px;font-weight:700;color:var(--mut);letter-spacing:.04em}
+.np-bar select{font-size:14px;font-weight:400;letter-spacing:0;padding:9px 32px 9px 12px;border:1px solid #cfdceb;border-radius:6px;background:#fff;color:var(--head);min-width:120px}
+.np-bar button{font-size:14px;font-weight:700;padding:9px 14px;border:0;background:none;color:var(--blue-dk);cursor:pointer}
+.np-count{margin-left:auto;color:var(--mut);font-size:14px;align-self:center}
+.np-empty{grid-column:1/-1;text-align:center;color:var(--mut);padding:60px 0}
+
+/* การ์ดข่าว */
+.np-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.np a.np-card{display:flex;flex-direction:column;background:#fff;border:1px solid var(--line);border-radius:6px;overflow:hidden;transition:box-shadow .25s,border-color .25s}
+.np a.np-card:hover{border-color:#b9d6ee;box-shadow:0 10px 26px rgba(31,58,86,.12)}
+.np-card .m{aspect-ratio:16/10;overflow:hidden;background:linear-gradient(135deg,var(--blue-dk),var(--head))}
+.np-card .m img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s ease}
+.np-card:hover .m img{transform:scale(1.06)}
+.np-card .b{display:flex;flex-direction:column;flex:1;padding:18px 20px 22px}
+.np-card h3{font-size:18px;line-height:1.35;color:var(--head);margin:10px 0 6px;transition:color .2s}
+.np-card:hover h3{color:var(--blue-dk)}
+.np-card .b p{font-size:14.5px;color:var(--mut);line-height:1.6}
+.np-rm{color:var(--blue-dk);font-weight:700;font-size:15px}
+.np-rm::after{content:" \2192"}
+.np-card .np-rm{margin-top:auto;padding-top:14px}
+
+/* เลขหน้า */
+.np-pg{display:flex;justify-content:center;gap:6px;flex-wrap:wrap;margin-top:38px}
+.np-pg button{min-width:40px;height:40px;padding:0 12px;border:1px solid #d5e2ee;border-radius:6px;background:#fff;color:var(--head);font-size:14px;font-weight:600;cursor:pointer;transition:background .2s,color .2s,border-color .2s}
+.np-pg button:hover:not(:disabled){border-color:var(--blue)}
+.np-pg button[aria-current="page"]{background:var(--blue);border-color:var(--blue);color:#fff}
+.np-pg button:disabled{opacity:.4;cursor:default}
+.np-pg span{align-self:center;color:var(--mut);padding:0 4px}
+
+@media (max-width:1000px){.np-grid{grid-template-columns:repeat(2,1fr)}.np-hero h1{font-size:34px}}
+@media (max-width:600px){
+  .np-wrap{padding:0 18px}
+  .np-hero{min-height:210px;padding:64px 0 30px}.np-hero h1{font-size:26px}.np-sub{font-size:15px}
+  .np-grid{grid-template-columns:1fr}
+  .np-article{padding:26px 18px 40px}.np-body p{font-size:16px}
+  .np-bar{padding:14px}.np-bar label{flex:1 1 40%}.np-bar select{min-width:0;width:100%}.np-count{width:100%;margin:0}
+  .np-more{padding:36px 0 44px}
+}

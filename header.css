@@ -107,9 +107,6 @@ a { text-decoration: none; color: inherit; }
 }
 #about-menu > a, #program-menu > a, #services-menu > a { display: flex; justify-content: flex-start; text-align: left; margin: 0; white-space: nowrap; }
 
-/* Academics: 2 คอลัมน์ (Study Information / Scholarship) */
-#academics-menu { grid-template-columns: repeat(2, 320px); column-gap: 48px; }
-
 /* ลิงก์ในดรอปดาวน์: ฟอนต์เท่าปุ่มเมนู */
 #about-menu a, #program-menu a, #services-menu a, #academics-menu .col a {
   align-items: center;
@@ -388,7 +385,7 @@ body.nav-solid {
   padding: 10px 30px 16px;
   transform: translateX(-50%);
   animation: dropInCenter .2s ease;
-  grid-template-columns: repeat(2, 280px);
+  grid-template-columns: repeat(4, 280px);
   column-gap: 30px;
 }
 

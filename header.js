@@ -6,43 +6,48 @@
 
   host.innerHTML =
     '<div id="nav">' +
-      '<a href="index.html" class="item logo"><img src="https://bmsbme.psu.ac.th/filemanager/file/1/logo_psu.001.png" alt="BMS&amp;BME" height="44"></a>' +
+'<a href="index.html" class="item logo"><img src="images/bmsbme.png" alt="BMS&amp;BME" height="44"></a>' +
 
+      /* ===== About us (ไม่มี Staff แล้ว) ===== */
       '<div id="about-wrap">' +
         '<a href="#" class="item" id="about-btn">About us</a>' +
         '<div id="about-menu">' +
           '<a href="whoweare.html">Who we are</a>' +
           '<a href="mission.html">Our mission</a>' +
-          '<a href="staff.html">Our staff</a>' +
         '</div>' +
       '</div>' +
 
-      '<div id="program-wrap">' +
-        '<a href="#" class="item" id="program-btn">Our programs</a>' +
-        '<div id="program-menu">' +
-          '<a href="BMS.html">Biomedical Sciences</a>' +
-          '<a href="bme.html">Biomedical Engineering</a>' +
-        '</div>' +
-      '</div>' +
-
-      /* ===== Academics (mega dropdown 2 คอลัมน์) ===== */
+      /* ===== Academics (mega dropdown 4 คอลัมน์) ===== */
       '<div id="academics-wrap">' +
         '<a href="#" class="item" id="academics-btn">Academics</a>' +
         '<div id="academics-menu">' +
           '<div class="col">' +
-            '<h4>Study Information</h4>' +
-            '<a href="overview.html">Overview</a>' +
-            '<a href="course-descriptions.html">Course Descriptions</a>' +
+            '<h4>Programs</h4>' +
+            '<a href="BMS.html">Biomedical Sciences</a>' +
+            '<a href="bme.html">Biomedical Engineering</a>' +
+            '<a href="non-degree.html">Non-Degree Programs</a>' +
           '</div>' +
           '<div class="col">' +
-            '<h4>Scholarship</h4>' +
+            '<h4>Admissions</h4>' +
+            '<a href="admission-requirements.html">Admission Requirements</a>' +
+            '<a href="how-to-apply.html">How to Apply</a>' +
+          '</div>' +
+          '<div class="col">' +
+            '<h4>Student Information</h4>' +
+            '<a href="student-services.html">Student Services</a>' +
+            '<a href="student-activities.html">Student Activities</a>' +
+            '<a href="life-in-department.html">Life in Our Department</a>' +
+          '</div>' +
+          '<div class="col">' +
+            '<h4>Scholarships</h4>' +
             '<a href="Scholarship.html">PSU Graduate School Scholarships</a>' +
             '<a href="ScholarshipPSU.html">Faculty of Medicine Scholarships</a>' +
           '</div>' +
         '</div>' +
       '</div>' +
 
-      '<a href="admission.html" class="item nav-link">Admission</a>' +
+      '<a href="staff.html" class="item nav-link">Staff</a>' +
+      '<a href="research.html" class="item nav-link">Research</a>' +
       '<a href="alumni.html" class="item nav-link">Alumni</a>' +
 
       /* ===== Services ===== */
@@ -73,23 +78,26 @@
         '<div id="m-about-sub">' +
           '<a href="whoweare.html">Who we are</a>' +
           '<a href="mission.html">Our mission</a>' +
-          '<a href="staff.html">Our staff</a>' +
-        '</div>' +
-        '<a href="#" id="m-program-btn">Our programs</a>' +
-        '<div id="m-program-sub">' +
-          '<a href="BMS.html">Biomedical Sciences</a>' +
-          '<a href="bme.html">Biomedical Engineering</a>' +
         '</div>' +
         '<a href="#" id="m-academics-btn">Academics</a>' +
         '<div id="m-academics-sub">' +
-          '<div class="m-head">Study Information</div>' +
-          '<a href="overview.html">Overview</a>' +
-          '<a href="course-descriptions.html">Course Descriptions</a>' +
-          '<div class="m-head">Scholarship</div>' +
+          '<div class="m-head">Programs</div>' +
+          '<a href="BMS.html">Biomedical Sciences</a>' +
+          '<a href="bme.html">Biomedical Engineering</a>' +
+          '<a href="non-degree.html">Non-Degree Programs</a>' +
+          '<div class="m-head">Admissions</div>' +
+          '<a href="admission-requirements.html">Admission Requirements</a>' +
+          '<a href="how-to-apply.html">How to Apply</a>' +
+          '<div class="m-head">Student Information</div>' +
+          '<a href="student-services.html">Student Services</a>' +
+          '<a href="student-activities.html">Student Activities</a>' +
+          '<a href="life-in-department.html">Life in Our Department</a>' +
+          '<div class="m-head">Scholarships</div>' +
           '<a href="Scholarship.html">PSU Graduate School Scholarships</a>' +
           '<a href="ScholarshipPSU.html">Faculty of Medicine Scholarships</a>' +
         '</div>' +
-        '<a href="admission.html">Admission</a>' +
+        '<a href="staff.html">Staff</a>' +
+        '<a href="research.html">Research</a>' +
         '<a href="alumni.html">Alumni</a>' +
         '<a href="#" id="m-services-btn">Services</a>' +
         '<div id="m-services-sub">' +
@@ -120,20 +128,25 @@
 
   // ชื่อหน้าเป็นตัวพิมพ์เล็กทั้งหมด (norm แปลงเป็นตัวเล็กแล้ว)
   var groups = {
-    "about-btn":     ["about", "mission", "staff"],
-    "program-btn":   ["bms", "bme"],
-    "academics-btn": ["overview", "course-descriptions", "bmscurriculum", "bmecurriculum",
+    "about-btn":     ["whoweare", "mission"],
+    "academics-btn": ["bms", "bme", "non-degree", "bmscurriculum", "bmecurriculum",
                       "phd-programme", "phd-plos", "msc-programme", "msc-plos",
+                      "overview", "course-descriptions",
+                      "admission", "admission-requirements", "how-to-apply",
+                      "student-services", "student-activities", "life-in-department",
                       "scholarship", "scholarshippsu"],
-    "services-btn":  ["rcs", "bioact"]
+    "services-btn":  ["rcs", "research_consultation_service", "bioact"]
   };
 
-  // Admission, Alumni, Contact
+  // Staff, Research, Alumni, Contact
+  // (ลิงก์ที่มี # เช่น Research ไม่ขีดเส้นใต้ เพราะอยู่หน้าเดียวกับ Staff)
   var navLinks = navBar.querySelectorAll("a.nav-link");
   for (var i = 0; i < navLinks.length; i++) {
-    if (norm(navLinks[i].getAttribute("href")) === page) navLinks[i].classList.add("active");
+    var nh = navLinks[i].getAttribute("href");
+    if (nh.indexOf("#") !== -1) continue;
+    if (norm(nh) === page) navLinks[i].classList.add("active");
   }
-  // About us, Our programs, Academics, Services (ขีดที่ปุ่มแม่เมื่อเปิดหน้าในเมนูย่อย)
+  // About us, Academics, Services (ขีดที่ปุ่มแม่เมื่อเปิดหน้าในเมนูย่อย)
   for (var id in groups) {
     if (groups[id].indexOf(page) !== -1) document.getElementById(id).classList.add("active");
   }
@@ -141,7 +154,7 @@
   var mLinks = mobileMenu.querySelectorAll("a[href]");
   for (var j = 0; j < mLinks.length; j++) {
     var h = mLinks[j].getAttribute("href");
-    if (h !== "#" && norm(h) === page) mLinks[j].classList.add("active");
+    if (h !== "#" && h.indexOf("#") === -1 && norm(h) === page) mLinks[j].classList.add("active");
   }
 
   // เปลี่ยนสีแถบเมนูเมื่อ scroll
@@ -166,7 +179,7 @@
     setMobileOpen(!navBar.classList.contains("open"));
   };
 
-  // เมนูย่อยบนมือถือ (About us / Our programs / Academics / Services)
+  // เมนูย่อยบนมือถือ (About us / Academics / Services)
   function setupMobileSub(btnId, subId) {
     document.getElementById(btnId).onclick = function (e) {
       e.preventDefault();
@@ -175,14 +188,13 @@
     };
   }
   setupMobileSub("m-about-btn", "m-about-sub");
-  setupMobileSub("m-program-btn", "m-program-sub");
   setupMobileSub("m-academics-btn", "m-academics-sub");
   setupMobileSub("m-services-btn", "m-services-sub");
 
   // กดลิงก์ในเมนูมือถือแล้วปิดเมนู (ยกเว้นปุ่มที่เปิดเมนูย่อย)
   mobileMenu.addEventListener("click", function (e) {
     var a = e.target.closest ? e.target.closest("a") : null;
-    if (a && a.id !== "m-about-btn" && a.id !== "m-program-btn" && a.id !== "m-academics-btn" && a.id !== "m-services-btn") setMobileOpen(false);
+    if (a && a.id !== "m-about-btn" && a.id !== "m-academics-btn" && a.id !== "m-services-btn") setMobileOpen(false);
   });
 
   // กดนอกเมนูมือถือ -> ปิดเมนู
@@ -207,7 +219,7 @@
     if (window.innerWidth > 1100) setMobileOpen(false);
   });
 
-  // Dropdown เดสก์ท็อป (About us / Our programs / Academics / Services): เปิดอันหนึ่งแล้วอีกอันปิด
+  // Dropdown เดสก์ท็อป (About us / Academics / Services): เปิดอันหนึ่งแล้วอีกอันปิด
   var dropdowns = [];
   function closeAllDropdowns() {
     for (var i = 0; i < dropdowns.length; i++) dropdowns[i].menu.style.display = "none";
@@ -227,7 +239,6 @@
     };
   }
   setupDropdown("about-wrap", "about-btn", "about-menu");
-  setupDropdown("program-wrap", "program-btn", "program-menu");
   setupDropdown("academics-wrap", "academics-btn", "academics-menu", "grid");
   setupDropdown("services-wrap", "services-btn", "services-menu");
 
@@ -244,24 +255,31 @@
   // ===== Search: พิมพ์แล้วผลขึ้นเป็นแถบใต้ช่องค้นหาแบบเรียลไทม์ =====
   // กด Enter / ปุ่ม Search / See all = ไปหน้า search.html?q=คำที่พิมพ์
   // รายชื่อหน้าที่ให้ค้นหา — เพิ่มหน้าใหม่ได้ที่นี่ (ใช้ชุดเดียวกับ search.html)
+  // หน้าที่ยังไม่มีไฟล์จะถูกข้ามไปเอง
   var SEARCH_PAGES = [
-    { url: "index.html",               name: "Home" },
-    { url: "whoweare.html",            name: "Who we are" },
-    { url: "mission.html",             name: "Our mission" },
-    { url: "staff.html",               name: "Our staff" },
-    { url: "BMS.html",                 name: "Biomedical Sciences" },
-    { url: "bme.html",                 name: "Biomedical Engineering" },
-    { url: "overview.html",            name: "Academics Overview" },
-    { url: "course-descriptions.html", name: "Course Descriptions" },
-    { url: "BMScurriculum.html",       name: "Biomedical Sciences Curriculum" },
-    { url: "BMEcurriculum.html",       name: "Biomedical Engineering Curriculum" },
-    { url: "Scholarship.html",         name: "PSU Graduate School Scholarships" },
-    { url: "ScholarshipPSU.html",      name: "Faculty of Medicine Scholarships" },
-    { url: "rcs.html",                 name: "Research Consulting Service (RCS)" },
-    { url: "bioact.html",              name: "Biological Activity Testing Center (BioAct)" },
-    { url: "admission.html",           name: "Admission" },
-    { url: "alumni.html",              name: "Alumni" },
-    { url: "contact us.html",          name: "Contact" }
+    { url: "index.html",                   name: "Home" },
+    { url: "whoweare.html",                name: "Who we are" },
+    { url: "mission.html",                 name: "Our mission" },
+    { url: "staff.html",                   name: "Staff" },
+    { url: "BMS.html",                     name: "Biomedical Sciences" },
+    { url: "bme.html",                     name: "Biomedical Engineering" },
+    { url: "non-degree.html",              name: "Non-Degree Programs" },
+    { url: "admission-requirements.html",  name: "Admission Requirements" },
+    { url: "how-to-apply.html",            name: "How to Apply" },
+    { url: "student-services.html",        name: "Student Services" },
+    { url: "student-activities.html",      name: "Student Activities" },
+    { url: "life-in-department.html",      name: "Life in Our Department" },
+    { url: "overview.html",                name: "Academics Overview" },
+    { url: "course-descriptions.html",     name: "Course Descriptions" },
+    { url: "BMScurriculum.html",           name: "Biomedical Sciences Curriculum" },
+    { url: "BMEcurriculum.html",           name: "Biomedical Engineering Curriculum" },
+    { url: "Scholarship.html",             name: "PSU Graduate School Scholarships" },
+    { url: "ScholarshipPSU.html",          name: "Faculty of Medicine Scholarships" },
+    { url: "rcs.html",                     name: "Research Consulting Service (RCS)" },
+    { url: "bioact.html",                  name: "Biological Activity Testing Center (BioAct)" },
+    { url: "admission.html",               name: "Admission" },
+    { url: "alumni.html",                  name: "Alumni" },
+    { url: "contact us.html",              name: "Contact" }
   ];
   var MAX_RESULTS = 6;                 // จำนวนผลที่โชว์ในแถบ (ที่เหลือดูได้ที่ See all)
   var SEARCH_PAGE = "search.html";
