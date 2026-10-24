@@ -61,9 +61,9 @@
     transition: filter .7s ease, transform 1.2s cubic-bezier(.2,.8,.2,1);
   }
   .panel.active > img { filter: none; transform: scale(1); }
-  .panel::after { /* ไล่เฉดให้ตัวอักษรอ่านง่าย */
+  .panel::after { /* ไล่เฉดเฉพาะด้านล่าง ให้ตัวอักษรอ่านง่าย (ด้านบนเอาออกแล้ว) */
     content: ""; position: absolute; inset: 0; pointer-events: none;
-    background: linear-gradient(180deg, rgba(22,34,77,.55) 0%, rgba(22,34,77,0) 30%, rgba(22,34,77,.88) 100%);
+    background: linear-gradient(180deg, rgba(22,34,77,0) 0%, rgba(22,34,77,0) 30%, rgba(22,34,77,.88) 100%);
   }
   .panel::before { /* แถบขาวด้านล่าง = แผงที่เปิดรายชื่ออยู่ */
     content: ""; position: absolute; z-index: 4; left: 0; right: 0; bottom: 0; height: 4px;
@@ -97,13 +97,7 @@
     font-weight: 700;
     line-height: 1.2;
 }
-  .detail p { margin: 0 0 22px; font-size: 16px; color: rgba(255,255,255,.9); }
-  .detail .more {
-    display: inline-flex; align-items: center; gap: 12px; padding: 12px 22px; border-radius: 999px;
-    background: #fff; color: #21326E; font-size: 15px; font-weight: 700; transition: background-color .25s, transform .25s;
-  }
-  .detail .more, .detail .more:hover, .detail .more:focus { text-decoration: none; }
-  .detail .more:hover { background: #e8eef8; }
+  .detail p { margin: 0; font-size: 16px; color: rgba(255,255,255,.9); }
 
   /* ===== POPUP รายชื่ออาจารย์: เลื่อนเปิดใต้แผงเมื่อคลิก ===== */
   .faculty { display: grid; grid-template-rows: 0fr; opacity: 0; margin-top: 0; visibility: hidden;
@@ -117,7 +111,6 @@
     box-shadow: 0 24px 48px -28px rgba(33,50,110,.45);
   }
   .faculty-head { position: relative; display: flex; justify-content: center; text-align: center; margin-bottom: 26px; padding: 0 56px 18px; border-bottom: 1px solid #e3eaf3; }
-  .faculty-head .label { display: block; margin-bottom: 4px; font-size: 12px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: #46538C; }
   .faculty-head h3 { margin: 0; font-size: 22px; font-weight: 700; line-height: 1.25; color: #21326E; }
   .faculty-head .count { display: block; margin-top: 4px; font-size: 14px; color: #4a5875; }
   .faculty-close {
@@ -142,9 +135,24 @@
   .person .photo svg { width: 52px; height: 52px; fill: #9fb0d0; }
   .person .photo img { position: absolute; inset: 0; display: block; width: 100%; height: 100%; object-fit: cover; object-position: center top; }
   .person .name { display: block; width: 100%; font-size: 15px; font-weight: 700; line-height: 1.35; color: #21326E; }
-  .person .focus { display: block; width: 100%; margin-top: 6px; font-size: 13px; line-height: 1.5; color: #4a5875; }
-  .person .mail { display: block; width: 100%; margin-top: 8px; font-size: 13px; color: #4a5875; overflow-wrap: anywhere; text-decoration: none; }
-  .person .mail:hover { color: #46538C; text-decoration: underline; }
+
+  /* ป้าย "Research focus": หน้าตาคล้ายปุ่ม แต่ไม่มีการตอบสนองใดๆ */
+  .person .rf-label {
+    display: inline-block; margin-top: 10px; padding: 3px 12px;
+    border: 1px solid #46538C; border-radius: 999px;
+    font-size: 12px; font-weight: 400; line-height: 1.4; color: #46538C;
+    background: transparent; cursor: default; user-select: none; -webkit-user-select: none; pointer-events: none;
+  }
+  .person .focus { display: block; width: 100%; margin-top: 8px; font-size: 13px; line-height: 1.5; color: #4a5875; }
+
+  /* อีเมล: ไอคอนซองจดหมายขนาดเท่าตัวอักษร ห่างจากชื่อเมล 1 ช่อง */
+  .person .mail {
+    display: flex; align-items: center; justify-content: center; width: 100%; margin-top: 8px;
+    font-size: 13px; line-height: 1.5; color: #4a5875; overflow-wrap: anywhere; text-decoration: none;
+  }
+  .person .mail svg { flex: none; width: 1em; height: 1em; margin-right: .3em; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .person .mail:hover { color: #46538C; }
+  .person .mail:hover span { text-decoration: underline; }
   .faculty-empty { margin: 0; padding: 12px 0; color: #4a5875; }
 
   /* ===== มือถือ/แท็บเล็ต: เรียงแนวตั้งแบบ accordion แตะเพื่อขยาย ===== */
@@ -165,7 +173,7 @@
     .person .photo { width: 96px; height: 96px; }
   }
   @media (prefers-reduced-motion: reduce) {
-    .panel, .panel > img, .panel .vtitle, .panel .detail, .detail .more, .faculty, .faculty.open,
+    .panel, .panel > img, .panel .vtitle, .panel .detail, .faculty, .faculty.open,
     .faculty-close, .person .photo, .panel::before { transition: none !important; }
     .faculty-grid.swap { animation: none; }
     html { scroll-behavior: auto; }
@@ -206,7 +214,6 @@
           <span class="tag">Oncology</span>
           <h3>Research in Cancer</h3>
           <p>Advancing understanding of cancer biology to develop innovative diagnostics, targeted therapies, and strategies for better patient outcomes.</p>
-          <a class="more" href="https://bms.medicine.psu.ac.th/ResearchThemes_Cancer">Learn more</a>
         </div>
       </div>
 
@@ -217,7 +224,6 @@
           <span class="tag">Infection</span>
           <h3>Research in Infectious Diseases</h3>
           <p>Research on pathogens, immune responses, and vaccine development to combat infectious diseases and improve public health.</p>
-          <a class="more" href="https://bms.medicine.psu.ac.th/ResearchThemes_InfectImmune">Learn more</a>
         </div>
       </div>
 
@@ -228,7 +234,6 @@
           <span class="tag">Immunity</span>
           <h3>Immunology and Vaccinology</h3>
           <p>Advancing research in immune responses, immunological mechanisms, and vaccine development for improved disease prevention and treatment.</p>
-          <a class="more" href="https://bms.medicine.psu.ac.th/ResearchThemes_Immunology">Learn more</a>
         </div>
       </div>
 
@@ -239,7 +244,6 @@
           <span class="tag">Genetics</span>
           <h3>Molecular Genetics and Bioinformatics</h3>
           <p>Applying computational approaches to decode biological data for precision medicine and disease research.</p>
-          <a class="more" href="https://bms.medicine.psu.ac.th/ResearchThemes_MolecBioinfor">Learn more</a>
         </div>
       </div>
 
@@ -250,7 +254,6 @@
           <span class="tag">Omics</span>
           <h3>Research in Omics</h3>
           <p>Integrating genomics, transcriptomics, proteomics, and other omics approaches to understand biological systems and disease.</p>
-          <a class="more" href="https://bms.medicine.psu.ac.th/ResearchThemes_Omics">Learn more</a>
         </div>
       </div>
 
@@ -261,7 +264,6 @@
           <span class="tag">Nano</span>
           <h3>Research in NanoMedicine</h3>
           <p>Exploring nanotechnology-based approaches for innovative diagnostics, therapeutics, drug delivery, and precision medicine.</p>
-          <a class="more" href="https://bms.medicine.psu.ac.th/NanoMed">Learn more</a>
         </div>
       </div>
     </div>
@@ -272,7 +274,6 @@
         <div class="faculty-box">
           <div class="faculty-head">
             <div>
-              <span class="label">Faculty</span>
               <h3 class="faculty-title"></h3>
               <span class="count"></span>
             </div>
@@ -312,6 +313,7 @@
   // ชี้ที่แผง = ขยายดูตัวอย่าง / คลิก (หรือกด Enter) = เปิดป๊อปอัพรายชื่ออาจารย์ด้านล่าง
   (function () {
     var AVATAR = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9zm0 2c-4.1 0-7.5 2.2-7.5 5v1h15v-1c0-2.8-3.4-5-7.5-5z"/></svg>';
+    var MAILICON = '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>';
     var canHover = window.matchMedia && window.matchMedia("(hover: hover) and (min-width: 861px)").matches;
     var groups = document.querySelectorAll(".panels");
 
@@ -341,8 +343,8 @@
             return '<div class="person">' +
               '<div class="photo">' + AVATAR + '<img src="' + esc(s.img) + '" alt="' + esc(s.name) + '" loading="lazy" onerror="this.remove()"></div>' +
               '<span class="name">' + esc(s.name) + '</span>' +
-              (s.focus ? '<span class="focus">' + esc(s.focus) + '</span>' : '') +
-              (s.email ? '<a class="mail" href="mailto:' + esc(s.email) + '">' + esc(s.email) + '</a>' : '') +
+              (s.focus ? '<span class="rf-label" aria-hidden="true">Research focus</span><span class="focus">' + esc(s.focus) + '</span>' : '') +
+              (s.email ? '<a class="mail" href="mailto:' + esc(s.email) + '">' + MAILICON + '<span>' + esc(s.email) + '</span></a>' : '') +
               '</div>';
           }).join("");
         }
