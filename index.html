@@ -300,7 +300,8 @@ html{scroll-behavior:smooth}
  
 <!-- ===== News: วางต่อจาก </section> ของ About และก่อน <!-- ===== Programs ===== -->
 <style>
-#news{padding:50px 0 14px; text-align:left}          /* ระยะบน 44px / ล่าง 14px ปรับได้ตรงนี้ */
+#news{padding:55px 0 1px; text-align:left}
+#news .w::before{content:""; display:block; height:1.5px; background:#d5e2ee; margin-bottom:40px}        /* ระยะบน 44px / ล่าง 14px ปรับได้ตรงนี้ */
 #news [hidden]{display:none !important}
 #news .tag{display:block; margin-bottom:22px; text-align:left}
 
@@ -337,7 +338,7 @@ html{scroll-behavior:smooth}
 
 /* ปุ่ม Read more ล่างขวา (แสดงเมื่อมีข่าวเกิน 3) */
 #news .nw-foot{display:flex; justify-content:flex-end; margin-top:8px}
-#news .nw-readmore{display:inline-block; padding:10px 24px; border:2px solid var(--blue); border-radius:20px; color:var(--blue-dk); font-weight:600; font-size:12px; transition:background .2s,color .2s}
+#news .nw-readmore{display:inline-block; padding:1px 10px; border:1px solid var(--blue); border-radius:20px; color:var(--blue-dk); font-weight:500; font-size:15px; transition:background .2s,color .2s}
 #news .nw-readmore::after{content:" \2192"}
 #news .nw-readmore:hover{background:var(--blue); color:#fff}
 #news a:focus-visible{outline:3px solid var(--sky); outline-offset:3px}

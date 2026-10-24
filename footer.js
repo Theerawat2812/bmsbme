@@ -9,8 +9,8 @@
       '<div class="c">' +
         '<div class="g">' +
           '<details class="col" open><summary>Department</summary><ul>' +
-            '<li><a href="about.html">About us</a></li>' +
-            '<li><a href="people.html">Our staff</a></li>' +
+            '<li><a href="whoweare.html">About us</a></li>' +
+            '<li><a href="staff.html">Our staff</a></li>' +
             '<li><a href="contact.html">Contact</a></li>' +
           '</ul></details>' +
           '<details class="col" open><summary>Study</summary><ul>' +
@@ -19,17 +19,17 @@
             '<li><a href="admission.html">Admission</a></li>' +
           '</ul></details>' +
           '<details class="col" open><summary>Research</summary><ul>' +
-            '<li><a href="#">Research areas</a></li>' +
+            '<li><a href="research.html">Research areas</a></li>' +
             '<li><a href="#">Research groups</a></li>' +
             '<li><a href="#">Publications</a></li>' +
           '</ul></details>' +
           '<details class="col" open><summary>Links</summary><ul>' +
-            '<li><a href="#">Faculty of Medicine</a></li>' +
-            '<li><a href="#">Prince of Songkla University</a></li>' +
-            '<li><a href="#">Library</a></li>' +
+            '<li><a href="https://172.29.35.41/news-admin/admin.php">Webmaster</a></li>' +
+            '<li><a href="https://medinfo.psu.ac.th/home/index.php">Faculty of Medicine</a></li>' +
+            '<li><a href="https://www.psu.ac.th/en/">Prince of Songkla University</a></li>' +
           '</ul></details>' +
         '</div>' +
-        '<div class="fb">Department of Biomedical Sciences and Biomedical Engineering, Faculty of Medicine, Prince of Songkla University</div>' +
+        '<div class="fb">© Department of Biomedical Sciences and Biomedical Engineering, Faculty of Medicine, Prince of Songkla University</div>' +
       '</div>' +
     '</footer>';
 

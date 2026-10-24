@@ -13,7 +13,7 @@ body{margin:0}
 .np-wrap{max-width:1320px;margin:0 auto;padding:0 25px}
 
 /* banner หัวหน้า */
-.np-hero{background:linear-gradient(100deg,#1f5fa0 0%,#3f8fd2 60%,#7fbdf0 100%);color:#fff;min-height:260px;display:flex;align-items:center;padding:70px 0 38px}
+.np-hero{background:linear-gradient(100deg,#1f5fa0 0%,#3f8fd2 70%,#7fbdf0 100%);color:#fff;min-height:100px;display:flex;align-items:center;padding:70px 0 38px}
 .np-hero .np-wrap{width:100%}
 .np-hero .np-wrap>h1:first-child{margin-top:0}
 .np-eyebrow{display:inline-block;font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#fff;opacity:.9}
@@ -65,10 +65,10 @@ body{margin:0}
 .np-card .m img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s ease}
 .np-card:hover .m img{transform:scale(1.06)}
 .np-card .b{display:flex;flex-direction:column;flex:1;padding:18px 20px 22px}
-.np-card h3{font-size:18px;line-height:1.35;color:var(--head);margin:10px 0 6px;transition:color .2s}
+.np-card h3{font-size:16px;line-height:1.35;color:var(--head);margin:10px 0 6px;transition:color .2s}
 .np-card:hover h3{color:var(--blue-dk)}
 .np-card .b p{font-size:14.5px;color:var(--mut);line-height:1.6}
-.np-rm{color:var(--blue-dk);font-weight:700;font-size:15px}
+.np-rm{color:var(--blue-dk);font-weight:500;font-size:15px}
 .np-rm::after{content:" \2192"}
 .np-card .np-rm{margin-top:auto;padding-top:14px}
 

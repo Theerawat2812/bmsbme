@@ -20,7 +20,7 @@
 .site-foot ul { list-style: none; padding: 0; margin: 0; }
 .site-foot li { margin-bottom: 8px; color: #1D4C6E; }
 .site-foot li,
-.site-foot li a { font-size: clamp(14px, 1vw, 14px); }
+.site-foot li a { font-size: clamp(14px, 1vw, 15px); }
 .site-foot a { color: #1D4C6E; text-decoration: none; transition: color .2s; }
 /* ลิงก์/รายการ: บางเหมือนตัวหนังสือบนเมนู (หัวข้อ summary ยังเป็นตัวหนาเหมือนเดิม) */
 .site-foot li, .site-foot a { font-weight: 200; }
