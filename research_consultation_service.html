@@ -49,6 +49,7 @@
     }
     html { scroll-padding-top: env(safe-area-inset-top, 0px);
       -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }   /* กันมือถือขยายตัวอักษรเอง (ทำให้เอกสารเพี้ยน) */
+    html { touch-action: manipulation; }   /* กัน double-tap zoom ทั้งหน้า (ยัง pinch ได้) */
     * { box-sizing: border-box; }
 
     /* ฟอนต์: อังกฤษ = Arial, ไทย = Noto Sans Thai */
@@ -325,11 +326,13 @@
     .mail-ok  { color: var(--ok); }
     .mail-bad { color: var(--bad); }
     /* กรอบเซ็นชื่อ */
-    .sig-pad-wrap { position: relative; background: #fff; border: 2px dashed var(--line); border-radius: 12px; overflow: hidden; }
+    .sig-pad-wrap { position: relative; background: #fff; border: 2px dashed var(--line); border-radius: 12px; overflow: hidden;
+      touch-action: none; -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
     .sig-pad-wrap::before { content: ""; position: absolute; left: 6%; right: 6%; bottom: 28%; border-bottom: 1px dotted #aab3c5; pointer-events: none; }
     .sig-pad { display: block; width: 100%; height: auto; aspect-ratio: 3 / 1; touch-action: none; cursor: crosshair; }
     .sig-hint { position: absolute; left: 0; right: 0; bottom: 8px; text-align: center; font-size: 13px; color: #aab3c5; pointer-events: none; }
     .sig-pad-wrap.has .sig-hint { display: none; }
+    .sig-tools { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
     .modal { position: fixed; inset: 0; z-index: 50; display: grid; place-items: center; padding: 16px; background: rgba(20, 33, 61, .55); }
     .modal-box { max-width: 360px; padding: 24px; text-align: center; background: #fff; border-radius: 16px; }
     .modal-box img { width: 200px; height: 200px; }
@@ -423,7 +426,7 @@
     .doc .summary            { font-size: 20px !important; font-weight: 500 !important; }
 
     /* "วันที่ให้คำปรึกษา" / "ระยะเวลาที่ให้คำปรึกษา" / "ชั่วโมง" */
-    .doc .row b              { font-size: 15px !important; font-weight: 600 !important; }
+    .doc .row b              { font-size: 15px !important; font-weight: 600 !important; flex: none; white-space: nowrap; }
 
     /* ข้อความใต้ QR: "แบบประเมินความพึงพอใจ" */
     .doc .qr b               { font-size: 22px !important; font-weight: 400 !important; }
@@ -754,7 +757,14 @@ let pdfWarnId = null;        // งานที่กำลังแสดง po
 let reviewDraft = { choice: null, note: "" };   // คำตอบของผู้ขอ: approve | edit + ข้อความที่ขอแก้
 
 // ลายเซ็น 2 ชุด: ผู้ขอคำปรึกษา (ลงตอน Submit) และอาจารย์ (ลงเป็นคนสุดท้ายตอน Complete)
-const newSig = () => ({ mode: "draw", image: null, raw: null });
+// hist = ประวัติของลายเซ็น (แต่ละรายการ = ชุดเส้นทั้งหมด ณ ตอนนั้น) idx = ตำแหน่งปัจจุบัน ใช้ทำ Undo/Redo
+const newSig = () => ({ mode: "draw", image: null, hist: [[]], idx: 0 });
+const sigStrokes = s => s.hist[s.idx];
+function pushSig(s, strokes) {
+  s.hist = s.hist.slice(0, s.idx + 1);
+  s.hist.push(strokes);
+  s.idx = s.hist.length - 1;
+}
 const sigs = { advisor: newSig(), requester: newSig() };
 
 const SURVEY_QR = "images/RCS/QR.png";  // QR แบบประเมินความพึงพอใจ
@@ -1628,6 +1638,7 @@ async function downloadFromWarn() {
 
 /* =====================================================================
    8) SIGNATURE  (ใช้ร่วมกันทั้งอาจารย์และผู้ขอ: 1) เซ็นลงในกรอบ  2) อัปโหลดไฟล์)
+   เก็บลายเซ็นเป็น "รายเส้น" เพื่อทำ Undo / Redo / Clear ได้
    ===================================================================== */
 
 function sigPickerHtml(who) {
@@ -1643,50 +1654,113 @@ function sigPickerHtml(who) {
            <canvas class="sig-pad" data-who="${who}" width="900" height="300"></canvas>
            <div class="sig-hint">เซ็นชื่อในกรอบนี้ (ใช้นิ้วหรือเมาส์)</div>
          </div>
-         <div style="margin-top:8px"><button onclick="clearSig('${who}')">Clear</button></div>`
+         <div class="sig-tools">
+           <button id="sig-undo-${who}" onclick="undoSig('${who}')" ${s.idx > 0 ? "" : "disabled"}>↩ Undo</button>
+           <button id="sig-redo-${who}" onclick="redoSig('${who}')" ${s.idx < s.hist.length - 1 ? "" : "disabled"}>↪ Redo</button>
+           <button id="sig-clear-${who}" onclick="clearSig('${who}')" ${sigStrokes(s).length ? "" : "disabled"}>Clear</button>
+         </div>`
       : `<input type="file" accept="image/png,image/jpeg" onchange="readSignature('${who}', this)">`}
     ${s.image && !draw ? `<img class="signature" src="${s.image}" style="background:#fff;padding:4px;margin-top:8px">` : ""}`;
 }
 
-// กรอบเซ็นชื่อ: วาดด้วยนิ้ว/เมาส์ลง canvas ได้เลย (PNG พื้นโปร่งใส) ปล่อยมือแล้วลายเซ็นถูกบันทึกและแสดงในตัวอย่างเอกสารทันที
+// วาดเส้นทั้งหมดลง canvas (พิกัดเก็บเป็นพิกัดของ canvas จึงวาดซ้ำได้ตรงเสมอ)
+function drawStrokes(cv, strokes) {
+  const g = cv.getContext("2d");
+  g.clearRect(0, 0, cv.width, cv.height);
+  g.lineWidth = 5; g.lineCap = "round"; g.lineJoin = "round";
+  g.strokeStyle = g.fillStyle = "#1b2a6b";
+  strokes.forEach(pts => {
+    if (pts.length === 1) { g.beginPath(); g.arc(pts[0][0], pts[0][1], 2.5, 0, Math.PI * 2); g.fill(); return; }
+    g.beginPath(); g.moveTo(pts[0][0], pts[0][1]);
+    for (let i = 1; i < pts.length; i++) g.lineTo(pts[i][0], pts[i][1]);
+    g.stroke();
+  });
+}
+
+function getSigCanvas(who) { return document.querySelector(`canvas.sig-pad[data-who="${who}"]`); }
+
+// อัปเดตสถานะปุ่ม Undo / Redo / Clear โดยไม่ render ทั้งหน้า
+function updateSigTools(who) {
+  const s = sigs[who];
+  const set = (id, off) => { const b = $(id + "-" + who); if (b) b.disabled = off; };
+  set("sig-undo", s.idx <= 0);
+  set("sig-redo", s.idx >= s.hist.length - 1);
+  set("sig-clear", !sigStrokes(s).length);
+}
+
+// อัปเดตเฉพาะพรีวิวเอกสาร AS-001 (ไม่ render ทั้งหน้า ไม่กระตุก ไม่ทำให้กรอบเซ็นถูกสร้างใหม่)
+function refreshDocPreview(who) {
+  const id = who === "advisor" ? openTaskId : fillTaskId;
+  const task = id && tasks.find(t => t.id === id);
+  const el = id && document.getElementById("doc-" + id);
+  if (!task || !el) return;
+  syncDraft();
+  const wrap = el.closest(".doc-wrap");
+  if (wrap) { wrap.outerHTML = consultDocHtml(task); fitDocs(); }
+}
+
+// เรียกทุกครั้งที่ลายเซ็นเปลี่ยน (ยกมือ / undo / redo / clear)
+function commitSig(who) {
+  const s = sigs[who], cv = getSigCanvas(who);
+  if (!cv) return;
+  s.image = sigStrokes(s).length ? cropSig(cv) : null;
+  cv.parentElement.classList.toggle("has", !!s.image);
+  updateSigTools(who);
+  refreshDocPreview(who);
+}
+
+function applySig(who) {
+  const cv = getSigCanvas(who);
+  if (!cv) return;
+  drawStrokes(cv, sigStrokes(sigs[who]));
+  commitSig(who);
+}
+function undoSig(who)  { const s = sigs[who]; if (s.idx > 0) { s.idx--; applySig(who); } }
+function redoSig(who)  { const s = sigs[who]; if (s.idx < s.hist.length - 1) { s.idx++; applySig(who); } }
+function clearSig(who) { const s = sigs[who]; if (sigStrokes(s).length) { pushSig(s, []); applySig(who); } }   // Clear ก็ Undo ได้
+
+// กรอบเซ็นชื่อ: เขียนต่อเนื่องได้หลายเส้น ยกมือแล้วเขียนต่อได้ทันที (ไม่ render ทั้งหน้าระหว่างเซ็น)
 function initSigPads() {
   document.querySelectorAll("canvas.sig-pad").forEach(cv => {
     const who = cv.dataset.who, g = cv.getContext("2d");
-    g.lineWidth = 5; g.lineCap = "round"; g.lineJoin = "round";
-    g.strokeStyle = g.fillStyle = "#1b2a6b";
-    if (sigs[who].raw) {                           // วาดลายเซ็นเดิมกลับลงกรอบ (หลัง render ใหม่)
-      const im = new Image();
-      im.onload = () => g.drawImage(im, 0, 0, cv.width, cv.height);
-      im.src = sigs[who].raw;
-    }
-    let drawing = false, last = null;
+    drawStrokes(cv, sigStrokes(sigs[who]));        // วาดเส้นเดิมกลับ (หลัง render ใหม่)
+
+    let cur = null, activeId = null;
     const pos = e => {
       const r = cv.getBoundingClientRect();
       return [(e.clientX - r.left) * cv.width / r.width, (e.clientY - r.top) * cv.height / r.height];
     };
+    // กัน iOS/Android ซูมหรือเลื่อนหน้าตอนแตะในกรอบ
+    cv.addEventListener("touchstart", e => e.preventDefault(), { passive: false });
+    cv.addEventListener("touchmove",  e => e.preventDefault(), { passive: false });
+
     cv.addEventListener("pointerdown", e => {
-      drawing = true; cv.setPointerCapture(e.pointerId); last = pos(e);
-      g.beginPath(); g.arc(last[0], last[1], 2.5, 0, Math.PI * 2); g.fill();
+      if (cur) return;                               // สนใจนิ้วแรกนิ้วเดียว
       e.preventDefault();
+      activeId = e.pointerId; cv.setPointerCapture(e.pointerId);
+      const p = pos(e); cur = [p];
+      g.lineWidth = 5; g.lineCap = "round"; g.lineJoin = "round"; g.strokeStyle = g.fillStyle = "#1b2a6b";
+      g.beginPath(); g.arc(p[0], p[1], 2.5, 0, Math.PI * 2); g.fill();
+      cv.parentElement.classList.add("has");         // ซ่อนข้อความ hint ทันที
     });
     cv.addEventListener("pointermove", e => {
-      if (!drawing) return;
-      const p = pos(e);
+      if (!cur || e.pointerId !== activeId) return;
+      e.preventDefault();
+      const p = pos(e), last = cur[cur.length - 1];
+      cur.push(p);
       g.beginPath(); g.moveTo(last[0], last[1]); g.lineTo(p[0], p[1]); g.stroke();
-      last = p;
     });
-    const end = () => {
-      if (!drawing) return;
-      drawing = false;
-      sigs[who].raw = cv.toDataURL("image/png");   // ทั้งกรอบ (ไว้วาดกลับ)
-      sigs[who].image = cropSig(cv);                // ตัดเฉพาะส่วนที่เซ็น (ไว้ใส่ในเอกสาร)
-      rerenderKeeping();
+    const end = e => {
+      if (!cur || e.pointerId !== activeId) return;
+      const s = sigs[who];
+      pushSig(s, [...sigStrokes(s), cur]);
+      cur = null; activeId = null;
+      commitSig(who);                                // อัปเดตเฉพาะพรีวิว ไม่ render ทั้งหน้า
     };
     cv.addEventListener("pointerup", end);
     cv.addEventListener("pointercancel", end);
   });
 }
-function clearSig(who) { sigs[who].image = null; sigs[who].raw = null; rerenderKeeping(); }
 
 // ตัดขอบว่างรอบลายเซ็นออก ให้ลายเซ็นเต็มช่องในเอกสาร
 function cropSig(cv) {
@@ -1717,7 +1791,7 @@ function rerenderKeeping() {
   window.scrollTo(0, scrollY);
 }
 
-function setSigMode(who, mode) { sigs[who].mode = mode; sigs[who].image = null; sigs[who].raw = null; rerenderKeeping(); }
+function setSigMode(who, mode) { sigs[who] = { ...newSig(), mode }; rerenderKeeping(); }
 
 function readSignature(who, input) {
   const file = input.files[0];
@@ -1936,9 +2010,9 @@ function consultDocHtml(task) {
         <div class="row"><span><span class="bullet"></span>เรื่อง/โครงการ</span> ${field(task.topic)}</div>
         <div style="margin-top:8px"><span class="bullet"></span>ข้อมูลโดยสรุปของการให้คำปรึกษา</div>
         <div class="summary">${esc(res.summary || "").replace(/\n/g, "<br>")}</div>
-        <div class="row" style="margin-top:12px">
-          <b>วันที่ให้คำปรึกษา</b> ${field(res.date ? thaiDate(res.date) : "", "flex:none;width:34%")}
-          <b>ระยะเวลาที่ให้คำปรึกษา</b> ${field(res.hours || "", "flex:none;width:90px;text-align:center")} <b>ชั่วโมง</b>
+        <div class="row" style="margin-top:12px;gap:6px">
+          <b>วันที่ให้คำปรึกษา</b> ${field(res.date ? thaiDate(res.date) : "", "flex:1 1 0;min-width:0;white-space:nowrap;overflow:hidden")}
+          <b>ระยะเวลาที่ให้คำปรึกษา</b> ${field(res.hours || "", "flex:none;width:64px;text-align:center;white-space:nowrap")} <b>ชั่วโมง</b>
         </div>
 
         <div class="bottom">

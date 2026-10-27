@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Our Mission | BMS &amp; BME</title>
+<title>Vision, Mission &amp; Core Values | BMS &amp; BME</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -42,107 +42,87 @@ body.nav-solid #overlay{display:none}
 .ms h2,.ms h3{font-weight:700; line-height:1.25; color:var(--head)}
 .ms h2{
     font-size: 20px;
-    font-family: "Segoe UI", Helvetica, Arial, "sans-serif\";
+    font-family: Arial,Helvetica,sans-serif;
 }
 .ms p{font-size:16px}
 .ms .w{max-width:var(--wrap); margin:0 auto; padding:0 25px}
 .ms .sec{padding:45px 0}
-/* section ที่ตามหลัง "What we stand for": ตัดระยะบนให้ชิดขึ้น */
-.ms .sec.sec-follow{padding-top:10px}
 .ms .tint{background:var(--tint)}
 .ms .lead{
     color: var(--mut);
     max-width: 860px;
     margin-top: 10px;
-    font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    font-family: Arial,Helvetica,sans-serif;
     font-weight: 100;
 }
 .ms .head{margin-bottom:28px}
 
-/* Statement */
-.ms .statement{text-align:center}
-.ms .statement p{
-    font-family: "var(--font-serif)";
-    font-size: 22px;
+/* ===== Vision: พื้นฟ้าอ่อน ข้อความกลางหน้า ===== */
+.ms .vision{background:var(--tint); padding:64px 0; text-align:center}
+.ms .vision h2{font-size:26px; margin-bottom:16px}
+.ms .vision p{
+    font-family: "Times New Roman",Times,serif;
+    font-size: 24px;
     line-height: 1.55;
+    font-weight: 400;
     color: var(--head);
     max-width: 820px;
-    margin: 0 auto;
-}
-.ms .statement p em{font-style:italic; color:var(--mid)}
-
-/* Values: การ์ดโทนฟ้าอ่อน */
-.ms .values{display:grid; grid-template-columns:repeat(3,1fr); gap:24px}
-.ms .value{border-radius:6px; padding:30px 28px 34px; background:var(--c3)}
-.ms .value h3{
-    font-size: 18px;
-    color: #417336;
-    font-weight: 700;
-    font-family: "Segoe UI", Helvetica, Arial, sans-serif;
-}
-.ms .value p{
-    margin-top: 8px;
-    font-size: 15px;
-    color: #052D0D;
-    font-family: "Segoe UI", Helvetica, Arial, sans-serif;
-    font-weight: 100;
+    margin: 0 auto
 }
 
-/* Focus: แถวแนวนอน ไม่มี hover */
-.ms .focus{border-top:1px solid #dde4f0}
-.ms .row{display:grid; grid-template-columns:240px 1fr; gap:24px; align-items:baseline; padding:20px 0; border-bottom:1px solid #dde4f0}
-.ms .row h3{
-    font-size: 16px;
-    font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+.ms .mission{padding:60px 0}
+.ms .core{background:#fff; padding:10px 0 68px}
+.ms .mission h2,.ms .core h2{
+    font-size: 22px
 }
-.ms .row p{
-    font-size: 15px;
-    color: var(--mut);
-    font-weight: 100;
-    font-style: normal;
-    font-family: "Segoe UI", Helvetica, Arial, sans-serif;
-}
+.ms .head{margin-bottom:30px}
 
-/* ลดขนาดตัวอักษรและระยะห่างลงทีละขั้นตามหน้าจอ */
+/* ===== Mission: การ์ด 3 ใบเท่ากัน ===== */
+.ms .m-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:24px}
+.ms .m-card{background:var(--c3); border-radius:10px; padding:32px 30px 36px}
+.ms .m-card .no{display:flex; align-items:center; justify-content:center; width:40px; height:40px; margin-bottom:18px; border-radius:50%; background:#417336; color:#fff; font-size:18px; font-weight:700; font-family:Arial,Helvetica,sans-serif}
+.ms .m-card h3{font-size:20px; color:#417336; font-family:Arial,Helvetica,sans-serif}
+.ms .m-card p{margin-top:10px; font-size:15.5px; color:#052D0D; font-family:Arial,Helvetica,sans-serif; font-weight:100}
+
+/* ===== Core Values (TEAM): การ์ดขอบมน 4 ใบ ตัวอักษรใหญ่ ===== */
+.ms .c-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:22px}
+.ms .c-card{display:flex; flex-direction:column; background:#fff; border:1.5px solid #cfdcec; border-radius:14px; padding:28px 26px 30px; min-height:0}
+.ms .c-card .letter{display:block; font-size:96px; font-weight:700; line-height:1; color:var(--mid); font-family:Arial,Helvetica,sans-serif}
+.ms .c-card h3{margin-top:0; padding-top:30px; font-size:20px; font-family:Arial,Helvetica,sans-serif}
+.ms .c-card p{margin-top:10px; font-size:15px; color:var(--mut); font-family:Arial,Helvetica,sans-serif; font-weight:100}
+
 @media (max-width:1100px){
-  .ms h2{font-size:19px}
-  .ms p{font-size:15px}
-  .ms .statement p{font-size:21px}
-  .ms .value p{font-size:14.5px}
-  .ms .row p{font-size:15px}
-  .ms .row{grid-template-columns:180px 1fr; gap:20px}
-  .ms .values{gap:16px}
-  .ms .value{padding:26px 22px 30px}
+  .ms .vision p{font-size:21px}
+  .ms .m-grid{gap:16px}
+  .ms .m-card{padding:26px 22px 30px}
+  .ms .c-grid{grid-template-columns:repeat(2,1fr); gap:16px}
+  .ms .c-card{min-height:0}
 }
 @media (max-width:900px){
-  .ms h2{font-size:18px}
-  .ms p{font-size:15px}
-  .ms .statement p{font-size:20px}
-  .ms .value h3{font-size:18px}
-  .ms .sec{padding:36px 0}
-  .ms .sec.sec-follow{padding-top:6px}
-  .ms .values{grid-template-columns:1fr}
-  /* Focus: เปลี่ยนจากแถวเป็นการ์ด 2 คอลัมน์ มีแถบสีด้านซ้าย */
-  .ms .focus{border-top:0; display:grid; grid-template-columns:repeat(2,1fr); gap:14px}
-  .ms .row{display:block; padding:18px 18px 20px; background:var(--tint); border:0; border-left:4px solid #E98E30; border-radius:6px}
-  .ms .row h3{font-size:17px; margin-bottom:6px}
+  .ms .vision{padding:48px 0}
+  .ms .mission{padding:44px 0}
+  .ms .core{padding:6px 0 52px}
+  .ms .vision h2,.ms .mission h2,.ms .core h2{font-size:22px}
+  .ms .vision p{font-size:21px}
+  .ms .m-grid{grid-template-columns:1fr}
 }
 @media (max-width:600px){
   .ms{font-size:14px}
-  .ms h2{font-size:17px}
-  .ms p{font-size:14px}
-  .ms .statement p{font-size:18px}
-  .ms .value h3{font-size:17px}
-  .ms .row h3{font-size:16px}
-  .ms .value p{font-size:13.5px}
-  .ms .row p{font-size:14px}
   .ms .w{padding:0 18px}
-  .ms .sec{padding:28px 0}
-  .ms .sec.sec-follow{padding-top:4px}
-  .ms .head{margin-bottom:16px}
-  .ms .focus{grid-template-columns:1fr; gap:12px}
-  .ms .row{padding:16px 16px 18px}
-  .ms .value{padding:22px 20px 26px}
+  .ms .vision{padding:36px 0}
+  .ms .mission{padding:32px 0}
+  .ms .core{padding:4px 0 40px}
+  .ms .vision h2,.ms .mission h2,.ms .core h2{font-size:19px}
+  .ms .vision p{font-size:18px}
+  .ms .head{margin-bottom:18px}
+  .ms .m-card{padding:22px 20px 26px}
+  .ms .m-card h3,.ms .c-card h3{font-size:17px}
+  .ms .m-card p{font-size:14px}
+  .ms .c-grid{grid-template-columns:1fr; gap:12px}
+  .ms .c-card{min-height:0; padding:20px 20px 24px}
+  .ms .c-card .letter{font-size:64px}
+    .ms .c-card h3{padding-top:16px}
+  .ms .c-card p{font-size:14px}
 }
 </style>
 </head>
@@ -158,39 +138,35 @@ body.nav-solid #overlay{display:none}
 <div class="ms">
 <main>
 
-  <section class="sec tint">
+  <!-- 1. VISION -->
+  <section class="vision" id="vision">
     <div class="w">
-      <div class="statement">
-        <p>Our mission is to develop graduates and knowledge that connect the laboratory to the clinic, so that scientific ideas become technologies people can rely on.</p>
+      <h2>Vision</h2>
+      <p>Leading biomedical research and innovation, translating real-world health challenges into meaningful impact for better health.</p>
+    </div>
+  </section>
+
+  <!-- 2. MISSION -->
+  <section class="mission" id="mission">
+    <div class="w">
+      <div class="head"><h2>Mission</h2></div>
+      <div class="m-grid">
+        <div class="m-card"><span class="no">1</span><h3>Develop Highly Competent Graduates</h3><p>Develop highly competent graduates who can apply their knowledge and skills to real-world challenges in healthcare and medicine.</p></div>
+        <div class="m-card"><span class="no">2</span><h3>Advance Interdisciplinary Research and Innovation</h3><p>Advance interdisciplinary research and innovation through collaboration with clinical disciplines and domestic and international partners.</p></div>
+        <div class="m-card"><span class="no">3</span><h3>Translate Research into Practice</h3><p>Translate research and innovation into practical applications that create clinical, policy, and commercial impact.</p></div>
       </div>
     </div>
   </section>
 
-  <section class="sec">
+  <!-- 3. CORE VALUES — TEAM -->
+  <section class="core" id="core-values">
     <div class="w">
-      <div class="head">
-        <h2>What we stand for</h2>
-        <p class="lead">Three values guide how we teach, research and work together.</p>
-      </div>
-      <div class="values">
-        <div class="value"><h3>Scientific integrity</h3><p>We value careful methods, honest reporting and respect for the evidence behind every result.</p></div>
-        <div class="value"><h3>Collaboration</h3><p>Biology, medicine and engineering work best together, so we build teams across disciplines.</p></div>
-        <div class="value"><h3>Service to society</h3><p>We measure our success by the benefit our work brings to patients, clinicians and communities.</p></div>
-      </div>
-    </div>
-  </section>
-
-  <section class="sec sec-follow">
-    <div class="w">
-      <div class="head">
-        <h2>How we work toward it</h2>
-        <p class="lead">Four areas where the mission shows up in our daily activity.</p>
-      </div>
-      <div class="focus">
-        <div class="row"><h3>Education</h3><p>Graduate programs that combine strong fundamentals with hands-on laboratory and design experience.</p></div>
-        <div class="row"><h3>Research</h3><p>Projects in disease mechanisms, diagnostics, medical devices and biomaterials with clear clinical relevance.</p></div>
-        <div class="row"><h3>Partnership</h3><p>Joint work with hospitals, companies and public agencies to test ideas in real settings.</p></div>
-        <div class="row"><h3>Community</h3><p>Training, outreach and knowledge sharing that bring biomedical advances to the wider public.</p></div>
+      <div class="head"><h2>Core Values — TEAM</h2></div>
+      <div class="c-grid">
+        <div class="c-card"><span class="letter">T</span><h3>Translation</h3><p>Translate research into practical applications by designing studies with real-world use and impact in mind.</p></div>
+        <div class="c-card"><span class="letter">E</span><h3>Engagement</h3><p>Foster active participation and collaboration across research teams, disciplines, and professional backgrounds.</p></div>
+        <div class="c-card"><span class="letter">A</span><h3>Advancement</h3><p>Continuously improve research standards, professional capabilities, and individual potential.</p></div>
+        <div class="c-card"><span class="letter">M</span><h3>Meaningful Impact</h3><p>Measure success by tangible improvements in health, clinical practice, and society rather than publication output alone.</p></div>
       </div>
     </div>
   </section>
